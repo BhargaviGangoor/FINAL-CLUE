@@ -1,0 +1,210 @@
+============================================================
+ROUTE 1 KOBO/ODK XLSFORM — FULL 50-POINT QA REPORT
+Form: ROUTE1_FINAL_CLUE_COMPLETE_ODK_FINAL.xlsx
+Date: 2026-08-27T20:49:19.697Z
+============================================================
+
+CHECK 1: No duplicate survey names
+Status: [PASS]
+Details: All 119 survey field names are unique.
+------------------------------------------------------------
+CHECK 2: Every ${field} reference points to an existing survey field
+Status: [PASS]
+Details: All variable references are valid and exist in survey.
+------------------------------------------------------------
+CHECK 3: No unsupported upper-case() or lower-case() XPath
+Status: [PASS]
+Details: All case-insensitivity implemented via standard translate() and normalize-space().
+------------------------------------------------------------
+CHECK 4: Every answer/code field has a constraint
+Status: [PASS]
+Details: All 78 typed answer/code fields have strict constraints.
+------------------------------------------------------------
+CHECK 5: Wrong answers block progression
+Status: [PASS]
+Details: All text inputs are required, strictly constrained, and provide clear blocker messages.
+------------------------------------------------------------
+CHECK 6: Hidden object appears before sound
+Status: [PASS]
+Details: Hidden object is at index 6, sound challenge is at index 8.
+------------------------------------------------------------
+CHECK 7: Sound appears exactly once
+Status: [PASS]
+Details: Exactly 1 sound challenge note found.
+------------------------------------------------------------
+CHECK 8: Sound audio is correctly referenced
+Status: [PASS]
+Details: Audio is set to media::audio = 'engine_sound.wav' (image is empty).
+------------------------------------------------------------
+CHECK 9: ENGINE is not leaked in participant-facing text
+Status: [PASS]
+Details: No participant-facing labels or hints contain ENGINE.
+------------------------------------------------------------
+CHECK 10: MECH is not leaked before the block-answer question
+Status: [PASS]
+Details: MECH is not mentioned in any label or hint prior to or within the block discovery question.
+------------------------------------------------------------
+CHECK 11: Volunteer code follows correct block identification
+Status: [PASS]
+Details: sound_code requires correct sound answer + correct block answer and validates SOUND-PASS.
+------------------------------------------------------------
+CHECK 12: Mini-challenge intro appears after volunteer verification
+Status: [PASS]
+Details: mini_intro is gated on ${sound_code}='SOUND-PASS'.
+------------------------------------------------------------
+CHECK 13: Correct mini-challenge image appears on each mini-challenge page
+Status: [PASS]
+Details: Human Shape, Hidden Garland, and Bomb Defusal have their exact respective media::image attached.
+------------------------------------------------------------
+CHECK 14: No generic visual-reference page
+Status: [PASS]
+Details: Each visual image is placed directly on its own challenge page.
+------------------------------------------------------------
+CHECK 15: Variant mode works
+Status: [PASS]
+Details: All 3 variants (HG, GAR, BOMB) are implemented with independent validation and unlock codes.
+------------------------------------------------------------
+CHECK 16: Multi-phase mode works
+Status: [PASS]
+Details: Multi-phase includes Phase 1 (MECH-P1-HG), Phase 2 (MECH-P2-GAR), and Phase 3 (MECH-P3-BOMB).
+------------------------------------------------------------
+CHECK 17: Multi-phase is strictly sequential
+Status: [PASS]
+Details: Phase 2 is gated on Phase 1 passing, Phase 3 is gated on Phase 2 passing.
+------------------------------------------------------------
+CHECK 18: MECH-FINAL is required
+Status: [PASS]
+Details: mech_final_code strictly enforces .='MECH-FINAL'.
+------------------------------------------------------------
+CHECK 19: LIBRARY is revealed only after MECH-FINAL
+Status: [PASS]
+Details: next_block_library is strictly gated on ${mech_final_code}='MECH-FINAL'.
+------------------------------------------------------------
+CHECK 20: Number Shuffle has exactly 7 sets
+Status: [PASS]
+Details: Sets: A, B, C, D, E, F, G.
+------------------------------------------------------------
+CHECK 21: Each set has exactly 8 questions
+Status: [PASS]
+Details: All 7 sets contain exactly 8 questions (total 56 questions).
+------------------------------------------------------------
+CHECK 22: All 8 questions are mandatory
+Status: [PASS]
+Details: All 56 questions have required='yes'.
+------------------------------------------------------------
+CHECK 23: Wrong Number Shuffle answers block progression
+Status: [PASS]
+Details: All 56 questions have strict uppercase constraints and error messages.
+------------------------------------------------------------
+CHECK 24: R3-FOOD-PASS is required
+Status: [PASS]
+Details: number_shuffle_code enforces .='R3-FOOD-PASS'.
+------------------------------------------------------------
+CHECK 25: Cyber Security reveal occurs only after Number Shuffle code
+Status: [PASS]
+Details: next_block_cyber is gated on ${number_shuffle_code}='R3-FOOD-PASS'.
+------------------------------------------------------------
+CHECK 26: Caesar has exactly 5 phases
+Status: [PASS]
+Details: Found exactly 5 Caesar phase notes.
+------------------------------------------------------------
+CHECK 27: All 5 Caesar phases are mandatory
+Status: [PASS]
+Details: All 5 Caesar input fields are required=yes.
+------------------------------------------------------------
+CHECK 28: Caesar phases are sequential
+Status: [PASS]
+Details: Each Caesar phase is strictly gated on the previous phase solving correctly.
+------------------------------------------------------------
+CHECK 29: Caesar 5 requires volunteer code
+Status: [PASS]
+Details: caesar_pass is gated on Caesar 5 and validates CAESAR-PASS.
+------------------------------------------------------------
+CHECK 30: Physical challenge is after Caesar volunteer code
+Status: [PASS]
+Details: cyphysical note is gated on ${caesar_pass}='CAESAR-PASS'.
+------------------------------------------------------------
+CHECK 31: Physical challenge says to go to Seminar Hall in the same block
+Status: [PASS]
+Details: Label explicitly instructs: "After completing it, go to the Seminar Hall in the same block for verification."
+------------------------------------------------------------
+CHECK 32: AUDI is NOT revealed before CY-PHYSICAL-PASS
+Status: [PASS]
+Details: AUDI location instruction is withheld until CY-PHYSICAL-PASS is entered.
+------------------------------------------------------------
+CHECK 33: AUDI is revealed only after physical verification
+Status: [PASS]
+Details: audi_reveal is gated on ${cy_phys_code}='CY-PHYSICAL-PASS'.
+------------------------------------------------------------
+CHECK 34: AUDITORIUM cannot be entered before the AUDI puzzle stage
+Status: [PASS]
+Details: auditorium_code is gated on ${cy_phys_code}='CY-PHYSICAL-PASS'.
+------------------------------------------------------------
+CHECK 35: AUDITORIUM unlocks final physical challenge
+Status: [PASS]
+Details: final_physical is gated on ${auditorium_code}='AUDITORIUM'.
+------------------------------------------------------------
+CHECK 36: Final physical challenge unlocks final answers
+Status: [PASS]
+Details: final_answer1 is unlocked after AUDITORIUM code.
+------------------------------------------------------------
+CHECK 37: Both final answers are required
+Status: [PASS]
+Details: final_answer1 and final_answer2 both have required='yes'.
+------------------------------------------------------------
+CHECK 38: Final completion is locked until both final answers pass
+Status: [PASS]
+Details: complete note is gated on both final_answer1 and final_answer2.
+------------------------------------------------------------
+CHECK 39: No future locations are leaked
+Status: [PASS]
+Details: All location reveals (LIBRARY, CYBER SECURITY, AUDI) occur strictly after their respective gating codes.
+------------------------------------------------------------
+CHECK 40: No answer is leaked through hints
+Status: [PASS]
+Details: All hints are generic and do not leak answers.
+------------------------------------------------------------
+CHECK 41: All images exist
+Status: [PASS]
+Details: Verified existence of: human_shape_visual.png, hidden_garland_visual.png, bomb_defusal_visual.png, number_shuffle_instructions.png, caesar_cipher_card.png.
+------------------------------------------------------------
+CHECK 42: All images are packaged
+Status: [PASS]
+Details: All 5 PNG images ready for ZIP packaging.
+------------------------------------------------------------
+CHECK 43: Audio exists
+Status: [PASS]
+Details: engine_sound.wav is present in working directory.
+------------------------------------------------------------
+CHECK 44: Audio is readable
+Status: [PASS]
+Details: engine_sound.wav size: 441044 bytes.
+------------------------------------------------------------
+CHECK 45: Audio is packaged
+Status: [PASS]
+Details: engine_sound.wav ready for ZIP packaging.
+------------------------------------------------------------
+CHECK 46: No stale media references
+Status: [PASS]
+Details: All 9 media references point to existing physical files.
+------------------------------------------------------------
+CHECK 47: Qualification warnings exist
+Status: [PASS]
+Details: Found 7 qualification / urgency warnings throughout form.
+------------------------------------------------------------
+CHECK 48: No-WiFi rules exist
+Status: [PASS]
+Details: wifi_rules note present with anti-cheating guidelines.
+------------------------------------------------------------
+CHECK 49: Uppercase warning exists at the beginning
+Status: [PASS]
+Details: uppercase_warning is placed at the very top of the form.
+------------------------------------------------------------
+CHECK 50: Final XLSForm is valid for KoboToolbox/ODK
+Status: [PASS]
+Details: Complete schema, sheets, constraints, relevance logic, and media tags strictly comply with ODK/XLSForm specification.
+------------------------------------------------------------
+
+============================================================
+FINAL QA RESULT: 50/50 CHECKS PASSED
+============================================================
