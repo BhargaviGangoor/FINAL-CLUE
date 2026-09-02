@@ -1,7 +1,39 @@
 ============================================================
-PATH 1 QA AUDIT REPORT
+FINAL CLUE — PATH 1 QA AUDIT REPORT
 ROUTE: ECE -> MECH -> FOOD COURT -> CY -> AUDI
-STATUS: PASS (ALL 48 CHECKS PASSED)
-UPPERCASE CONSTRAINTS: 100% STRICT UPPERCASE
-TIMERS & WARNINGS: ACTIVE
+MEDIA: engine_sound.mpeg
+R4 CAESAR CIPHER: HDGJW -> CYBER (Shift -5, Examples: F->A, K->F, P->K, Z->U)
+STATUS: 100% PASS
+============================================================
+
+1. R4 CAESAR CIPHER AUDIT:
+   • Encrypted ciphertext: HDGJW
+   • Decryption rule: -5 steps backward in alphabet
+   • Shift examples shown in prompt: F->A, K->F, P->K, Z->U (Generic, ZERO leaks)
+   • Target answer CYBER concealed: YES (Strictly in validation constraint)
+
+2. HUMAN SHAPE CHALLENGE AUDIT:
+   • Participants instructed to refer to physical poses page from volunteers: YES
+   • 4 Mandatory photo uploads (1 for each team member pose): YES
+
+3. CONFIDENTIALITY & NON-DISCLOSURE AUDIT:
+   • Blocks list NOT revealed in form title or introductory screens: YES
+   • Hidden object NOT revealed as vending machine: YES
+   • Codes / Answers NOT leaked in question labels, hints, or notes: YES
+   • Challenge IDs (MEC-05, CYB-02) removed from participant text: YES
+   • "Engineering workshop bay" replaced with "MECH block": YES
+
+4. FLOW & ORDER AUDIT:
+   • R1: Object Finding -> Mandatory Photo Upload -> Code R1-P1EC
+   • R2 Location Clue: Engine Sound (engine_sound.mpeg) -> Block MECH -> Arrival Code SOUND-PASS
+   • R2 Mini Task:
+     - Var 1 (Human Shape): 4 Mandatory Member Photo Uploads -> Code MECH-PS-1
+     - Var 2 (Paper Ball): Coordination Challenge -> Code ME-PB-1
+   • R3 Location Clue: Shuffled Numbers (Word 2 = BREAK) -> Destination FOOD COURT
+   • R3 Checkpoint: Food Court QR Hunt -> In-App Barcode Scanner (scans FAKE-ME-CYBER)
+   • R4 Location Clue: Caesar Cipher (HDGJW -> CYBER / CY)
+   • R4 Checkpoint: Physical Challenge at CY Seminar Hall -> Code PHY-CY
+   • Final Stage: Auditorium & Stage Riddles -> Mandatory Solved Puzzle Photo Upload -> Code FINAL-PATH1
+
+OVERALL AUDIT STATUS: 100% PASS (READY FOR DEPLOYMENT)
 ============================================================
