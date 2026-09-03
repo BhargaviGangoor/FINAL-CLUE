@@ -23,57 +23,101 @@ function buildSurvey() {
   const survey = [];
 
   // =============================================================
-  // START — TEAM INFORMATION & RULES
+  // START — INSTRUCTIONS, RULES & REGISTRATION
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'start_group',
-    label: 'START — TEAM INFORMATION'
+    label: 'START — REGISTRATION'
   });
 
   survey.push({
     type: 'note',
-    name: 'start_rules_note',
-    label: '🏆 FINAL CLUE — PATH 4\n\n### 🏴 TREASURE HUNT — RULES\n\n1. *No phones allowed* during the hunt. Keep them switched off and safely stored.\n2. *Stay with your team* and follow the designated route/instructions.\n3. *No cheating or interference* with other teams, clues, props, or college property.\n4. Complete all challenges *as instructed by the coordinators*. Safety comes first.\n5. Any violation of the rules may result in a *time penalty or disqualification*. The coordinator’s decision will be final.\n\n⚠️ IMPORTANT:\n• All questions, code entries, and photo uploads are MANDATORY.\n• All text answers and codes must be entered in UPPERCASE ONLY.',
-    hint: 'Read all rules carefully before proceeding.'
+    name: 'instructions_rules_note',
+    label: `🏆 FINAL CLUE — PATH 4
+TREASURE HUNT FOR FRESHERS 2026
+
+Welcome to PATH 4 of the Final Clue Treasure Hunt!
+
+Instructions:
+
+Rules and Regulations:
+
+* Participants must report to the designated starting point 5–10 minutes before the event begins.
+* Each team must consist of 3–4 members.
+* At least one member of the team should have an Android phone.
+* Each team will receive the first clue at the beginning of the event.
+* Teams must solve each clue to find the location of the next clue.
+* Clues must be solved in the given sequence.
+* Teams are not allowed to take, hide, damage, or tamper with clues belonging to other teams.
+* Teams must remain within the designated event area.
+* Running in unsafe areas or restricted zones is prohibited.
+* Participants must not enter restricted areas or disturb ongoing events/classes.
+* Physical force, pushing, blocking, or interfering with other teams is strictly prohibited.
+* Only one device containing ODK Collect is allowed per team.
+* No use of Wi-Fi unless specifically specified. Otherwise, the team may be disqualified.
+* Participants must not damage or move any property while searching for clues.
+* Teams must follow instructions given by volunteers and organizers at all times.
+* Asking people outside the team for answers or assistance is not allowed.
+* Teams must not follow, copy, or deliberately interfere with another team's progress.
+* Tampering with clues, cheating, entering restricted areas, or intentionally misleading other teams may result in immediate disqualification.
+* The Organizing Committee will not be responsible for the loss or damage of any personal belongings of participants.
+
+🏆 TEAM QUALIFICATION RULES (PER PATH):
+There are 5 rounds in each path.
+
+From each path:
+* First 25 teams proceed to Round 2.
+* Next 15 teams proceed to Round 3.
+* Next 7 teams proceed to Round 4.
+* Next 2 teams proceed to Round 5.
+
+⚠️ MANDATORY RESPONSE & CAPS ONLY RULES:
+• Every single question, photo upload, and code entry is strictly MANDATORY.
+• All text answers and volunteer codes must be entered in UPPERCASE (CAPS ONLY).
+• Lowercase letters will be rejected by validation.`,
+    hint: 'Read all rules and instructions carefully.'
   });
 
   survey.push({
     type: 'text',
     name: 'team_name',
-    label: 'Enter Team Name\nEnter code in caps',
+    label: 'Enter Team Name (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Team Name is mandatory. Please enter in UPPERCASE.',
     constraint: "regex(., '^[A-Z0-9\\-_ ]+$')",
     constraint_message: '❌ Please enter Team Name in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
-    name: 'team_id',
-    label: 'Enter Team ID\nEnter code in caps',
+    name: 'player_id',
+    label: 'Enter Team / Player Identification (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Player / Team ID is mandatory. Please enter in UPPERCASE.',
     constraint: "regex(., '^[A-Z0-9\\-_ ]+$')",
-    constraint_message: '❌ Please enter Team ID in UPPERCASE (CAPS ONLY).'
+    constraint_message: '❌ Please enter Player/Team Identification in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'image',
     name: 'team_start_photo',
-    label: '📸 Upload Team Verification Photo\nPhoto upload is mandatory',
+    label: '📸 Upload Team Verification Photo (MANDATORY)\nPhoto upload is mandatory',
     hint: 'Take a clear photo of your team at the start desk.',
-    required: 'yes'
+    required: 'yes',
+    required_message: '❌ Team verification photo is strictly mandatory.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const startPassed = "${team_name} != '' and ${team_id} != '' and ${team_start_photo} != ''";
+  const startPassed = "${team_name} != '' and ${player_id} != '' and ${team_start_photo} != ''";
 
   // =============================================================
-  // R1 — OLD CANTEEN (Object: cat board)
+  // ROUND 1 — OLD CANTEEN: OBJECT (Cat Board)
   // =============================================================
   survey.push({
     type: 'begin_group',
@@ -85,36 +129,38 @@ function buildSurvey() {
   survey.push({
     type: 'note',
     name: 'r1_canteen_intro',
-    label: '📍 ROUND 1: 🧩 OBJECT FINDING\n\nChallenge: Locate the assigned hidden object/code at this station.\n\nInstructions:\n1. Search the location to find the assigned hidden object.\n2. Take a clear photo of the object.\n3. Show the photo to the station volunteer to receive your verification code.\n\nEnter code in caps',
-    hint: 'Find the assigned hidden object.'
+    label: '📍 ROUND 1: 🧩 OBJECT FINDING\n\nInstructions:\n1. Search the location to find the designated Cat Board physical object.\n2. Take a mandatory photo of the object.\n3. Show the object/photo to the nearby Luminus volunteer.\n4. Enter the verification code given by the volunteer.\n\nEnter code in caps',
+    hint: 'Find the Cat Board object, take photo, and ask volunteer for code.'
   });
 
   survey.push({
     type: 'image',
     name: 'r1_canteen_photo',
-    label: '📸 Upload Photo of Discovered Hidden Object\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of the discovered object.',
-    required: 'yes'
+    label: '📸 Upload Photo of Discovered Cat Board Object (MANDATORY)\nPhoto upload is mandatory',
+    hint: 'Take a clear photo of the discovered Cat Board object.',
+    required: 'yes',
+    required_message: '❌ Photo upload of the object is strictly mandatory.'
   });
 
   survey.push({
     type: 'text',
     name: 'r1_canteen_code',
-    label: 'Enter Volunteer Verification Code\nEnter code in caps',
+    label: 'Enter Volunteer Verification Code (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MEOW-BOW-4'",
-    constraint_message: '❌ Incorrect code. Enter MEOW-BOW-4 in CAPS provided by the volunteer.'
+    required_message: '❌ Volunteer verification code is mandatory.',
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'MEOW-BOW-4'",
+    constraint_message: '❌ Incorrect code. Check the object again and enter the code exactly as displayed.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r1Passed = `${startPassed} and translate(normalize-space(\${r1_canteen_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MEOW-BOW-4' and \${r1_canteen_photo} != ''`;
+  const r1Passed = `${startPassed} and normalize-space(\${r1_canteen_code}) = 'MEOW-BOW-4' and \${r1_canteen_photo} != ''`;
 
   // =============================================================
-  // R2 — LOCATION CLUE (CSE-02 — Emoji Math Riddle)
+  // ROUND 2 — LOCATION CLUE (CSE-02 — Emoji Math Riddle)
   // =============================================================
   survey.push({
     type: 'begin_group',
@@ -126,340 +172,347 @@ function buildSurvey() {
   survey.push({
     type: 'note',
     name: 'r2_math_note',
-    label: '📍 ROUND 2 LOCATION CLUE: EMOJI MATH RIDDLE\n\nSolve the emoji equations to calculate the destination number pointing to your next block on the station campus map!\n\n🍎 + 🍎 = 10\n🍎 + 🍌 = 7\n🍌 + 🍇 = 6\n\nFinal Equation:\n🍇 + 🍎 = ?\n\nEnter code in caps',
-    hint: 'Solve the equations for the numeric value.'
+    label: `📍 ROUND 2 LOCATION CLUE: EMOJI MATH RIDDLE
+
+Solve the emoji equations below. Your final answer corresponds to a number used at the station. Use that number to identify your next location.
+
+🍎 + 🍎 = 10
+🍎 + 🍌 = 7
+🍌 + 🍇 = 6
+
+Final equation:
+🍇 + 🍎 = ?
+
+Enter code in caps`,
+    hint: 'Solve the emoji equations to find the numeric value.'
   });
 
   survey.push({
-    type: 'text',
+    type: 'integer',
     name: 'r2_math_answer',
-    label: 'Enter the calculated value for [ 🍇 + 🍎 ]:\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    label: 'Enter the calculated value for [ 🍇 + 🍎 ]: (MANDATORY)',
+    hint: 'Enter the exact integer solution.',
     required: 'yes',
-    constraint: "normalize-space(.) = '9' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = '9' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'NINE'",
-    constraint_message: '❌ Incorrect answer. Solve the equations to find the numeric answer.'
+    required_message: '❌ Solution is mandatory.',
+    constraint: '. = 9',
+    constraint_message: '❌ Incorrect. Recheck the three equations and calculate the final value.'
   });
 
-  const r2MathPassed = `${r1Passed} and (normalize-space(\${r2_math_answer}) = '9' or translate(normalize-space(\${r2_math_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = '9' or translate(normalize-space(\${r2_math_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'NINE')`;
-
-  survey.push({
-    type: 'text',
-    name: 'r2_cse_loc_answer',
-    label: 'Which campus block does this number direct your team to on the map?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    relevant: r2MathPassed,
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE BLOCK'",
-    constraint_message: '❌ Incorrect destination. Enter the campus block name in CAPS.'
-  });
-
-  survey.push({
-    type: 'end_group'
-  });
-
-  const r2CseLocPassed = `${r2MathPassed} and (translate(normalize-space(\${r2_cse_loc_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE' or translate(normalize-space(\${r2_cse_loc_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE BLOCK')`;
-
-  // =============================================================
-  // CSE START CODE (CSE-START)
-  // =============================================================
-  survey.push({
-    type: 'begin_group',
-    name: 'cse_start_group',
-    label: 'CSE ARRIVAL',
-    relevant: r2CseLocPassed
-  });
+  const r2MathPassed = `${r1Passed} and \${r2_math_answer} = 9`;
 
   survey.push({
     type: 'note',
-    name: 'cse_arrival_note',
-    label: '🏃 PROCEED TO CSE BLOCK\n\nReport immediately to the CSE station and meet the volunteer to receive your CSE start code.\n\nEnter code in caps',
-    hint: 'Meet volunteer at CSE station.'
+    name: 'r2_cse_proceed_note',
+    label: '🏃 Correct! Go to the computational block of the campus---the house of three computing blocks, and ask the Luminus volunteer there for the START CODE.\n\nEnter code in caps',
+    hint: 'Proceed to the location and ask volunteer for start code.',
+    relevant: r2MathPassed
   });
 
   survey.push({
     type: 'text',
     name: 'r2_cse_start_code',
-    label: 'Enter CSE Volunteer Start Code\nEnter code in caps',
+    label: 'Enter START CODE from Volunteer (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE-START'",
-    constraint_message: '❌ Incorrect start code. Enter CSE-START in CAPS provided by the volunteer.'
+    required_message: '❌ START CODE is mandatory.',
+    relevant: r2MathPassed,
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'CSE-START'",
+    constraint_message: '❌ Incorrect START CODE. Check the code at your current location and enter it exactly as provided.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const cseStartPassed = `${r2CseLocPassed} and translate(normalize-space(\${r2_cse_start_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE-START'`;
+  const cseStartPassed = `${r2MathPassed} and normalize-space(\${r2_cse_start_code}) = 'CSE-START'`;
 
   // =============================================================
-  // CSE CHALLENGES (Variant 1 vs Variant 2)
+  // ROUND 2 — MINI CHALLENGES (VARIANTS 1 & 2)
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'cse_challenge_select_group',
-    label: 'ROUND 2 — CSE MINI CHALLENGES',
+    label: 'ROUND 2 — MINI CHALLENGES',
     relevant: cseStartPassed
   });
 
   survey.push({
     type: 'select_one cse_variant_list',
     name: 'r2_cse_variant_select',
-    label: 'Select Assigned Challenge Variant\nMandatory selection',
+    label: 'Select your assigned challenge variant: (MANDATORY)\nMandatory selection',
     hint: 'Choose the variant assigned by the station volunteer.',
-    required: 'yes'
+    required: 'yes',
+    required_message: '❌ Selecting your assigned variant is mandatory.'
   });
 
   // -------------------------------------------------------------
-  // VARIANT 1: ALGO RELAY + BINARY BREAKER
+  // VARIANT 1: CSE-06 LOGICAL CHALLENGE 1 (ALGO RELAY + CYBER DETECTIVE)
   // -------------------------------------------------------------
   survey.push({
     type: 'begin_group',
     name: 'cse_v1_container',
-    label: 'VARIANT 1 — ALGO RELAY & BINARY BREAKER',
+    label: 'VARIANT A — LOGICAL CHALLENGE 1',
     relevant: "${r2_cse_variant_select} = 'var1'"
   });
 
-  // V1 Part 1: Algo Relay (10 Tasks)
+  // Challenge 1: Algo Relay (10 Questions)
   survey.push({
     type: 'begin_group',
     name: 'cse_v1_algo_group',
-    label: 'CHALLENGE 1: 🏃 ALGO RELAY (10 TASKS)'
+    label: 'CHALLENGE 1: 🏃 ALGO RELAY'
   });
 
   survey.push({
     type: 'note',
     name: 'cse_algo_intro',
-    label: '🏃 ALGO RELAY — 10 TASKS\n\nArrange the algorithmic steps correctly for each scenario below. Watch out for traps and fake steps!\n\nEnter code in caps',
-    hint: 'Complete each algorithmic arrangement in CAPS.'
+    label: '🏃 CHALLENGE 1 — ALGO RELAY\n\nAnswer the 10 algorithmic reasoning questions below.\n\nEnter code in caps',
+    hint: 'Select the correct option for each question.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q1',
-    label: 'Q1. Make Tea\nArrange steps: Add tea powder, Boil water, Add milk, Add sugar, Strain, Serve\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q1',
+    label: 'Q1. A program needs to calculate the average of 3 numbers. Which should happen first?\nA. Print the average\nB. Input the 3 numbers\nC. Divide by 3\nD. Add the numbers',
+    required: 'yes',
+    required_message: '❌ Question 1 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q1.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q2',
-    label: 'Q2. ATM Withdrawal\nArrange: Enter PIN, Insert card, Select withdrawal, Enter amount, Collect cash, Remove card (Trap: Collect cash before amount)\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q2',
+    label: 'Q2. Which is the correct order to find the largest of three numbers?\nA. Print → Input → Compare\nB. Input → Compare → Print\nC. Compare → Print → Input\nD. Print → Compare → Input',
+    required: 'yes',
+    required_message: '❌ Question 2 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q2.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q3',
-    label: 'Q3. Find the Largest Number\nGiven 5 numbers (17, 42, 9, 63, 31), write the logic to find the largest:\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q3',
+    label: 'Q3. What is the output?\nx = 5\nx = x + 3\nx = x × 2\nx = x - 4\nPRINT x\n\nA. 10\nB. 12\nC. 16\nD. 20',
+    required: 'yes',
+    required_message: '❌ Question 3 is mandatory.',
+    constraint: ". = 'c'",
+    constraint_message: '❌ Incorrect answer for Q3.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q4',
-    label: 'Q4. Login System\nArrange logic: Enter username → Enter password → Check credentials → Correct? → Allow/Deny access\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q4',
+    label: 'Q4. A robot starts at position 0.\n+4 → -2 → +7 → -3\nWhere does it finish?\n\nA. 4\nB. 5\nC. 6\nD. 7',
+    required: 'yes',
+    required_message: '❌ Question 4 is mandatory.',
+    constraint: ". = 'c'",
+    constraint_message: '❌ Incorrect answer for Q4.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q5',
-    label: 'Q5. Find a Name\nDesign the steps to find whether "RAHUL" exists in a list of 100 student names:\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q5',
+    label: 'Q5. Which condition correctly checks whether n is divisible by both 3 and 5?\nA. n % 3 == 0 OR n % 5 == 0\nB. n % 3 == 0 AND n % 5 == 0\nC. n / 3 == 0 AND n / 5 == 0\nD. n % 15 == 1',
+    required: 'yes',
+    required_message: '❌ Question 5 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q5.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q6',
-    label: 'Q6. Odd or Even\nCreate an algorithm that takes an input number and determines EVEN / ODD:\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q6',
+    label: 'Q6. What will this algorithm print?\nx = 10\nIF x > 5\n    PRINT "A"\nELSE\n    PRINT "B"\n\nA. A\nB. B\nC. A B\nD. Nothing',
+    required: 'yes',
+    required_message: '❌ Question 6 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q6.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q7',
-    label: 'Q7. Sort Books\nArrange the algorithm to sort 6 books of different heights from shortest → tallest:\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q7',
+    label: 'Q7. How many times will HELLO be printed?\nFOR i = 1 TO 5\n    PRINT "HELLO"\n\nA. 4\nB. 5\nC. 6\nD. 10',
+    required: 'yes',
+    required_message: '❌ Question 7 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q7.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q8',
-    label: 'Q8. Traffic Light Error Detection\nIdentify the fake condition among: RED→STOP, YELLOW→WAIT, GREEN→GO, BLUE→GO\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q8',
+    label: 'Q8. What is the output?\nx = 1\nREPEAT 4 TIMES\n    x = x × 2\nPRINT x\n\nA. 4\nB. 8\nC. 16\nD. 32',
+    required: 'yes',
+    required_message: '❌ Question 8 is mandatory.',
+    constraint: ". = 'c'",
+    constraint_message: '❌ Incorrect answer for Q8.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q9',
-    label: 'Q9. Password Attempts\nWrite the algorithm for 3 attempts (Correct→Login, Wrong→Retry, 3 Wrong→Locked):\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q9',
+    label: 'Q9. A sorted list is: 5, 10, 15, 20, 25, 30, 35. You want to find 30 using binary search. Which number should you check first?\nA. 5\nB. 10\nC. 20\nD. 30',
+    required: 'yes',
+    required_message: '❌ Question 9 is mandatory.',
+    constraint: ". = 'c'",
+    constraint_message: '❌ Incorrect answer for Q9.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'algo_q10',
-    label: 'Q10. Final Boss: Second-Largest Number\nWrite an algorithm to find the second-largest number among 10 numbers without sorting:\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
-  });
-
-  survey.push({
-    type: 'image',
-    name: 'r2_v1_algo_photo',
-    label: '📸 Upload Photo of Solved Algo Relay Cards\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your arranged algorithm cards.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v1_algo_q10',
+    label: 'Q10. You need to find a name in a sorted list of 1,000 names. Which method is generally more efficient?\nA. Check every name from the beginning\nB. Binary search\nC. Pick names randomly\nD. Check only the first name',
+    required: 'yes',
+    required_message: '❌ Question 10 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q10.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  // V1 Part 2: Binary Breaker (10 Questions)
+  // Challenge 2: Cyber Detective (10 Questions)
   survey.push({
     type: 'begin_group',
-    name: 'cse_v1_binary_group',
-    label: 'CHALLENGE 2: 🔢 BINARY BREAKER (10 QUESTIONS)'
+    name: 'cse_v1_cyber_group',
+    label: 'CHALLENGE 2: 🕵️ CYBER DETECTIVE'
   });
 
   survey.push({
     type: 'note',
-    name: 'cse_binary_intro',
-    label: '🔢 BINARY BREAKER — 10 QUESTIONS\n\nKey: A=1, B=2, C=3 ... Z=26 (5-bit binary representations).\nSolve all 10 binary challenges below!\n\nEnter code in caps',
-    hint: 'Answer all 10 questions in CAPS.'
+    name: 'cse_cyber_intro',
+    label: '🕵️ CHALLENGE 2 — CYBER DETECTIVE\n\nAnswer the 10 cyber security and detection questions below.\n\nEnter code in caps',
+    hint: 'Select the correct option for each question.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q1',
-    label: 'Q1. Decode: 00010 00101 00111\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q1',
+    label: 'Q1. You receive: "Your bank account will be closed today. Click this link and enter your password." What is the most likely threat?\nA. Phishing\nB. Bluetooth\nC. Backup\nD. Encryption',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'BEG'",
-    constraint_message: '❌ Incorrect. Decode using A=1 to Z=26.'
+    required_message: '❌ Question 1 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q1.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q2',
-    label: 'Q2. Decode: 01000 00001 00110 00110\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q2',
+    label: 'Q2. Which password is strongest?\nA. 12345678\nB. password123\nC. College2005\nD. R7#kP2!mQ9@x',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'HALL'",
-    constraint_message: '❌ Incorrect. Decode using A=1 to Z=26.'
+    required_message: '❌ Question 2 is mandatory.',
+    constraint: ". = 'd'",
+    constraint_message: '❌ Incorrect answer for Q2.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q3',
-    label: 'Q3. Encode "CODE" into 5-bit binary (A=1 to Z=26)\nEnter binary string (e.g. 00011 01111 00100 00101)',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q3',
+    label: 'Q3. Someone calls pretending to be from your bank and asks for your OTP. What should you do?\nA. Give the OTP\nB. Give only half the OTP\nC. Do not share it\nD. Send your password instead',
     required: 'yes',
-    constraint: "translate(normalize-space(.), ' ', '') = '00011011110010000101'",
-    constraint_message: '❌ Incorrect. Encode C=3, O=15, D=4, E=5 in 5-bit binary.'
+    required_message: '❌ Question 3 is mandatory.',
+    constraint: ". = 'c'",
+    constraint_message: '❌ Incorrect answer for Q3.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q4',
-    label: 'Q4. Decimal to Binary: Convert 13 to binary\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q4',
+    label: 'Q4. Which URL is most suspicious if the real website is mybank.com?\nA. mybank.com/login\nB. secure.mybank.com\nC. mybank.com\nD. mybank-login-security.com',
     required: 'yes',
-    constraint: "normalize-space(.) = '1101'",
-    constraint_message: '❌ Incorrect. Convert 13 to binary.'
+    required_message: '❌ Question 4 is mandatory.',
+    constraint: ". = 'd'",
+    constraint_message: '❌ Incorrect answer for Q4.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q5',
-    label: 'Q5. Binary to Decimal: Convert 10110 to decimal\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q5',
+    label: 'Q5. A student uses the same password for email, Instagram and banking. What is the biggest risk?\nA. The password becomes longer\nB. One stolen password can compromise multiple accounts\nC. The internet becomes slower\nD. The phone battery drains faster',
     required: 'yes',
-    constraint: "normalize-space(.) = '22'",
-    constraint_message: '❌ Incorrect. Convert 10110 to decimal.'
+    required_message: '❌ Question 5 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q5.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q6',
-    label: 'Q6. Binary Addition: 1011 + 0110 = ?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q6',
+    label: 'Q6. A message says: "Send this message to 20 people or your account will be deleted." What is the safest response?\nA. Forward it\nB. Send your OTP\nC. Ignore it\nD. Give the sender your password',
     required: 'yes',
-    constraint: "normalize-space(.) = '10001'",
-    constraint_message: '❌ Incorrect. Perform binary addition.'
+    required_message: '❌ Question 6 is mandatory.',
+    constraint: ". = 'c'",
+    constraint_message: '❌ Incorrect answer for Q6.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q7',
-    label: 'Q7. Find the Odd One Out among: 00001, 00010, 00011, 00101, 00110\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q7',
+    label: 'Q7. What is the main purpose of two-factor authentication?\nA. Make the screen brighter\nB. Add another layer of account security\nC. Increase internet speed\nD. Store more files',
     required: 'yes',
-    constraint: "normalize-space(.) = '00101'",
-    constraint_message: '❌ Incorrect. Look at decimal sequence 1, 2, 3, 4, 5.'
+    required_message: '❌ Question 7 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q7.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q8',
-    label: 'Q8. ASCII Challenge: Decode 01001000 01001001 (ASCII table)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q8',
+    label: 'Q8. A student clicks a fake login link and enters their username and password. What has most likely happened?\nA. Their credentials may have been stolen\nB. Their phone automatically upgraded\nC. Their password became stronger\nD. Their Wi-Fi was repaired',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'HI'",
-    constraint_message: '❌ Incorrect. Decode ASCII bytes 72 and 73.'
+    required_message: '❌ Question 8 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q8.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q9',
-    label: 'Q9. Binary Location: Decode 01000 00101 00001 01100 01100\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q9',
+    label: 'Q9. Which is the safest action when using a public computer?\nA. Save your password in the browser\nB. Leave your account logged in\nC. Log out after use\nD. Disable the screen lock',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'HEALL' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'HELL'",
-    constraint_message: '❌ Incorrect. Decode using A=1 to Z=26.'
+    required_message: '❌ Question 9 is mandatory.',
+    constraint: ". = 'c'",
+    constraint_message: '❌ Incorrect answer for Q9.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'binary_q10',
-    label: 'Q10. Final Binary Message: Decode 01000 00001 00110 00100 01001 01010 (A=1..26)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    type: 'select_one mcq_opts',
+    name: 'v1_cyb_q10',
+    label: 'Q10. A student\'s account was hacked. Evidence shows: Student received a fake password-reset email, clicked the link, entered credentials, and an unknown device logged in. What is the most likely cause?\nA. Weak Wi-Fi signal\nB. Phishing\nC. Low battery\nD. Bluetooth connection',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'HAFDIJ' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'IBGEJK'",
-    constraint_message: '❌ Incorrect. Decode the 6 letters using A=1 to Z=26.'
-  });
-
-  survey.push({
-    type: 'image',
-    name: 'r2_v1_binary_photo',
-    label: '📸 Upload Photo of Team Solving Binary Breaker\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your team solving Binary Breaker.',
-    required: 'yes'
+    required_message: '❌ Question 10 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q10.'
   });
 
   survey.push({
     type: 'end_group'
+  });
+
+  const v1AllPassed = "${v1_algo_q1} = 'b' and ${v1_algo_q2} = 'b' and ${v1_algo_q3} = 'c' and ${v1_algo_q4} = 'c' and ${v1_algo_q5} = 'b' and ${v1_algo_q6} = 'a' and ${v1_algo_q7} = 'b' and ${v1_algo_q8} = 'c' and ${v1_algo_q9} = 'c' and ${v1_algo_q10} = 'b' and ${v1_cyb_q1} = 'a' and ${v1_cyb_q2} = 'd' and ${v1_cyb_q3} = 'c' and ${v1_cyb_q4} = 'd' and ${v1_cyb_q5} = 'b' and ${v1_cyb_q6} = 'c' and ${v1_cyb_q7} = 'b' and ${v1_cyb_q8} = 'a' and ${v1_cyb_q9} = 'c' and ${v1_cyb_q10} = 'b'";
+
+  survey.push({
+    type: 'image',
+    name: 'r2_v1_cse_photo',
+    label: '📸 Upload Photo of Team Solving Variant 1 Challenge (MANDATORY)\nPhoto upload is mandatory',
+    hint: 'Take a clear photo of your team at the station.',
+    required: 'yes',
+    required_message: '❌ Station photo upload is mandatory.',
+    relevant: v1AllPassed
   });
 
   survey.push({
     type: 'text',
     name: 'r2_v1_code',
-    label: 'Enter Volunteer Clearance Code (Variant 1)\nEnter code in caps',
+    label: 'Enter Volunteer Clearance Code (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE-EINSTEIN-4'",
-    constraint_message: '❌ Incorrect code. Enter CSE-EINSTEIN-4 provided by the volunteer.'
+    required_message: '❌ Volunteer clearance code is mandatory.',
+    relevant: v1AllPassed,
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'CSE-EINSTEIN-4'",
+    constraint_message: '❌ Incorrect code. Check the code obtained after completing the challenge.'
   });
 
   survey.push({
@@ -467,247 +520,273 @@ function buildSurvey() {
   });
 
   // -------------------------------------------------------------
-  // VARIANT 2: PATTERN HACK + BUG HUNTER
+  // VARIANT 2: CSE-07 LOGICAL CHALLENGE 2 (BUG HUNTER + TECH DETECTIVE)
   // -------------------------------------------------------------
   survey.push({
     type: 'begin_group',
     name: 'cse_v2_container',
-    label: 'VARIANT 2 — PATTERN HACK & BUG HUNTER',
+    label: 'VARIANT B — LOGICAL CHALLENGE 2',
     relevant: "${r2_cse_variant_select} = 'var2'"
   });
 
-  // V2 Part 1: Pattern Hack (10 Questions)
-  survey.push({
-    type: 'begin_group',
-    name: 'cse_v2_pattern_group',
-    label: 'CHALLENGE 1: 🧠 PATTERN HACK (10 QUESTIONS)'
-  });
-
-  survey.push({
-    type: 'note',
-    name: 'cse_pattern_intro',
-    label: '🧠 PATTERN HACK — 10 QUESTIONS\n\nFind the missing number, letter, or rule for each sequence below!\n\nEnter code in caps',
-    hint: 'Answer all 10 questions in CAPS.'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q1',
-    label: 'Q1. Find next: 2, 4, 6, 8, ?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "normalize-space(.) = '10'",
-    constraint_message: '❌ Incorrect answer.'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q2',
-    label: 'Q2. Find next: 3, 6, 12, 24, ?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "normalize-space(.) = '48'",
-    constraint_message: '❌ Incorrect answer.'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q3',
-    label: 'Q3. Find next: 1, 4, 9, 16, 25, ?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "normalize-space(.) = '36'",
-    constraint_message: '❌ Incorrect answer.'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q4',
-    label: 'Q4. Find next: 1, 1, 2, 3, 5, 8, ?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "normalize-space(.) = '13'",
-    constraint_message: '❌ Incorrect answer.'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q5',
-    label: 'Q5. Find next: A, C, F, J, O, ?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'U'",
-    constraint_message: '❌ Incorrect answer. Follow letter positions +2, +3, +4, +5, +6.'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q6',
-    label: 'Q6. Rule: 2→6, 3→12, 4→20, 5→30, 6→?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "normalize-space(.) = '42'",
-    constraint_message: '❌ Incorrect answer. Follow n * (n+1).'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q7',
-    label: 'Q7. What comes next: 1A, 2B, 4D, 8H, 16P, ?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = '32F'",
-    constraint_message: '❌ Incorrect answer. Numbers double, letters double modulo 26.'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q8',
-    label: 'Q8. Find missing: 2, 3, 5, 9, 17, ?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "normalize-space(.) = '33'",
-    constraint_message: '❌ Incorrect answer. Rule: *2 - 1.'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q9',
-    label: 'Q9. Visual Logic: If ★=10, ▲=3, ■=4. Calculate [ ★ + ▲ × ■ ]:\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "normalize-space(.) = '22'",
-    constraint_message: '❌ Incorrect answer. Remember operator precedence (* before +).'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'pattern_q10',
-    label: 'Q10. What does the series 1, 2, 4, 8, 16 represent?\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'POWERS OF 2' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'POWER OF 2' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'POWERS OF TWO' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'BINARY'",
-    constraint_message: '❌ Incorrect answer. Think about powers in computing.'
-  });
-
-  survey.push({
-    type: 'image',
-    name: 'r2_v2_pattern_photo',
-    label: '📸 Upload Photo of Team Solving Pattern Hack\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your team solving Pattern Hack.',
-    required: 'yes'
-  });
-
-  survey.push({
-    type: 'end_group'
-  });
-
-  // V2 Part 2: Bug Hunter (9/10 Tasks)
+  // Challenge 3: Bug Hunter (10 Questions)
   survey.push({
     type: 'begin_group',
     name: 'cse_v2_bug_group',
-    label: 'CHALLENGE 2: 🐛 BUG HUNTER (DEBUG THE SYSTEM)'
+    label: 'CHALLENGE 3: 🐛 BUG HUNTER'
   });
 
   survey.push({
     type: 'note',
     name: 'cse_bug_intro',
-    label: '🐛 BUG HUNTER — DEBUG THE SYSTEM\n\nExamine the programs, pseudocode, and flowcharts below. Find the logic and syntax bugs!\n\nEnter code in caps',
-    hint: 'Identify and describe the bugs in CAPS.'
+    label: '🐛 CHALLENGE 3 — BUG HUNTER\n\nFind the bug in each of the 10 code snippets below.\n\nEnter code in caps',
+    hint: 'Select the correct option for each question.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'bug_q1',
-    label: 'Q1. Output Bug: x=10, y=20. IF x>y PRINT "10 is greater" ELSE PRINT "20 is greater". What is wrong?\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q1',
+    label: 'Q1. What is wrong with this program?\nIF age > 18\n    PRINT "ELIGIBLE"\nELSE\n    PRINT "NOT ELIGIBLE"\nA person who is exactly 18 is being rejected. What should change?\nA. > to >=\nB. > to <\nC. 18 to 19\nD. Remove ELSE',
+    required: 'yes',
+    required_message: '❌ Question 1 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q1.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'bug_q2',
-    label: 'Q2. Infinite Loop: x=1. WHILE x<=5 PRINT x. What is the bug?\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q2',
+    label: 'Q2. What will this program print?\nx = 2\nWHILE x < 10\n    PRINT x\n    x = x + 2\n\nA. 2 4 6 8\nB. 2 4 6 8 10\nC. 1 2 3 4\nD. Infinite loop',
+    required: 'yes',
+    required_message: '❌ Question 2 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q2.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'bug_q3',
-    label: 'Q3. Swapped Variables: a=10, b=20. a=b; b=a. After execution, what are a and b?\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q3',
+    label: 'Q3. What is the bug?\nIF marks >= 40\n    PRINT "FAIL"\nELSE\n    PRINT "PASS"\n\nA. >= should be <=\nB. PASS and FAIL are reversed\nC. Marks cannot be compared\nD. ELSE must be removed',
+    required: 'yes',
+    required_message: '❌ Question 3 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q3.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'bug_q4',
-    label: 'Q4. Wrong Output: FOR i=1 TO 5 PRINT i. System displays: 1 2 3 4 6. Where is the bug?\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q4',
+    label: 'Q4. What will be the output?\na = 5\nb = 3\na = a + b\nb = a - b\na = a - b\nPRINT a\nPRINT b\n\nA. 5 3\nB. 3 5\nC. 8 3\nD. 8 5',
+    required: 'yes',
+    required_message: '❌ Question 4 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q4.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'bug_q5',
-    label: 'Q5. Password Bug: IF password="CSE123" PRINT "Access Granted" ELSE PRINT "Access Granted". Find the bug:\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q5',
+    label: 'Q5. A program should print numbers from 1 to 5.\ni = 1\nWHILE i <= 5\n    PRINT i\nWhat is missing?\n\nA. i = i + 1\nB. i = i - 1\nC. i = 0\nD. PRINT i',
+    required: 'yes',
+    required_message: '❌ Question 5 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q5.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'bug_q6',
-    label: 'Q6. Array Bug: [10, 20, 30, 40, 50]. Program says PRINT array[5]. What is wrong?\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q6',
+    label: 'Q6. A program checks whether a number is positive:\nIF number > 0\n    PRINT "POSITIVE"\nELSE\n    PRINT "NEGATIVE"\nWhat happens when the input is 0?\n\nA. POSITIVE\nB. NEGATIVE\nC. Neither is mathematically correct\nD. It always prints both',
+    required: 'yes',
+    required_message: '❌ Question 6 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q6.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'bug_q7',
-    label: 'Q7. Flowchart Bug: Start → Input number → number % 2 == 0? YES→ODD, NO→EVEN. Find the bug:\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q7',
+    label: 'Q7. A calculator produces: 8 × 0 = 8. What is the bug?\nA. Multiplication is incorrect\nB. Addition is incorrect\nC. Division is incorrect\nD. Nothing is wrong',
+    required: 'yes',
+    required_message: '❌ Question 7 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q7.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'bug_q8',
-    label: 'Q8. Detective Debugging: Input: 5. x=1; FOR i=1 TO x { x=x+1 }; PRINT x. Why doesn\'t this behave as expected?\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q8',
+    label: 'Q8. A program should calculate: 10 + 20 × 2. The programmer calculates: (10 + 20) × 2 = 60. What rule was ignored?\nA. Multiplication has priority over addition\nB. Addition has priority over multiplication\nC. Division must happen first\nD. Subtraction must happen first',
+    required: 'yes',
+    required_message: '❌ Question 8 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q8.'
   });
 
   survey.push({
-    type: 'text',
-    name: 'bug_q9',
-    label: 'Q9. Find TWO Bugs: a=5, b=10. IF a>b PRINT "b is larger" ELSE PRINT "a is larger". What are the 2 bugs?\nEnter in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q9',
+    label: 'Q9. A program is supposed to find the largest number.\nlargest = 0\nIF number < largest\n    largest = number\nWhat is the main problem?\n\nA. It updates when a smaller number is found\nB. It updates when a larger number is found\nC. largest should always be 100\nD. There is no comparison',
+    required: 'yes',
+    required_message: '❌ Question 9 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q9.'
   });
 
   survey.push({
-    type: 'image',
-    name: 'r2_v2_bug_photo',
-    label: '📸 Upload Photo of Team Solving Bug Hunter\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your team solving Bug Hunter.',
-    required: 'yes'
+    type: 'select_one mcq_opts',
+    name: 'v2_bug_q10',
+    label: 'Q10. A discount should be given only when: Amount ≥ ₹1,000 AND customer is a member.\nThe programmer writes:\nIF amount >= 1000 OR member == YES\n    PRINT "DISCOUNT"\nWhat is the bug?\n\nA. OR should be AND\nB. AND should be OR\nC. Amount should be ₹100\nD. Member status should be ignored',
+    required: 'yes',
+    required_message: '❌ Question 10 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q10.'
   });
 
   survey.push({
     type: 'end_group'
+  });
+
+  // Challenge 4: Tech Detective (10 Questions)
+  survey.push({
+    type: 'begin_group',
+    name: 'cse_v2_tech_group',
+    label: 'CHALLENGE 4: 💻 TECH DETECTIVE'
+  });
+
+  survey.push({
+    type: 'note',
+    name: 'cse_tech_intro',
+    label: '💻 CHALLENGE 4 — TECH DETECTIVE\n\nAnswer the 10 technology and networking questions below.\n\nEnter code in caps',
+    hint: 'Select the correct option for each question.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q1',
+    label: 'Q1. Which device connects different networks and directs data between them?\nA. Monitor\nB. Router\nC. Keyboard\nD. Printer',
+    required: 'yes',
+    required_message: '❌ Question 1 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q1.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q2',
+    label: 'Q2. You type: www.example.com. Which system finds the IP address associated with this domain?\nA. DNS\nB. USB\nC. HDMI\nD. RAM',
+    required: 'yes',
+    required_message: '❌ Question 2 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q2.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q3',
+    label: 'Q3. Which of these is an operating system?\nA. Chrome\nB. Windows\nC. YouTube\nD. Google',
+    required: 'yes',
+    required_message: '❌ Question 3 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q3.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q4',
+    label: 'Q4. Which statement about RAM is correct?\nA. It is mainly used as temporary working memory\nB. It permanently stores files even without power\nC. It is used only for printing\nD. It is the same as a keyboard',
+    required: 'yes',
+    required_message: '❌ Question 4 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q4.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q5',
+    label: 'Q5. Which protocol is used for secure web browsing?\nA. HTTP\nB. HTTPS\nC. FTP\nD. SMTP',
+    required: 'yes',
+    required_message: '❌ Question 5 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q5.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q6',
+    label: 'Q6. A device automatically receives an IP address when joining a network. Which service commonly provides it?\nA. DNS\nB. DHCP\nC. HTTP\nD. HTML',
+    required: 'yes',
+    required_message: '❌ Question 6 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q6.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q7',
+    label: 'Q7. Which of these has the largest storage capacity?\nA. 500 KB\nB. 2 MB\nC. 1 GB\nD. 5 TB',
+    required: 'yes',
+    required_message: '❌ Question 7 is mandatory.',
+    constraint: ". = 'd'",
+    constraint_message: '❌ Incorrect answer for Q7.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q8',
+    label: 'Q8. Which is the correct order from smallest to largest?\nA. KB → MB → GB → TB\nB. MB → KB → TB → GB\nC. GB → MB → KB → TB\nD. TB → GB → MB → KB',
+    required: 'yes',
+    required_message: '❌ Question 8 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q8.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q9',
+    label: 'Q9. A website address begins with: https://. What does the S mainly indicate?\nA. The website is a search engine\nB. The connection uses security/encryption\nC. The website is stored on your computer\nD. The website has no password',
+    required: 'yes',
+    required_message: '❌ Question 9 is mandatory.',
+    constraint: ". = 'b'",
+    constraint_message: '❌ Incorrect answer for Q9.'
+  });
+
+  survey.push({
+    type: 'select_one mcq_opts',
+    name: 'v2_tech_q10',
+    label: 'Q10. You type a website address into your browser. Which sequence is the most appropriate?\nA. DNS finds the IP → Browser connects to the server → Website data is requested\nB. Browser requests the webpage → DNS shuts down → Server connects\nC. RAM finds the website → Keyboard connects to DNS → Router prints it\nD. DHCP creates the webpage → Monitor finds the IP → Browser shuts down',
+    required: 'yes',
+    required_message: '❌ Question 10 is mandatory.',
+    constraint: ". = 'a'",
+    constraint_message: '❌ Incorrect answer for Q10.'
+  });
+
+  survey.push({
+    type: 'end_group'
+  });
+
+  const v2AllPassed = "${v2_bug_q1} = 'a' and ${v2_bug_q2} = 'a' and ${v2_bug_q3} = 'b' and ${v2_bug_q4} = 'b' and ${v2_bug_q5} = 'a' and ${v2_bug_q6} = 'b' and ${v2_bug_q7} = 'a' and ${v2_bug_q8} = 'a' and ${v2_bug_q9} = 'a' and ${v2_bug_q10} = 'a' and ${v2_tech_q1} = 'b' and ${v2_tech_q2} = 'a' and ${v2_tech_q3} = 'b' and ${v2_tech_q4} = 'a' and ${v2_tech_q5} = 'b' and ${v2_tech_q6} = 'b' and ${v2_tech_q7} = 'd' and ${v2_tech_q8} = 'a' and ${v2_tech_q9} = 'b' and ${v2_tech_q10} = 'a'";
+
+  survey.push({
+    type: 'image',
+    name: 'r2_v2_cse_photo',
+    label: '📸 Upload Photo of Team Solving Variant 2 Challenge (MANDATORY)\nPhoto upload is mandatory',
+    hint: 'Take a clear photo of your team at the station.',
+    required: 'yes',
+    required_message: '❌ Station photo upload is mandatory.',
+    relevant: v2AllPassed
   });
 
   survey.push({
     type: 'text',
     name: 'r2_v2_code',
-    label: 'Enter Volunteer Clearance Code (Variant 2)\nEnter code in caps',
+    label: 'Enter Volunteer Clearance Code (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE-ZUCKERBERG-4' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE-ZUCKER-4'",
-    constraint_message: '❌ Incorrect code. Enter CSE-ZUCKERBERG-4 provided by the volunteer.'
+    required_message: '❌ Volunteer clearance code is mandatory.',
+    relevant: v2AllPassed,
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'CSE-ZUCKER-4'",
+    constraint_message: '❌ Incorrect code. Check the code obtained after completing the challenge.'
   });
 
   survey.push({
@@ -718,119 +797,108 @@ function buildSurvey() {
     type: 'end_group'
   });
 
-  const cseChallengesPassed = `${cseStartPassed} and ((${'\${r2_cse_variant_select}'} = 'var1' and translate(normalize-space(\${r2_v1_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE-EINSTEIN-4' and \${r2_v1_algo_photo} != '' and \${r2_v1_binary_photo} != '') or (${'\${r2_cse_variant_select}'} = 'var2' and (translate(normalize-space(\${r2_v2_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE-ZUCKERBERG-4' or translate(normalize-space(\${r2_v2_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CSE-ZUCKER-4') and \${r2_v2_pattern_photo} != '' and \${r2_v2_bug_photo} != ''))`;
+  const cseMiniPassed = `${cseStartPassed} and ((${'\${r2_cse_variant_select}'} = 'var1' and normalize-space(\${r2_v1_code}) = 'CSE-EINSTEIN-4' and \${r2_v1_cse_photo} != '') or (${'\${r2_cse_variant_select}'} = 'var2' and normalize-space(\${r2_v2_code}) = 'CSE-ZUCKER-4' and \${r2_v2_cse_photo} != ''))`;
 
   // =============================================================
-  // R3 — CYBER LOCATION CLUE (MORSE CODE with morse.jpeg)
+  // ROUND 3 — LOCATION CLUE (CYB-01 — Morse Code with morse.jpeg)
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r3_cyber_loc_group',
     label: 'ROUND 3 LOCATION CLUE',
-    relevant: cseChallengesPassed
+    relevant: cseMiniPassed
   });
 
   survey.push({
     type: 'note',
-    name: 'r3_morse_note',
-    label: '📍 ROUND 3 LOCATION CLUE: MORSE CODE\n\nExamine the Morse code chart in the image below and decode the encrypted message to reveal your next destination!\n\n📜 CIPHER TEXT:\n--.  ---\n-  ---\n-.-.  -.--  -...  .  .-.\n\nEnter code in caps',
-    hint: 'Decode the Morse code message using the attached image chart.',
+    name: 'r3_cyber_morse_note',
+    label: `📍 ROUND 3 LOCATION CLUE: MORSE CODE MESSAGE
+
+Decode the Morse-code message to reveal your next location.
+
+Morse Message:
+--. --- / - --- / -.-. -.-- -... . .-.
+
+Refer to the Morse key reference image attached below.
+
+Enter code in caps`,
+    hint: 'Decode each Morse group to discover the next location.',
     'media::image': 'morse.jpeg'
   });
 
   survey.push({
     type: 'text',
-    name: 'r3_morse_answer',
-    label: 'Enter decoded message:\nEnter code in caps',
+    name: 'r3_cyber_loc_answer',
+    label: 'Enter your decoded message: (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Decoded message is mandatory.',
     'media::image': 'morse.jpeg',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'GO TO CYBER' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CYBER'",
-    constraint_message: '❌ Incorrect decoded message. Decode the Morse code and enter in CAPS.'
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'GO TO CYBER' or normalize-space(.) = 'CYBER' or normalize-space(.) = 'CYBER BLOCK')",
+    constraint_message: '❌ Incorrect. Decode each Morse-code group carefully and try again.'
   });
 
-  survey.push({
-    type: 'end_group'
-  });
-
-  const r3MorsePassed = `${cseChallengesPassed} and (translate(normalize-space(\${r3_morse_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'GO TO CYBER' or translate(normalize-space(\${r3_morse_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CYBER')`;
-
-  // =============================================================
-  // CYBER ARRIVAL CODE (CYBER-THIEF)
-  // =============================================================
-  survey.push({
-    type: 'begin_group',
-    name: 'cyber_arrival_group',
-    label: 'CYBER ARRIVAL',
-    relevant: r3MorsePassed
-  });
+  const r3LocGuessed = "normalize-space(${r3_cyber_loc_answer}) = 'GO TO CYBER' or normalize-space(${r3_cyber_loc_answer}) = 'CYBER' or normalize-space(${r3_cyber_loc_answer}) = 'CYBER BLOCK'";
 
   survey.push({
     type: 'note',
-    name: 'cyber_arrival_note',
-    label: '🏃 PROCEED TO CYBER BLOCK\n\nReport immediately to the Cyber station and meet the volunteer to receive your arrival verification code.\n\nEnter code in caps',
-    hint: 'Meet volunteer at Cyber station.'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'r3_cyber_start_code',
-    label: 'Enter Cyber Volunteer Start Code\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CYBER-THIEF'",
-    constraint_message: '❌ Incorrect code. Enter CYBER-THIEF in CAPS provided by the volunteer.'
+    name: 'r3_cyber_proceed_note',
+    label: '🏃 Correct! Proceed to the location identified by the decoded message.\n\nEnter code in caps',
+    hint: 'Proceed to the location for the QR hunt.',
+    relevant: r3LocGuessed
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const cyberArrivalPassed = `${r3MorsePassed} and translate(normalize-space(\${r3_cyber_start_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CYBER-THIEF'`;
+  const r3BlockPassed = `${cseMiniPassed} and (${r3LocGuessed})`;
 
   // =============================================================
-  // R3 — CYBER QR HUNT (JAMES_BOND)
+  // ROUND 3 — QR HUNT (CYBER)
   // =============================================================
   survey.push({
     type: 'begin_group',
-    name: 'r3_cy_qr_group',
+    name: 'r3_cyber_qr_group',
     label: 'ROUND 3 — QR HUNT',
-    relevant: cyberArrivalPassed
+    relevant: r3BlockPassed
   });
 
   survey.push({
     type: 'note',
-    name: 'r3_cy_qr_note',
-    label: '📍 ROUND 3: QR HUNT\n\nSearch the location physically to locate the hidden QR code.\nScan the QR code using the scanner below.\n\nEnter code in caps',
+    name: 'r3_cyber_qr_note',
+    label: '📍 ROUND 3: QR HUNT\n\nFind the designated QR code at this location and scan it. Follow the instructions provided by the QR challenge.\n\nEnter code in caps',
     hint: 'Locate and scan the hidden QR code.'
   });
 
   survey.push({
     type: 'barcode',
-    name: 'r3_cy_qr_scan',
-    label: 'Scan Discovered QR Code',
+    name: 'r3_cyber_qr_scan',
+    label: 'Scan Discovered QR Code (MANDATORY)',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "normalize-space(.) = 'JAMES_BOND' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'JAMES_BOND'",
-    constraint_message: '❌ Incorrect QR code scanned. Search for the correct QR code at this station.'
+    required_message: '❌ QR code scanning is mandatory.',
+    constraint: "normalize-space(.) = 'JAMES_BOND'",
+    constraint_message: '❌ Incorrect code. Continue the QR hunt and check the code carefully.'
   });
 
   survey.push({
     type: 'image',
-    name: 'r3_cy_qr_photo',
-    label: '📸 Upload Photo of Discovered QR Code / Station\nPhoto upload is mandatory',
+    name: 'r3_cyber_qr_photo',
+    label: '📸 Upload Photo of Discovered QR Code / Station (MANDATORY)\nPhoto upload is mandatory',
     hint: 'Take a clear photo of the discovered QR code location.',
-    required: 'yes'
+    required: 'yes',
+    required_message: '❌ Station photo upload is mandatory.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r3QrPassed = `${cyberArrivalPassed} and (normalize-space(\${r3_cy_qr_scan}) = 'JAMES_BOND' or translate(normalize-space(\${r3_cy_qr_scan}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'JAMES_BOND') and \${r3_cy_qr_photo} != ''`;
+  const r3QrPassed = `${r3BlockPassed} and normalize-space(\${r3_cyber_qr_scan}) = 'JAMES_BOND' and \${r3_cyber_qr_photo} != ''`;
 
   // =============================================================
-  // R4 — LOCATION CLUE (MBA-05 — Wisdom, Below & Beyond)
+  // ROUND 4 — LOCATION CLUE (MBA-05 — Wisdom, Below & Beyond)
   // =============================================================
   survey.push({
     type: 'begin_group',
@@ -842,91 +910,110 @@ function buildSurvey() {
   survey.push({
     type: 'note',
     name: 'r4_mba_loc_note',
-    label: '📍 ROUND 4 LOCATION CLUE: THREE STEPS\n\nFollow the three clues to identify the next campus destination:\n1. The one who gives wisdom\n2. Look below\n3. Where students prepare for their next career step\n\nEnter code in caps',
-    hint: 'Follow the 3 clues to deduce the destination block.'
+    label: `📍 ROUND 4 LOCATION CLUE
+
+"Numbers become stories here.
+Stories become strategies.
+Strategies become presentations.
+Where managers learn to turn information into decisions,
+find me."
+
+Enter code in caps`,
+    hint: 'Solve the riddle to identify your next destination.'
   });
 
   survey.push({
     type: 'text',
     name: 'r4_mba_loc_answer',
-    label: 'Enter destination location\nEnter code in caps',
+    label: 'Enter your deduced destination location: (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA BLOCK'",
-    constraint_message: '❌ Incorrect destination. Follow the clues and enter the block in CAPS.'
+    required_message: '❌ Destination location is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'MBA' or normalize-space(.) = 'MBA BLOCK')",
+    constraint_message: '❌ Not quite. Reconsider each of the three clues and how they connect.'
   });
 
-  survey.push({
-    type: 'end_group'
-  });
-
-  const r4MbaLocPassed = `${r3QrPassed} and (translate(normalize-space(\${r4_mba_loc_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA' or translate(normalize-space(\${r4_mba_loc_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA BLOCK')`;
-
-  // =============================================================
-  // MBA ARRIVAL CODE (MONEY-BROTHA)
-  // =============================================================
-  survey.push({
-    type: 'begin_group',
-    name: 'mba_arrival_group',
-    label: 'MBA ARRIVAL',
-    relevant: r4MbaLocPassed
-  });
+  const r4LocGuessed = "normalize-space(${r4_mba_loc_answer}) = 'MBA' or normalize-space(${r4_mba_loc_answer}) = 'MBA BLOCK'";
 
   survey.push({
     type: 'note',
-    name: 'mba_arrival_note',
-    label: '🏃 PROCEED TO MBA BLOCK\n\nReport immediately to the MBA station and meet the volunteer to receive your arrival verification code.\n\nEnter code in caps',
-    hint: 'Meet volunteer at MBA station.'
+    name: 'r4_mba_proceed_note',
+    label: '🏃 Correct! Proceed to the location identified by your answer and look for the physical challenge.\n\nEnter code in caps',
+    hint: 'Proceed to the location and ask volunteer for start code.',
+    relevant: r4LocGuessed
   });
 
   survey.push({
     type: 'text',
     name: 'r4_mba_start_code',
-    label: 'Enter MBA Volunteer Arrival Code\nEnter code in caps',
+    label: 'Enter START CODE from Volunteer (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MONEY-BROTHA'",
-    constraint_message: '❌ Incorrect code. Enter MONEY-BROTHA in CAPS provided by the volunteer.'
+    required_message: '❌ START CODE is mandatory.',
+    relevant: r4LocGuessed,
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'MONEY_BROTHA' or normalize-space(.) = 'MONEY-BROTHA')",
+    constraint_message: '❌ Incorrect START CODE. Enter MONEY_BROTHA in CAPS provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const mbaArrivalPassed = `${r4MbaLocPassed} and translate(normalize-space(\${r4_mba_start_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MONEY-BROTHA'`;
+  const mbaStartPassed = `${r3QrPassed} and (${r4LocGuessed}) and (normalize-space(\${r4_mba_start_code}) = 'MONEY_BROTHA' or normalize-space(\${r4_mba_start_code}) = 'MONEY-BROTHA')`;
 
   // =============================================================
-  // R4 — MBA PHYSICAL CHALLENGE (RAVI-KISHEN)
+  // ROUND 4 — PHYSICAL CHALLENGE (MBA)
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r4_mba_phy_group',
     label: 'ROUND 4 — PHYSICAL CHALLENGE',
-    relevant: mbaArrivalPassed
+    relevant: mbaStartPassed
   });
 
   survey.push({
     type: 'note',
     name: 'r4_mba_phy_note',
-    label: '📍 ROUND 4: PHYSICAL CHALLENGE (COLOURED CUPS)\n\nReport to the MBA station and complete the 7 coloured paper cups physical coordination challenge under volunteer supervision.\n\nEnter code in caps',
+    label: '📍 ROUND 4: PHYSICAL CHALLENGE\n\nReport to the station and complete the physical challenge under volunteer supervision.\n\nEnter code in caps',
     hint: 'Complete physical challenge with volunteer.'
+  });
+
+  survey.push({
+    type: 'select_one challenge_status_list',
+    name: 'r4_mba_status',
+    label: 'Challenge Status (MANDATORY)',
+    hint: 'Select PASSED once completed with volunteer.',
+    required: 'yes',
+    required_message: '❌ Challenge status selection is mandatory.'
+  });
+
+  survey.push({
+    type: 'note',
+    name: 'r4_mba_not_passed_note',
+    label: '⚠️ Please follow the organizer\'s instructions before continuing.',
+    hint: 'Complete the physical challenge as instructed.',
+    relevant: "${r4_mba_status} = 'not_passed'"
   });
 
   survey.push({
     type: 'image',
     name: 'r4_mba_phy_photo',
-    label: '📸 Upload Photo of Physical Challenge Completion\nPhoto upload is mandatory',
+    label: '📸 Upload Photo of Physical Challenge Completion (MANDATORY)\nPhoto upload is mandatory',
     hint: 'Take a clear photo of your team completing the physical challenge.',
-    required: 'yes'
+    required: 'yes',
+    required_message: '❌ Challenge photo upload is mandatory.',
+    relevant: "${r4_mba_status} = 'passed'"
   });
 
   survey.push({
     type: 'text',
     name: 'r4_mba_phy_code',
-    label: 'Enter Volunteer Clearance Code\nEnter code in caps',
+    label: 'Enter Volunteer Completion Code (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'RAVI-KISHEN'",
+    required_message: '❌ Volunteer completion code is mandatory.',
+    relevant: "${r4_mba_status} = 'passed'",
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'RAVI-KISHEN' or normalize-space(.) = 'RAVI_KISHEN')",
     constraint_message: '❌ Incorrect code. Enter RAVI-KISHEN in CAPS provided by the volunteer.'
   });
 
@@ -934,76 +1021,99 @@ function buildSurvey() {
     type: 'end_group'
   });
 
-  const r4PhyPassed = `${mbaArrivalPassed} and translate(normalize-space(\${r4_mba_phy_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'RAVI-KISHEN' and \${r4_mba_phy_photo} != ''`;
+  const r4PhyPassed = `${mbaStartPassed} and \${r4_mba_status} = 'passed' and (normalize-space(\${r4_mba_phy_code}) = 'RAVI-KISHEN' or normalize-space(\${r4_mba_phy_code}) = 'RAVI_KISHEN') and \${r4_mba_phy_photo} != ''`;
 
   // =============================================================
-  // FINAL PUZZLES: AUDITORIUM & STAGE RIDDLES
+  // FINAL ROUND: AUDITORIUM & STAGE RIDDLES & GRAND FINALE
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'final_puzzles_group',
-    label: 'FINAL PUZZLES',
+    label: 'FINAL ROUND',
     relevant: r4PhyPassed
   });
 
   survey.push({
     type: 'note',
     name: 'final_audi_stage_intro',
-    label: '🏛️ FINAL CHALLENGES\n\nProceed to the location and solve the two final riddles!\n\nEnter code in caps',
-    hint: 'Solve the final riddles.'
+    label: '🏛️ FINAL ROUND — RIDDLES\n\nSolve the two final riddles to reveal the final destination!\n\nEnter code in caps',
+    hint: 'Solve the final riddles in CAPS.'
   });
 
   survey.push({
     type: 'text',
     name: 'final_riddle1_answer',
-    label: '🧩 RIDDLE 1:\n\"I am a place of darkness until the lights ignite. I hold hundreds of red seats, host grand orientations, and echo with voices through microphones. Where are you standing?\"\nEnter code in caps',
+    label: `🧩 AUDITORIUM RIDDLE: (MANDATORY)
+"I am empty, yet I am built for crowds.
+I have a stage, but no actors of my own.
+I have countless seats, but none are meant to sleep.
+When a voice rises before me, silence falls behind me.
+When the lights awaken, all eyes face one direction.
+What am I?"
+Enter code in caps`,
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AUDITORIUM' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AUDI'",
-    constraint_message: '❌ Incorrect answer. Solve the riddle and enter in CAPS.'
+    required_message: '❌ Solving Riddle 1 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'AUDITORIUM' or normalize-space(.) = 'AUDI')",
+    constraint_message: '❌ Incorrect answer. Solve Riddle 1 and enter in UPPERCASE (CAPS ONLY).'
   });
 
-  const finalRiddle1Passed = `${r4PhyPassed} and (translate(normalize-space(\${final_riddle1_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AUDITORIUM' or translate(normalize-space(\${final_riddle1_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AUDI')`;
+  const finalRiddle1Passed = `${r4PhyPassed} and (normalize-space(\${final_riddle1_answer}) = 'AUDITORIUM' or normalize-space(\${final_riddle1_answer}) = 'AUDI')`;
 
   survey.push({
     type: 'text',
     name: 'final_riddle2_stage_answer',
-    label: '🎭 RIDDLE 2:\n\"I am elevated above the crowd, where performers stand and spotlights shine. Underneath my wooden floor or behind the curtains, the ultimate secret waits. What am I?\"\nEnter code in caps',
+    label: `🎭 STAGE RIDDLE: (MANDATORY)
+"I am elevated above the crowd, where performers stand and spotlights shine.
+Underneath my wooden floor or behind the curtains, the ultimate secret waits.
+What am I?"
+Enter code in caps`,
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Solving Riddle 2 is mandatory.',
     relevant: finalRiddle1Passed,
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'STAGE'",
-    constraint_message: '❌ Incorrect answer. Solve the stage riddle and enter in CAPS.'
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'STAGE'",
+    constraint_message: '❌ Incorrect answer. Solve Riddle 2 and enter in UPPERCASE (CAPS ONLY).'
   });
 
-  const finalRiddle2Passed = `${finalRiddle1Passed} and translate(normalize-space(\${final_riddle2_stage_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'STAGE'`;
+  const finalRiddle2Passed = `${finalRiddle1Passed} and normalize-space(\${final_riddle2_stage_answer}) = 'STAGE'`;
+
+  survey.push({
+    type: 'note',
+    name: 'final_proceed_stage_note',
+    label: '🏃 Proceed to the final location identified!\n\nSolve the final puzzle at the stage, upload a photo of the completed puzzle, and get your clearance code from the Chief Judge!\n\nEnter code in caps',
+    hint: 'Go to the stage to solve the final puzzle.',
+    relevant: finalRiddle2Passed
+  });
 
   survey.push({
     type: 'image',
     name: 'final_solved_puzzle_photo',
-    label: '📸 Upload Photo of Your Solved Puzzle\nPhoto upload is mandatory',
+    label: '📸 Upload Photo of Your Solved Puzzle (MANDATORY)\nPhoto upload is mandatory',
     hint: 'Take a clear photo of your team\'s completed/solved puzzle.',
     required: 'yes',
+    required_message: '❌ Photo of the solved puzzle is mandatory.',
     relevant: finalRiddle2Passed
   });
 
   survey.push({
     type: 'text',
     name: 'final_stage_volunteer_code',
-    label: 'Enter Final Volunteer Clearance Code\nEnter code in caps',
+    label: 'Enter Final Volunteer Clearance Code (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Final clearance code is mandatory.',
     relevant: finalRiddle2Passed,
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH4' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH1' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH2' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH3'",
-    constraint_message: '❌ Incorrect code. Enter the code in CAPS provided by the Chief Judge.'
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'FINAL-PATH4' or normalize-space(.) = 'FINAL-PATH1' or normalize-space(.) = 'FINAL-PATH2' or normalize-space(.) = 'FINAL-PATH3')",
+    constraint_message: '❌ Incorrect code. Enter the code in UPPERCASE (CAPS ONLY) provided by the Chief Judge.'
   });
 
   survey.push({
     type: 'note',
     name: 'final_congratulations_screen',
-    label: '🎉 CONGRATULATIONS! PATH 4 COMPLETED.\n\n🏆 You have successfully conquered every challenge, puzzle, and cipher on PATH 4!\n\nShow this completion screen immediately to the Chief Judge to lock in your finishing timestamp and rank!',
-    hint: 'Report to Chief Judge to finalize completion.',
-    relevant: `${finalRiddle2Passed} and (translate(normalize-space(\${final_stage_volunteer_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH4' or translate(normalize-space(\${final_stage_volunteer_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH1' or translate(normalize-space(\${final_stage_volunteer_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH2' or translate(normalize-space(\${final_stage_volunteer_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH3') and \${final_solved_puzzle_photo} != ''`
+    label: '🎉 CONGRATULATIONS! YOU HAVE COMPLETED PATH 4!\n\n🏆 You have successfully entered the final clearance code!\n\n🔔 NOW RUN TO GO RING THE BELL TO WIN THE GAME! 🔔🏃💨',
+    hint: 'Run to ring the bell to claim victory!',
+    relevant: `${finalRiddle2Passed} and (normalize-space(\${final_stage_volunteer_code}) = 'FINAL-PATH4' or normalize-space(\${final_stage_volunteer_code}) = 'FINAL-PATH1' or normalize-space(\${final_stage_volunteer_code}) = 'FINAL-PATH2' or normalize-space(\${final_stage_volunteer_code}) = 'FINAL-PATH3') and \${final_solved_puzzle_photo} != ''`
   });
 
   survey.push({
@@ -1018,12 +1128,42 @@ function buildChoices() {
     {
       list_name: 'cse_variant_list',
       name: 'var1',
-      label: 'Variant 1: Algo Relay + Binary Breaker'
+      label: 'Variant A: Logical Challenge 1 (Algo Relay + Cyber Detective)'
     },
     {
       list_name: 'cse_variant_list',
       name: 'var2',
-      label: 'Variant 2: Pattern Hack + Bug Hunter'
+      label: 'Variant B: Logical Challenge 2 (Bug Hunter + Tech Detective)'
+    },
+    {
+      list_name: 'mcq_opts',
+      name: 'a',
+      label: 'A'
+    },
+    {
+      list_name: 'mcq_opts',
+      name: 'b',
+      label: 'B'
+    },
+    {
+      list_name: 'mcq_opts',
+      name: 'c',
+      label: 'C'
+    },
+    {
+      list_name: 'mcq_opts',
+      name: 'd',
+      label: 'D'
+    },
+    {
+      list_name: 'challenge_status_list',
+      name: 'passed',
+      label: 'PASSED'
+    },
+    {
+      list_name: 'challenge_status_list',
+      name: 'not_passed',
+      label: 'NOT PASSED'
     }
   ];
 }
@@ -1032,11 +1172,141 @@ function buildSettings() {
   return [
     {
       form_title: 'FINAL CLUE — PATH 4',
-      form_id: 'final_clue_path4',
-      version: '20260902',
+      form_id: 'PATH4_TREASURE_HUNT',
+      version: '20260904',
       default_language: 'default'
     }
   ];
+}
+
+function buildAnswerKeyWorkbook() {
+  const data = [
+    {
+      'Stage / Round': 'Registration',
+      'Location': 'Start Desk',
+      'Challenge / Item': 'Team Setup & Instructions',
+      'Question / Prompt': 'Rules, Qualification Rules, Team Name, Player ID & Photo',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'TEAM-XX (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex(., \'^[A-Z0-9\\-_ ]+$\')',
+      'Mandatory Upload': 'Yes (Team Photo MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 1 (R1)',
+      'Location': 'OLD CANTEEN',
+      'Challenge / Item': 'Object Finding (Cat Board)',
+      'Question / Prompt': 'Find assigned Cat Board object, upload photo, enter volunteer code',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'MEOW-BOW-4 (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'MEOW-BOW-4\'',
+      'Mandatory Upload': 'Yes (Discovered Object Photo MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 2 Location Clue',
+      'Location': 'In-App Emoji Math',
+      'Challenge / Item': 'Emoji Math Riddle (CSE-02)',
+      'Question / Prompt': '🍎+🍎=10, 🍎+🍌=7, 🍌+🍇=6 -> 🍇+🍎=? -> Result: 9 -> Start Code: CSE-START',
+      'Media Attached': 'None',
+      'Expected Answer / Code': '9 & Start Code: CSE-START (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Integer = 9 & normalize-space(.) = \'CSE-START\'',
+      'Mandatory Upload': 'No (Input Mandatory)'
+    },
+    {
+      'Stage / Round': 'Round 2 (Var A)',
+      'Location': 'CSE',
+      'Challenge / Item': 'Variant A: Logical Challenge 1',
+      'Question / Prompt': 'Algo Relay (10 MCQs) + Cyber Detective (10 MCQs) + Photo + Code',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'Algo: B,B,C,C,B,A,B,C,C,B | Cyber: A,D,C,D,B,C,B,A,C,B -> Code: CSE-EINSTEIN-4',
+      'Verification / Constraint Rule': 'MCQ selections & Code regex & normalize-space(.) = \'CSE-EINSTEIN-4\'',
+      'Mandatory Upload': 'Yes (Station Photo MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 2 (Var B)',
+      'Location': 'CSE',
+      'Challenge / Item': 'Variant B: Logical Challenge 2',
+      'Question / Prompt': 'Bug Hunter (10 MCQs) + Tech Detective (10 MCQs) + Photo + Code',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'Bug: A,A,B,B,A,B,A,A,A,A | Tech: B,A,B,A,B,B,D,A,B,A -> Code: CSE-ZUCKER-4',
+      'Verification / Constraint Rule': 'MCQ selections & Code regex & normalize-space(.) = \'CSE-ZUCKER-4\'',
+      'Mandatory Upload': 'Yes (Station Photo MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 3 Location Clue',
+      'Location': 'In-App Morse Code',
+      'Challenge / Item': 'CYB-01 Morse Code Message (morse.jpeg)',
+      'Question / Prompt': '--. --- / - --- / -.-. -.-- -... . .-. -> Destination: GO TO CYBER',
+      'Media Attached': 'morse.jpeg',
+      'Expected Answer / Code': 'GO TO CYBER (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'GO TO CYBER\'',
+      'Mandatory Upload': 'No (Input Mandatory)'
+    },
+    {
+      'Stage / Round': 'Round 3 Checkpoint (R3)',
+      'Location': 'CYBER',
+      'Challenge / Item': 'QR Hunt',
+      'Question / Prompt': 'Scan hidden QR code in CYBER, upload photo',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'Barcode: JAMES_BOND (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Scanned barcode = \'JAMES_BOND\'',
+      'Mandatory Upload': 'Yes (Barcode Scan & Photo MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 4 Location Clue',
+      'Location': 'In-App Riddle',
+      'Challenge / Item': 'MBA Location Riddle',
+      'Question / Prompt': 'Numbers become stories... Stories become strategies... Managers learn -> Destination: MBA -> Start Code: MONEY_BROTHA',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'MBA & Start Code: MONEY_BROTHA (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'MBA\' & \'MONEY_BROTHA\'',
+      'Mandatory Upload': 'No (Inputs Mandatory)'
+    },
+    {
+      'Stage / Round': 'Round 4 Checkpoint (R4)',
+      'Location': 'MBA',
+      'Challenge / Item': 'Physical Challenge',
+      'Question / Prompt': 'Complete physical challenge with volunteer, select PASSED, upload photo, enter finish code RAVI-KISHEN',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'Status: PASSED, Finish Code: RAVI-KISHEN (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Status = PASSED & normalize-space(.) = \'RAVI-KISHEN\'',
+      'Mandatory Upload': 'Yes (Challenge Photo MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Final Round (Riddle 1)',
+      'Location': 'Main Auditorium',
+      'Challenge / Item': 'Auditorium Riddle',
+      'Question / Prompt': 'Solve riddle: Empty yet built for crowds, seats not meant to sleep...',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'AUDITORIUM (or AUDI) (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'AUDITORIUM\' or \'AUDI\'',
+      'Mandatory Upload': 'No (Input Mandatory)'
+    },
+    {
+      'Stage / Round': 'Final Round (Riddle 2)',
+      'Location': 'Main Auditorium Stage',
+      'Challenge / Item': 'Stage Riddle',
+      'Question / Prompt': 'Solve stage riddle: Elevated above crowd, wooden floor...',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'STAGE (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'STAGE\'',
+      'Mandatory Upload': 'No (Input Mandatory)'
+    },
+    {
+      'Stage / Round': 'Grand Finale',
+      'Location': 'Main Auditorium Stage',
+      'Challenge / Item': 'Solved Puzzle & Bell Ring',
+      'Question / Prompt': 'Solve puzzle, upload photo of solved puzzle, enter clearance code FINAL-PATH4, run to ring the bell to win',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'FINAL-PATH4 (UPPERCASE ONLY) -> Ring Bell',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'FINAL-PATH4\'',
+      'Mandatory Upload': 'Yes (Solved Puzzle Photo MANDATORY)'
+    }
+  ];
+
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(data);
+  XLSX.utils.book_append_sheet(wb, ws, 'PATH4_MASTER_KEY');
+  return wb;
 }
 
 function buildAnswerKeyPdfHtml() {
@@ -1058,19 +1328,19 @@ function buildAnswerKeyPdfHtml() {
     font-size: 8.5pt;
   }
   .header {
-    border-bottom: 3px solid #b91c1c;
+    border-bottom: 3px solid #d97706;
     padding-bottom: 6px;
     margin-bottom: 12px;
   }
   .header h1 {
-    color: #991b1b;
+    color: #b45309;
     margin: 0 0 3px 0;
     font-size: 15pt;
     letter-spacing: 0.4px;
   }
   .header .badge {
     display: inline-block;
-    background: #b91c1c;
+    background: #d97706;
     color: #ffffff;
     padding: 2px 8px;
     border-radius: 4px;
@@ -1084,13 +1354,13 @@ function buildAnswerKeyPdfHtml() {
     margin-bottom: 12px;
   }
   .meta-card {
-    background: #fef2f2;
+    background: #fffbeb;
     padding: 6px 8px;
     border-radius: 4px;
-    border-left: 3px solid #ef4444;
+    border-left: 3px solid #f59e0b;
   }
   .meta-card strong {
-    color: #991b1b;
+    color: #b45309;
     display: block;
     font-size: 7.5pt;
     text-transform: uppercase;
@@ -1100,7 +1370,7 @@ function buildAnswerKeyPdfHtml() {
     font-weight: 600;
   }
   .section-title {
-    background: #991b1b;
+    background: #b45309;
     color: #ffffff;
     padding: 4px 8px;
     font-size: 9.5pt;
@@ -1141,16 +1411,6 @@ function buildAnswerKeyPdfHtml() {
     font-weight: bold;
     font-size: 8pt;
   }
-  .placeholder-badge {
-    display: inline-block;
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fcd34d;
-    padding: 1px 6px;
-    border-radius: 3px;
-    font-weight: bold;
-    font-size: 7.5pt;
-  }
   .station-card {
     border: 1px solid #94a3b8;
     border-radius: 4px;
@@ -1161,12 +1421,20 @@ function buildAnswerKeyPdfHtml() {
   }
   .station-card h3 {
     margin: 0 0 4px 0;
-    color: #991b1b;
+    color: #b45309;
     font-size: 9pt;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #e2e8f0;
     padding-bottom: 3px;
+  }
+  .rules-box {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 8pt;
   }
 </style>
 </head>
@@ -1174,27 +1442,27 @@ function buildAnswerKeyPdfHtml() {
 
 <div class="header">
   <div style="float: right; text-align: right;">
-    <span class="badge">ORGANIZER MASTER ANSWER KEY</span><br>
-    <small style="color: #64748b;">PATH 4 &bull; FOR ORGANIZER USE ONLY</small>
+    <span class="badge">PATH 4 OFFICIAL MASTER KEY</span><br>
+    <small style="color: #64748b;">FINAL CLUE 2026</small>
   </div>
-  <h1>PATH 4 &bull; TREASURE HUNT MASTER ANSWER KEY</h1>
+  <h1>FINAL CLUE &bull; ROUTE 4 / PATH 4</h1>
   <div style="font-size: 9pt; color: #475569; font-weight: 600;">
-    CONFIDENTIAL ORGANIZER KEY &bull; PROGRESSION: OLD CANTEEN &rarr; CSE &rarr; CYBER &rarr; MBA &rarr; AUDI
+    CONFIDENTIAL ORGANIZER MASTER KEY &bull; PROGRESSION: OLD CANTEEN &rarr; CSE &rarr; CYBER &rarr; MBA &rarr; AUDITORIUM
   </div>
 </div>
 
 <div class="meta-grid">
   <div class="meta-card">
     <strong>Starting Station</strong>
-    <span>Old Canteen</span>
+    <span>OLD CANTEEN</span>
   </div>
   <div class="meta-card">
     <strong>Final Station</strong>
     <span>Main Auditorium Stage</span>
   </div>
   <div class="meta-card">
-    <strong>Input Rule</strong>
-    <span>CAPS ONLY (Case-Insensitive Validated)</span>
+    <strong>Input Constraints</strong>
+    <span>STRICT UPPERCASE (CAPS ONLY) &bull; 100% MANDATORY</span>
   </div>
   <div class="meta-card">
     <strong>Media Assets</strong>
@@ -1202,186 +1470,125 @@ function buildAnswerKeyPdfHtml() {
   </div>
 </div>
 
+<div class="rules-box">
+  <strong>🏆 Path 4 Team Qualification Rules:</strong><br>
+  • Round 1 ➔ Round 2: First 25 teams proceed &bull; Round 2 ➔ Round 3: Next 15 teams proceed &bull; Round 3 ➔ Round 4: Next 7 teams proceed &bull; Round 4 ➔ Round 5: Next 2 teams proceed to the Grand Finale!<br>
+  <strong>🔒 Strict Policy:</strong> Every question, photo upload, barcode scan, and code entry is <strong>100% MANDATORY</strong> and requires <strong>STRICT UPPERCASE ONLY</strong>.
+</div>
+
 <div class="section-title">1. Master Station-by-Station Directory</div>
 
 <table>
   <thead>
     <tr>
-      <th style="width: 12%;">Round</th>
+      <th style="width: 14%;">Round / Stage</th>
       <th style="width: 16%;">Location</th>
-      <th style="width: 26%;">Challenge Description</th>
-      <th style="width: 26%;">Question / Decoded Clue</th>
+      <th style="width: 35%;">Clue / Question Description</th>
       <th style="width: 20%;">Correct Answer / Code</th>
+      <th style="width: 15%;">Mandatory Upload</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>Registration</strong></td>
       <td>Start Desk</td>
-      <td>START</td>
-      <td>Team Name, Team ID &amp; Team Photo</td>
-      <td><em>Team Info + 📸 Photo</em></td>
+      <td>Team Name, Player ID &amp; Team Verification Photo</td>
+      <td><em>Participant Info</em></td>
+      <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
-      <td><strong>R1</strong></td>
+      <td><strong>Round 1 (R1)</strong></td>
       <td>OLD CANTEEN</td>
-      <td>🧩 Object (cat board)</td>
-      <td>Initial object finding at Old Canteen</td>
-      <td><span class="code-badge">MEOW-BOW-4</span> + 📸 Photo</td>
+      <td>Find Cat Board object &amp; verify with volunteer</td>
+      <td><span class="code-badge">MEOW-BOW-4</span></td>
+      <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
-      <td><strong>R2 Clue</strong></td>
-      <td>Clue &rarr; CSE</td>
-      <td>CSE-02 Emoji Math Riddle</td>
-      <td>🍎+🍎=10, 🍎+🍌=7, 🍌+🍇=6 &rarr; 🍇+🍎=?</td>
-      <td><strong>9</strong> &rarr; <strong>CSE</strong></td>
+      <td><strong>R2 Location Clue</strong></td>
+      <td>In-App</td>
+      <td>Emoji Math: 🍎+🍎=10, 🍎+🍌=7, 🍌+🍇=6 -> 🍇+🍎=?</td>
+      <td>Result: <code>9</code><br>Start Code: <span class="code-badge">CSE-START</span></td>
+      <td>Mandatory Input</td>
     </tr>
     <tr>
-      <td><strong>CSE Start</strong></td>
+      <td><strong>R2 Mini Challenge</strong></td>
       <td>CSE</td>
-      <td>Start Code</td>
-      <td>Arrival verification at CSE block</td>
-      <td><span class="code-badge">CSE-START</span></td>
+      <td>
+        &bull; <strong>Variant A:</strong> Algo Relay (10 MCQs) + Cyber Detective (10 MCQs) &rarr; Code: <span class="code-badge">CSE-EINSTEIN-4</span><br>
+        &bull; <strong>Variant B:</strong> Bug Hunter (10 MCQs) + Tech Detective (10 MCQs) &rarr; Code: <span class="code-badge">CSE-ZUCKER-4</span>
+      </td>
+      <td><span class="code-badge">CSE-EINSTEIN-4</span> / <span class="code-badge">CSE-ZUCKER-4</span></td>
+      <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
-      <td><strong>R2 Variant 1</strong></td>
-      <td>CSE</td>
-      <td>Algo Relay + Binary Breaker</td>
-      <td>10 Algo Tasks + 10 Binary Questions + 📸 Photos</td>
-      <td><span class="code-badge">CSE-EINSTEIN-4</span></td>
-    </tr>
-    <tr>
-      <td><strong>R2 Variant 2</strong></td>
-      <td>CSE</td>
-      <td>Pattern Hack + Bug Hunter</td>
-      <td>10 Pattern Questions + 9 Debug Tasks + 📸 Photos</td>
-      <td><span class="code-badge">CSE-ZUCKERBERG-4</span></td>
-    </tr>
-    <tr>
-      <td><strong>R3 Clue</strong></td>
+      <td><strong>R3 Location Clue</strong></td>
       <td>In-App (<code>morse.jpeg</code>)</td>
-      <td>CYB-01 Morse Code</td>
-      <td><code>--. ---</code> / <code>- ---</code> / <code>-.-. -.-- -... . .-.</code></td>
-      <td><strong>GO TO CYBER</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Cyber Start</strong></td>
-      <td>CYBER</td>
-      <td>Start Code</td>
-      <td>Arrival verification at Cyber block</td>
-      <td><span class="code-badge">CYBER-THIEF</span></td>
+      <td>Morse Code: <code>--. --- / - --- / -.-. -.-- -... . .-.</code></td>
+      <td>Destination: <code>GO TO CYBER</code></td>
+      <td>Mandatory Input</td>
     </tr>
     <tr>
       <td><strong>R3 QR Hunt</strong></td>
       <td>CYBER</td>
-      <td>QR Hunt</td>
-      <td>Physical QR code scan at Cyber station</td>
-      <td><span class="code-badge">JAMES_BOND</span> + 📸 Photo</td>
+      <td>Physically search CYBER for hidden QR code and scan</td>
+      <td>Barcode: <span class="code-badge">JAMES_BOND</span></td>
+      <td>📸 Photo + Scan</td>
     </tr>
     <tr>
-      <td><strong>R4 Clue</strong></td>
-      <td>Clue &rarr; MBA</td>
-      <td>MBA-05 Wisdom, Below &amp; Beyond</td>
-      <td>Wisdom giver + Look below + Career step</td>
-      <td><strong>MBA</strong></td>
+      <td><strong>R4 Location Clue</strong></td>
+      <td>In-App</td>
+      <td>Wisdom + Look below + Next career step</td>
+      <td>Destination: <code>MBA</code><br>Start Code: <span class="code-badge">MONEY_BROTHA</span></td>
+      <td>Mandatory Inputs</td>
     </tr>
     <tr>
-      <td><strong>MBA Start</strong></td>
+      <td><strong>Round 4 (R4)</strong></td>
       <td>MBA</td>
-      <td>Start Code</td>
-      <td>Arrival verification at MBA block</td>
-      <td><span class="code-badge">MONEY-BROTHA</span></td>
+      <td>Complete physical challenge with volunteer</td>
+      <td>Status: <code>PASSED</code><br>Finish Code: <span class="code-badge">RAVI-KISHEN</span></td>
+      <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
-      <td><strong>R4 Physical</strong></td>
-      <td>MBA</td>
-      <td>Physical (7 Coloured Cups)</td>
-      <td>Coloured cups physical coordination trial</td>
-      <td><span class="code-badge">RAVI-KISHEN</span> + 📸 Photo</td>
-    </tr>
-    <tr>
-      <td><strong>Final Stage 1</strong></td>
-      <td>AUDI</td>
-      <td>AUDI-01</td>
-      <td>Auditorium Riddle: Dark hall, red seats, mic, orientations</td>
-      <td><strong>AUDITORIUM</strong> (or <strong>AUDI</strong>)</td>
-    </tr>
-    <tr>
-      <td><strong>Final Stage 2</strong></td>
+      <td><strong>Final Stage</strong></td>
       <td>AUDI Stage</td>
-      <td>AUDI-02</td>
-      <td>Stage Riddle: Elevated platform, spotlights, curtains</td>
-      <td><strong>STAGE</strong> + 📸 Solved Puzzle Photo<br>Code: <span class="code-badge">FINAL-PATH4</span></td>
-    </tr>
-    <tr>
-      <td><strong>Completion</strong></td>
-      <td>AUDI Stage</td>
-      <td>FINISH</td>
-      <td>Confirmation Screen</td>
-      <td><strong>CONGRATULATIONS! PATH 4 COMPLETED.</strong></td>
+      <td>
+        Riddle 1 (Dark hall, red seats): <code>AUDITORIUM</code><br>
+        Riddle 2 (Elevated platform): <code>STAGE</code><br>
+        Solve puzzle &rarr; Enter Code &rarr; Ring the Bell! 🔔
+      </td>
+      <td><span class="code-badge">FINAL-PATH4</span><br>&rarr; Ring Bell! 🔔</td>
+      <td>📸 Mandatory Photo of Solved Puzzle</td>
     </tr>
   </tbody>
 </table>
 
-<div class="section-title">2. Binary Breaker &amp; Pattern Hack Master Keys</div>
-
-<table>
-  <thead>
-    <tr>
-      <th style="width: 50%;">Binary Breaker (Variant 1)</th>
-      <th style="width: 50%;">Pattern Hack (Variant 2)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <strong>Q1:</strong> <code>00010 00101 00111</code> &rarr; <strong>BEG</strong><br>
-        <strong>Q2:</strong> <code>01000 00001 00110 00110</code> &rarr; <strong>HALL</strong><br>
-        <strong>Q3:</strong> Encode "CODE" &rarr; <strong>00011 01111 00100 00101</strong><br>
-        <strong>Q4:</strong> Decimal 13 to Binary &rarr; <strong>1101</strong><br>
-        <strong>Q5:</strong> Binary 10110 to Decimal &rarr; <strong>22</strong><br>
-        <strong>Q6:</strong> 1011 + 0110 &rarr; <strong>10001</strong><br>
-        <strong>Q7:</strong> Odd one out &rarr; <strong>00101</strong><br>
-        <strong>Q8:</strong> ASCII bytes 72 73 &rarr; <strong>HI</strong><br>
-        <strong>Q9:</strong> <code>01000 00101 00001 01100 01100</code> &rarr; <strong>HEALL</strong><br>
-        <strong>Q10:</strong> <code>01000 00001 00110 00100 01001 01010</code> &rarr; <strong>HAFDIJ</strong>
-      </td>
-      <td>
-        <strong>Q1:</strong> 2, 4, 6, 8, ? &rarr; <strong>10</strong><br>
-        <strong>Q2:</strong> 3, 6, 12, 24, ? &rarr; <strong>48</strong><br>
-        <strong>Q3:</strong> 1, 4, 9, 16, 25, ? &rarr; <strong>36</strong><br>
-        <strong>Q4:</strong> 1, 1, 2, 3, 5, 8, ? &rarr; <strong>13</strong><br>
-        <strong>Q5:</strong> A, C, F, J, O, ? &rarr; <strong>U</strong> (+2, +3, +4, +5, +6)<br>
-        <strong>Q6:</strong> 6 &rarr; <strong>42</strong> (n × (n+1))<br>
-        <strong>Q7:</strong> 1A, 2B, 4D, 8H, 16P, ? &rarr; <strong>32F</strong><br>
-        <strong>Q8:</strong> 2, 3, 5, 9, 17, ? &rarr; <strong>33</strong> (×2 − 1)<br>
-        <strong>Q9:</strong> ★=10, ▲=3, ■=4 &rarr; 10 + 3×4 = <strong>22</strong><br>
-        <strong>Q10:</strong> 1, 2, 4, 8, 16 &rarr; <strong>POWERS OF 2</strong>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="section-title">3. Volunteer Station Instructions &amp; Codes</div>
+<div class="section-title">2. Volunteer Station Instructions &amp; Verification Procedures</div>
 
 <div class="station-card">
-  <h3><span>CSE Station: Mini Challenges</span><span class="code-badge">START: CSE-START &bull; V1: CSE-EINSTEIN-4 &bull; V2: CSE-ZUCKERBERG-4</span></h3>
-  <div>Verify arrival with <code>CSE-START</code>. Administer chosen variant (Variant 1: Algo Relay + Binary Breaker OR Variant 2: Pattern Hack + Bug Hunter). Provide respective clearance code upon verified completion.</div>
+  <h3><span>OLD CANTEEN Station: Object Finding</span><span class="code-badge">CODE: MEOW-BOW-4</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Participants locate the assigned Cat Board object. Once verified with photo, provide code <code>MEOW-BOW-4</code>.</div>
 </div>
 
 <div class="station-card">
-  <h3><span>CYBER Station: QR Hunt (Anushree &amp; Koushik)</span><span class="code-badge">START: CYBER-THIEF &bull; SCANNED QR: JAMES_BOND</span></h3>
-  <div>Verify arrival with <code>CYBER-THIEF</code>. Ensure QR code with payload <code>JAMES_BOND</code> is scanned and location photo uploaded.</div>
+  <h3><span>CSE Station: Arrival &amp; Mini-Challenges</span><span class="code-badge">START: CSE-START &bull; VAR A: CSE-EINSTEIN-4 &bull; VAR B: CSE-ZUCKER-4</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Teams arrive at CSE. Provide start code <code>CSE-START</code>.
+  <br>&bull; <strong>Variant A (Logical Challenge 1):</strong> Team completes Algo Relay (10) + Cyber Detective (10) and enters <code>CSE-EINSTEIN-4</code>.
+  <br>&bull; <strong>Variant B (Logical Challenge 2):</strong> Team completes Bug Hunter (10) + Tech Detective (10) and enters <code>CSE-ZUCKER-4</code>.</div>
 </div>
 
 <div class="station-card">
-  <h3><span>MBA Station: 7 Coloured Cups Challenge (Pruthvi &amp; Sanchith)</span><span class="code-badge">START: MONEY-BROTHA &bull; CLEARANCE: RAVI-KISHEN</span></h3>
-  <div>Verify arrival with <code>MONEY-BROTHA</code>. Administer the 7 coloured paper cups coordination game. Provide clearance code <code>RAVI-KISHEN</code> after photo upload.</div>
+  <h3><span>CYBER Station: QR Hunt</span><span class="code-badge">SCANNED QR: JAMES_BOND</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Ensure the physical QR code with payload <code>JAMES_BOND</code> is hidden in the CYBER area. Participants scan it using the in-app barcode scanner.</div>
 </div>
 
 <div class="station-card">
-  <h3><span>Main Auditorium Stage: Grand Finale</span><span class="code-badge">CODE: FINAL-PATH4</span></h3>
-  <div>Teams solve Riddle 1 (<code>AUDITORIUM</code>) and Riddle 2 (<code>STAGE</code>), upload a clear photo of their solved puzzle sheet, and present to Chief Judges for code <code>FINAL-PATH4</code>!</div>
+  <h3><span>MBA Station: Physical Challenge</span><span class="code-badge">START: MONEY_BROTHA &bull; FINISH: RAVI-KISHEN</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Provide start code <code>MONEY_BROTHA</code>. Supervise the physical challenge. Upon successful completion and photo upload, provide finish code <code>RAVI-KISHEN</code>.</div>
+</div>
+
+<div class="station-card">
+  <h3><span>Main Auditorium Stage: Grand Finale</span><span class="code-badge">CODE: FINAL-PATH4 &bull; 🔔 RING THE BELL</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Teams solve Riddle 1 (<code>AUDITORIUM</code>) and Riddle 2 (<code>STAGE</code>), upload a clear photo of their solved puzzle sheet, and receive clearance code <code>FINAL-PATH4</code> from Chief Judges before running to ring the victory bell!</div>
 </div>
 
 </body>
@@ -1399,11 +1606,11 @@ function main() {
   // If morse.jpeg exists in route4Dir, copy to mediaDir
   const sourceImg = path.join(route4Dir, 'morse.jpeg');
   const destImg = path.join(mediaDir, 'morse.jpeg');
-  if (fs.existsSync(sourceImg)) {
+  if (fs.existsSync(sourceImg) && !fs.existsSync(destImg)) {
     fs.copyFileSync(sourceImg, destImg);
   }
 
-  console.log('Generating PATH4_FINAL_ODK.xlsx (Updated with morse.jpeg and clean puzzle prompts)...');
+  console.log('Generating PATH4_FINAL_ODK.xlsx with STRICT UPPERCASE ONLY & 100% MANDATORY enforcement...');
   const survey = buildSurvey();
   const choices = buildChoices();
   const settings = buildSettings();
@@ -1417,6 +1624,12 @@ function main() {
   XLSX.writeFile(wb, xlsxPath);
   console.log(`Successfully created: ${xlsxPath}`);
 
+  console.log('Generating PATH4_ANSWER_KEY.xlsx...');
+  const keyWb = buildAnswerKeyWorkbook();
+  const keyPath = path.join(route4Dir, 'PATH4_ANSWER_KEY.xlsx');
+  XLSX.writeFile(keyWb, keyPath);
+  console.log(`Successfully created: ${keyPath}`);
+
   console.log('Generating PATH4_ANSWER_KEY.pdf...');
   const pdfHtml = buildAnswerKeyPdfHtml();
   const pdfPath = path.join(route4Dir, 'PATH4_ANSWER_KEY.pdf');
@@ -1425,9 +1638,9 @@ function main() {
 
   console.log('Packaging PATH4_COMPLETE_PACKAGE.zip and PATH4_MEDIA.zip...');
   execSync(`powershell -NoProfile -Command "Compress-Archive -Path '${mediaDir}\\*' -DestinationPath '${route4Dir}\\PATH4_MEDIA.zip' -Force"`);
-  execSync(`powershell -NoProfile -Command "Compress-Archive -Path '${route4Dir}\\PATH4_FINAL_ODK.xlsx', '${route4Dir}\\PATH4_ANSWER_KEY.pdf', '${mediaDir}' -DestinationPath '${route4Dir}\\PATH4_COMPLETE_PACKAGE.zip' -Force"`);
+  execSync(`powershell -NoProfile -Command "Compress-Archive -Path '${route4Dir}\\PATH4_FINAL_ODK.xlsx', '${route4Dir}\\PATH4_ANSWER_KEY.xlsx', '${route4Dir}\\PATH4_ANSWER_KEY.pdf', '${mediaDir}' -DestinationPath '${route4Dir}\\PATH4_COMPLETE_PACKAGE.zip' -Force"`);
 
-  console.log('🎉 PATH 4 PACKAGE REBUILT & PACKAGED SUCCESSFULLY!');
+  console.log('🎉 PATH 4 PACKAGE GENERATED SUCCESSFULLY!');
 }
 
 main();

@@ -1,39 +1,47 @@
 ============================================================
 FINAL CLUE — PATH 1 QA AUDIT REPORT
-ROUTE: ECE -> MECH -> FOOD COURT -> CY -> AUDI
+EVENT: FINAL CLUE — TREASURE HUNT FOR FRESHERS 2026
+ROUTE: ECE -> MECH -> FOOD COURT -> CY -> AUDITORIUM
 MEDIA: engine_sound.mpeg
-R4 CAESAR CIPHER: HDGJW -> CYBER (Shift -5, Examples: F->A, K->F, P->K, Z->U)
+CONSTRAINTS: 100% MANDATORY & STRICT UPPERCASE ONLY
 STATUS: 100% PASS
 ============================================================
 
-1. R4 CAESAR CIPHER AUDIT:
-   • Encrypted ciphertext: HDGJW
-   • Decryption rule: -5 steps backward in alphabet
-   • Shift examples shown in prompt: F->A, K->F, P->K, Z->U (Generic, ZERO leaks)
-   • Target answer CYBER concealed: YES (Strictly in validation constraint)
+1. MANDATORY & UPPERCASE ENFORCEMENT AUDIT:
+   • All questions marked required: 'yes': YES (100%)
+   • Explicit required_message on all questions/uploads: YES
+   • Strict uppercase regex and exact match on all text/code inputs: YES
+   • Lowercase input rejection: YES (Strict validation active)
 
-2. HUMAN SHAPE CHALLENGE AUDIT:
-   • Participants instructed to refer to physical poses page from volunteers: YES
-   • 4 Mandatory photo uploads (1 for each team member pose): YES
+2. ROUND 1 AUDIT:
+   • Hidden object photo mandatory upload: YES
+   • Volunteer clearance code: R1-P1EC (Strict UPPERCASE)
 
-3. CONFIDENTIALITY & NON-DISCLOSURE AUDIT:
-   • Blocks list NOT revealed in form title or introductory screens: YES
-   • Hidden object NOT revealed as vending machine: YES
-   • Codes / Answers NOT leaked in question labels, hints, or notes: YES
-   • Challenge IDs (MEC-05, CYB-02) removed from participant text: YES
-   • "Engineering workshop bay" replaced with "MECH block": YES
+3. ROUND 2 AUDIT:
+   • Audio playback (engine_sound.mpeg) without challenge name: YES
+   • Academic block answers: MECH / MECHANICAL BLOCK / MECH BLOCK (Strict UPPERCASE)
+   • Start code from volunteer: SOUND-PASS (Strict UPPERCASE)
+   • Variant A: 4 mandatory photos one by one + code MECH-PS-1 (Strict UPPERCASE)
+   • Variant B: Completion code ME-PB-1 (Strict UPPERCASE)
 
-4. FLOW & ORDER AUDIT:
-   • R1: Object Finding -> Mandatory Photo Upload -> Code R1-P1EC
-   • R2 Location Clue: Engine Sound (engine_sound.mpeg) -> Block MECH -> Arrival Code SOUND-PASS
-   • R2 Mini Task:
-     - Var 1 (Human Shape): 4 Mandatory Member Photo Uploads -> Code MECH-PS-1
-     - Var 2 (Paper Ball): Coordination Challenge -> Code ME-PB-1
-   • R3 Location Clue: Shuffled Numbers (Word 2 = BREAK) -> Destination FOOD COURT
-   • R3 Checkpoint: Food Court QR Hunt -> In-App Barcode Scanner (scans FAKE-ME-CYBER)
-   • R4 Location Clue: Caesar Cipher (HDGJW -> CYBER / CY)
-   • R4 Checkpoint: Physical Challenge at CY Seminar Hall -> Code PHY-CY
-   • Final Stage: Auditorium & Stage Riddles -> Mandatory Solved Puzzle Photo Upload -> Code FINAL-PATH1
+4. ROUND 3 AUDIT:
+   • Displayed purely as "ROUND 3": YES
+   • 5 decoded words in separate questions (HALDIRAM, BREAK, BOTTLE, QUEUE, COUNTER): YES (Strict UPPERCASE)
+   • Destination block guess (FOOD COURT / FOOD CANTEEN / CANTEEN): YES (Strict UPPERCASE)
+   • QR code scan (FAKE-ME-CYBER) + code QR-HUNT-GOOD: YES (Strict UPPERCASE)
+
+5. ROUND 4 AUDIT:
+   • Caesar cipher clue HDGJW (-5 shift): YES
+   • Destination answers (CYBER / CYBER SECURITY / CY): YES (Strict UPPERCASE)
+   • Hall navigation start code START-PHY: YES (Strict UPPERCASE)
+   • Physical challenge finish code PHY-CY: YES (Strict UPPERCASE)
+
+6. FINAL ROUND AUDIT:
+   • Riddle 1 (AUDITORIUM / AUDI): YES (Strict UPPERCASE)
+   • Riddle 2 (STAGE): YES (Strict UPPERCASE)
+   • Solved puzzle mandatory photo upload: YES
+   • Chief Judge clearance code: FINAL-PATH1 (Strict UPPERCASE)
+   • Grand finale bell ring screen: YES
 
 OVERALL AUDIT STATUS: 100% PASS (READY FOR DEPLOYMENT)
 ============================================================

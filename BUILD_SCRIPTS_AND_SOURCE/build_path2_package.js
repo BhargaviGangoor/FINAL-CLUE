@@ -34,7 +34,7 @@ function getWordSearchCondition(varName) {
     'CLASSIFY'
   ];
   return words
-    .map(w => `translate(normalize-space(${varName}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = '${w}'`)
+    .map(w => `normalize-space(${varName}) = '${w}'`)
     .join(' or ');
 }
 
@@ -42,7 +42,7 @@ function buildSurvey() {
   const survey = [];
 
   // =============================================================
-  // START — REGISTRATION & RULES
+  // START — INSTRUCTIONS, RULES & REGISTRATION
   // =============================================================
   survey.push({
     type: 'begin_group',
@@ -52,17 +52,59 @@ function buildSurvey() {
 
   survey.push({
     type: 'note',
-    name: 'start_rules_note',
-    label: '🏆 FINAL CLUE — PATH 2\n\n### 🏴 TREASURE HUNT — RULES\n\n1. *No phones allowed* during the hunt. Keep them switched off and safely stored.\n2. *Stay with your team* and follow the designated route/instructions.\n3. *No cheating or interference* with other teams, clues, props, or college property.\n4. Complete all challenges *as instructed by the coordinators*. Safety comes first.\n5. Any violation of the rules may result in a *time penalty or disqualification*. The coordinator’s decision will be final.\n\n⚠️ IMPORTANT:\n• All questions, code entries, and photo uploads are MANDATORY.\n• All text answers and codes must be entered in UPPERCASE ONLY.',
-    hint: 'Read all rules carefully before proceeding.'
+    name: 'instructions_rules_note',
+    label: `🏆 FINAL CLUE — PATH 2
+TREASURE HUNT FOR FRESHERS 2026
+
+Welcome to PATH 2 of the Final Clue Treasure Hunt!
+
+Instructions:
+
+Rules and Regulations:
+
+* Participants must report to the designated starting point 5–10 minutes before the event begins.
+* Each team must consist of 3–4 members.
+* At least one member of the team should have an Android phone.
+* Each team will receive the first clue at the beginning of the event.
+* Teams must solve each clue to find the location of the next clue.
+* Clues must be solved in the given sequence.
+* Teams are not allowed to take, hide, damage, or tamper with clues belonging to other teams.
+* Teams must remain within the designated event area.
+* Running in unsafe areas or restricted zones is prohibited.
+* Participants must not enter restricted areas or disturb ongoing events/classes.
+* Physical force, pushing, blocking, or interfering with other teams is strictly prohibited.
+* Only one device containing ODK Collect is allowed per team.
+* No use of Wi-Fi unless specifically specified. Otherwise, the team may be disqualified.
+* Participants must not damage or move any property while searching for clues.
+* Teams must follow instructions given by volunteers and organizers at all times.
+* Asking people outside the team for answers or assistance is not allowed.
+* Teams must not follow, copy, or deliberately interfere with another team's progress.
+* Tampering with clues, cheating, entering restricted areas, or intentionally misleading other teams may result in immediate disqualification.
+* The Organizing Committee will not be responsible for the loss or damage of any personal belongings of participants.
+
+🏆 TEAM QUALIFICATION RULES (PER PATH):
+There are 5 rounds in each path.
+
+From each path:
+* First 25 teams proceed to Round 2.
+* Next 15 teams proceed to Round 3.
+* Next 7 teams proceed to Round 4.
+* Next 2 teams proceed to Round 5.
+
+⚠️ MANDATORY RESPONSE & CAPS ONLY RULES:
+• Every single question, photo upload, and code entry is strictly MANDATORY.
+• All text answers and volunteer codes must be entered in UPPERCASE (CAPS ONLY).
+• Lowercase letters will be rejected by validation.`,
+    hint: 'Read all rules and instructions carefully.'
   });
 
   survey.push({
     type: 'text',
     name: 'team_name',
-    label: 'Enter Team Name\nEnter code in caps',
+    label: 'Enter Team Name (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Team Name is mandatory. Please enter in UPPERCASE.',
     constraint: "regex(., '^[A-Z0-9\\-_ ]+$')",
     constraint_message: '❌ Please enter Team Name in UPPERCASE (CAPS ONLY).'
   });
@@ -70,9 +112,10 @@ function buildSurvey() {
   survey.push({
     type: 'text',
     name: 'player_id',
-    label: 'Enter Team / Player Identification\nEnter code in caps',
+    label: 'Enter Team / Player Identification (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Player / Team ID is mandatory. Please enter in UPPERCASE.',
     constraint: "regex(., '^[A-Z0-9\\-_ ]+$')",
     constraint_message: '❌ Please enter Player/Team Identification in UPPERCASE (CAPS ONLY).'
   });
@@ -80,9 +123,10 @@ function buildSurvey() {
   survey.push({
     type: 'image',
     name: 'team_start_photo',
-    label: '📸 Upload Team Verification Photo\nPhoto upload is mandatory',
+    label: '📸 Upload Team Verification Photo (MANDATORY)\nPhoto upload is mandatory',
     hint: 'Take a clear photo of your team at the start desk.',
-    required: 'yes'
+    required: 'yes',
+    required_message: '❌ Team verification photo is strictly mandatory.'
   });
 
   survey.push({
@@ -92,7 +136,7 @@ function buildSurvey() {
   const startPassed = "${team_name} != '' and ${player_id} != '' and ${team_start_photo} != ''";
 
   // =============================================================
-  // R1 — ADMIN (Object / Gym)
+  // ROUND 1 — OBJECT FINDING (ADMIN)
   // =============================================================
   survey.push({
     type: 'begin_group',
@@ -104,36 +148,38 @@ function buildSurvey() {
   survey.push({
     type: 'note',
     name: 'r1_admin_note',
-    label: '📍 ROUND 1: 🧩 OBJECT FINDING\n\nChallenge: Search the location to find the assigned hidden object/code.\n\nInstructions:\n1. Search the location to find the assigned hidden object.\n2. Take a clear photo of the object.\n3. Show the photo to the station volunteer to receive your verification code.\n\nEnter code in caps',
-    hint: 'Find the assigned hidden object.'
+    label: '📍 ROUND 1: OBJECT FINDING\n\nInstructions:\n1. Find the assigned object.\n2. Take a mandatory photo of the object.\n3. Show the object/photo to a nearby Luminus ID-card volunteer.\n4. Enter the Round 1 completion code given by the volunteer.\n\nEnter code in caps',
+    hint: 'Find the assigned object, take photo, and ask volunteer for code.'
   });
 
   survey.push({
     type: 'image',
     name: 'r1_admin_photo',
-    label: '📸 Upload Photo of the Discovered Hidden Object\nPhoto upload is mandatory',
+    label: '📸 Upload Photo of the Discovered Hidden Object (MANDATORY)\nPhoto upload is mandatory',
     hint: 'Take a clear photo of the discovered object.',
-    required: 'yes'
+    required: 'yes',
+    required_message: '❌ Photo upload of the object is mandatory.'
   });
 
   survey.push({
     type: 'text',
     name: 'r1_admin_code',
-    label: 'Enter Volunteer Verification Code\nEnter code in caps',
+    label: 'Enter Volunteer Verification Code (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'JOHN-CENA'",
-    constraint_message: '❌ Incorrect code. Enter the code in CAPS provided by the volunteer.'
+    required_message: '❌ Volunteer verification code is mandatory.',
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'JOHN-CENA'",
+    constraint_message: '❌ Incorrect code. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r1Passed = `${startPassed} and translate(normalize-space(\${r1_admin_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'JOHN-CENA' and \${r1_admin_photo} != ''`;
+  const r1Passed = `${startPassed} and normalize-space(\${r1_admin_code}) = 'JOHN-CENA' and \${r1_admin_photo} != ''`;
 
   // =============================================================
-  // R2 — MBA LOCATION CLUE (MBA-03)
+  // ROUND 2 — LOCATION CLUE (NO CHALLENGE NAME)
   // =============================================================
   survey.push({
     type: 'begin_group',
@@ -145,254 +191,465 @@ function buildSurvey() {
   survey.push({
     type: 'note',
     name: 'r2_mba_loc_note',
-    label: '📍 ROUND 2 LOCATION CLUE\n\nOne neighbour has already chosen its path.\nThe other is still preparing for the journey ahead.\nBetween the experienced and the yet-to-begin,\nyour next destination quietly stands.\n\nEnter code in caps',
-    hint: 'Read the riddle to deduce the destination block.'
+    label: `At 14:30, the security team detected an unusual login attempt on the college network. The account was accessed from an unknown device shortly after the user received a suspicious email. The security team immediately changed the account credentmials and checked the systbem logs for unusual activity. No confidential files appeared to have been downloaded during the incident. The affected user was advised to enable multi-factor authentication and avoid opening links from unknown senders. The incident was then reported to the network administrataor for further investigation.The report has been tampered with. The intruder left three traces behind.
+
+Find the words that don't belong and recover what was hidden: credentials → credentmials, system → systbem ,administrator → administrataor The inserted letters are:
+
+Enter code in caps`,
+    hint: 'Deduce the inserted letters and enter the destination.'
   });
 
   survey.push({
     type: 'text',
     name: 'r2_mba_loc_answer',
-    label: 'Enter destination location\nEnter code in caps',
+    label: 'Enter destination location (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA BLOCK'",
-    constraint_message: '❌ Incorrect destination. Read the clue carefully and enter in CAPS.'
+    required_message: '❌ Destination location is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'MBA' or normalize-space(.) = 'MBA BLOCK')",
+    constraint_message: '❌ Incorrect destination. Read the clue carefully and enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  const r2LocGuessed = "normalize-space(${r2_mba_loc_answer}) = 'MBA' or normalize-space(${r2_mba_loc_answer}) = 'MBA BLOCK'";
+
+  survey.push({
+    type: 'note',
+    name: 'r2_proceed_note',
+    label: '🏃 Go to the location you identified and ask the Luminus volunteer there for the START CODE.\n\nEnter code in caps',
+    hint: 'Go to the location and ask volunteer for start code.',
+    relevant: r2LocGuessed
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_start_code',
+    label: 'Enter START CODE from Volunteer (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ START CODE is mandatory.',
+    relevant: r2LocGuessed,
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'MBA-START'",
+    constraint_message: '❌ Incorrect START CODE. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r2LocPassed = `${r1Passed} and (translate(normalize-space(\${r2_mba_loc_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA' or translate(normalize-space(\${r2_mba_loc_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA BLOCK')`;
+  const r2StartPassed = `${r1Passed} and (${r2LocGuessed}) and normalize-space(\${r2_start_code}) = 'MBA-START'`;
 
   // =============================================================
-  // MBA CHALLENGE (Variants 1 & 2 -> Common Clearance Code MBA-QF-1)
+  // ROUND 2 — MINI CHALLENGE (VARIANT A & VARIANT B)
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'mba_challenge_group',
     label: 'ROUND 2 — MINI CHALLENGE',
-    relevant: r2LocPassed
+    relevant: r2StartPassed
   });
 
   survey.push({
     type: 'select_one mba_variants',
     name: 'mba_variant_select',
-    label: 'Select Assigned Challenge Variant\nMandatory selection',
-    hint: 'Select the variant set assigned by the station volunteer.',
-    required: 'yes'
+    label: 'Select your assigned challenge variant: (MANDATORY)\nMandatory selection',
+    hint: 'Choose Variant A or Variant B as assigned by the volunteer.',
+    required: 'yes',
+    required_message: '❌ Selecting your assigned variant is mandatory.'
   });
 
-  // Variant 1: MBA Quickfire (Set A)
+  // Variant A: MBA Quickfire
   survey.push({
     type: 'begin_group',
     name: 'mba_v1_group',
-    label: 'VARIANT 1 — MBA QUICKFIRE (SET A)',
-    relevant: "${mba_variant_select} = 'mba_01'"
+    label: 'VARIANT A',
+    relevant: "${mba_variant_select} = 'var_a'"
   });
 
   survey.push({
     type: 'note',
     name: 'mba_v1_intro',
-    label: '📊 MINI-CHALLENGE: MBA QUICKFIRE (SET A)\n\nAnswer all 10 quickfire business & management questions below.\n\nEnter code in caps',
+    label: '📊 VARIANT A: MBA QUICKFIRE\n\nAnswer all 10 quickfire questions below.\n\nEnter code in caps',
     hint: 'Answer all 10 questions in CAPS.'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q1',
-    label: '1. A market with only one seller is called?\nEnter code in caps',
+    label: '1. A market with only one seller is called? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MONOPOLY'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 1 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'MONOPOLY'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q2',
-    label: '2. What is the currency of China?\nEnter code in caps',
+    label: '2. What is the currency of China? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'YUAN'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 2 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'YUAN'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q3',
-    label: '3. What does CEO stand for?\nEnter code in caps',
+    label: '3. What does CEO stand for? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CHIEF EXECUTIVE OFFICER'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 3 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'CHIEF EXECUTIVE OFFICER'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q4',
-    label: '4. What does ROI stand for in business finance?\nEnter code in caps',
+    label: '4. What does ROI stand for in business finance? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'RETURN ON INVESTMENT'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 4 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'RETURN ON INVESTMENT'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q5',
-    label: '5. What term describes business transactions conducted between two companies (abbreviation)?\nEnter code in caps',
+    label: '5. What term describes business transactions conducted between two companies (abbreviation)? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'B2B'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 5 is mandatory.',
+    constraint: "regex(., '^[A-Z0-9]+$') and normalize-space(.) = 'B2B'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q6',
-    label: '6. In accounting: Assets minus Liabilities equals what?\nEnter code in caps',
+    label: '6. In accounting: Assets minus Liabilities equals what? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'EQUITY'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 6 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'EQUITY'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q7',
-    label: '7. Which animal represents a rising, optimistic financial market?\nEnter code in caps',
+    label: '7. Which animal represents a rising, optimistic financial market? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'BULL'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 7 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'BULL'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q8',
-    label: '8. What does IPO stand for when a company goes public?\nEnter code in caps',
+    label: '8. What does IPO stand for when a company goes public? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'INITIAL PUBLIC OFFERING'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 8 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'INITIAL PUBLIC OFFERING'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q9',
-    label: '9. What is the standard 3-letter abbreviation for Gross Domestic Product?\nEnter code in caps',
+    label: '9. What is the standard 3-letter abbreviation for Gross Domestic Product? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'GDP'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 9 is mandatory.',
+    constraint: "regex(., '^[A-Z]+$') and normalize-space(.) = 'GDP'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'mba_q10',
-    label: '10. In the 4 Ps of Marketing (Product, Price, Place), what is the 4th P?\nEnter code in caps',
+    label: '10. In the 4 Ps of Marketing (Product, Price, Place), what is the 4th P? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'PROMOTION'",
-    constraint_message: '❌ Incorrect answer. Please enter in CAPS.'
+    required_message: '❌ Question 10 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'PROMOTION'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
+  const mba1AllPassed = "(normalize-space(${mba_q1}) = 'MONOPOLY' and normalize-space(${mba_q2}) = 'YUAN' and normalize-space(${mba_q3}) = 'CHIEF EXECUTIVE OFFICER' and normalize-space(${mba_q4}) = 'RETURN ON INVESTMENT' and normalize-space(${mba_q5}) = 'B2B' and normalize-space(${mba_q6}) = 'EQUITY' and normalize-space(${mba_q7}) = 'BULL' and normalize-space(${mba_q8}) = 'INITIAL PUBLIC OFFERING' and normalize-space(${mba_q9}) = 'GDP' and normalize-space(${mba_q10}) = 'PROMOTION')";
+
   survey.push({
-    type: 'image',
-    name: 'r2_var1_quickfire_photo',
-    label: '📸 Upload Photo of Team Completing Quickfire Challenge\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your team at the station.',
-    required: 'yes'
+    type: 'text',
+    name: 'r2_var_a_code',
+    label: 'Enter Completion Code from Volunteer (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Completion code is mandatory.',
+    relevant: mba1AllPassed,
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'MBA-QF-1'",
+    constraint_message: '❌ Incorrect completion code. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  // Variant 2: MBA Quickfire (Set B / Brand Quiz)
+  // Variant B: Brand Quiz
   survey.push({
     type: 'begin_group',
     name: 'mba_v2_group',
-    label: 'VARIANT 2 — MBA QUICKFIRE (SET B)',
-    relevant: "${mba_variant_select} = 'mba_02'"
+    label: 'VARIANT B',
+    relevant: "${mba_variant_select} = 'var_b'"
   });
 
   survey.push({
     type: 'note',
-    name: 'mba_v2_placeholder',
-    label: 'BRAND QUIZ / QUICKFIRE SET B CONTENT TO BE ADDED\n\nParticipants solve the assigned Variant 2 questions.\n\n[CONTENT TO BE ADDED BY ORGANIZER BEFORE DEPLOYMENT]',
-    hint: 'Organizer placeholder — to be updated before deployment.'
+    name: 'mba_v2_intro',
+    label: '🏷️ VARIANT B: BRAND QUIZ\n\nAnswer all 10 brand quiz questions below.\n\nEnter code in caps',
+    hint: 'Answer all 10 brand questions in CAPS.'
   });
-
-  survey.push({
-    type: 'image',
-    name: 'r2_var2_quickfire_photo',
-    label: '📸 Upload Photo of Team Completing Variant 2 Challenge\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your team at the station.',
-    required: 'yes'
-  });
-
-  survey.push({
-    type: 'end_group'
-  });
-
-  const mba1AllPassed = "(translate(normalize-space(${mba_q1}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MONOPOLY' and translate(normalize-space(${mba_q2}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'YUAN' and translate(normalize-space(${mba_q3}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CHIEF EXECUTIVE OFFICER' and translate(normalize-space(${mba_q4}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'RETURN ON INVESTMENT' and translate(normalize-space(${mba_q5}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'B2B' and translate(normalize-space(${mba_q6}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'EQUITY' and translate(normalize-space(${mba_q7}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'BULL' and translate(normalize-space(${mba_q8}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'INITIAL PUBLIC OFFERING' and translate(normalize-space(${mba_q9}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'GDP' and translate(normalize-space(${mba_q10}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'PROMOTION' and ${r2_var1_quickfire_photo} != '')";
-
-  const variantAnswered = `((${mba1AllPassed} and \${mba_variant_select} = 'mba_01') or (\${mba_variant_select} = 'mba_02' and \${r2_var2_quickfire_photo} != ''))`;
 
   survey.push({
     type: 'text',
-    name: 'r2_mba_clearance_code',
-    label: 'Enter Volunteer Clearance Code\nEnter code in caps',
+    name: 'r2_b_q1',
+    label: '1. Name of dessert? (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    relevant: variantAnswered,
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA-QF-1'",
-    constraint_message: '❌ Incorrect clearance code. Obtain clearance code in CAPS from the MBA volunteer.'
+    required_message: '❌ Question 1 is mandatory.',
+    'media::image': 'bambaloni.jpeg',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'BAMBALONI'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_b_q2',
+    label: '2. Which brand is associated with this tagline? “THINK DIFFERENT” (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Question 2 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'APPLE'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_b_q3',
+    label: '3. What is the name of the cartoon this character represents? (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Question 3 is mandatory.',
+    'media::image': 'horrid henry.jpeg',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'HORRID HENRY'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_b_q4',
+    label: '4. Identify the brand from this famous ad screenshot. (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Question 4 is mandatory.',
+    'media::image': '5 star.jpeg',
+    constraint: "regex(., '^[A-Z0-9 ]+$') and (normalize-space(.) = '5 STAR' or normalize-space(.) = '5STAR' or normalize-space(.) = 'FIVE STAR')",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_b_q5',
+    label: '5. Can you identify the brand from this zoomed-in logo? (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Question 5 is mandatory.',
+    'media::image': 'nokia.jpeg',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'NOKIA'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_b_q6',
+    label: '6. What is the name of this fruit? (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Question 6 is mandatory.',
+    'media::image': 'durian.jpeg',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'DURIAN'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_b_q7',
+    label: '7. Which brand is associated with this tagline? “WHEREVER YOU GO, OUR NETWORK FOLLOWS” (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Question 7 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'VODAFONE'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_b_q8',
+    label: '8. Which brand does this mascot represent? (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Question 8 is mandatory.',
+    'media::image': 'michelin.jpeg',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'MICHELIN'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_b_q9',
+    label: '9. What is the full name of RN Shetty? (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Question 9 is mandatory.',
+    constraint: "regex(., '^[A-Z0-9\\.\\- ]+$') and (normalize-space(.) = 'DR. RAMA NAGAPPA SHETTY' or normalize-space(.) = 'RAMA NAGAPPA SHETTY' or normalize-space(.) = 'DR RAMA NAGAPPA SHETTY')",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_b_q10',
+    label: '10. This actress holds a brand of herself. What is the brand name? (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Question 10 is mandatory.',
+    'media::image': 'palmonas.jpeg',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'PALMONAS'",
+    constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  const mba2AllPassed = "(normalize-space(${r2_b_q1}) = 'BAMBALONI' and normalize-space(${r2_b_q2}) = 'APPLE' and normalize-space(${r2_b_q3}) = 'HORRID HENRY' and (normalize-space(${r2_b_q4}) = '5 STAR' or normalize-space(${r2_b_q4}) = '5STAR' or normalize-space(${r2_b_q4}) = 'FIVE STAR') and normalize-space(${r2_b_q5}) = 'NOKIA' and normalize-space(${r2_b_q6}) = 'DURIAN' and normalize-space(${r2_b_q7}) = 'VODAFONE' and normalize-space(${r2_b_q8}) = 'MICHELIN' and (normalize-space(${r2_b_q9}) = 'DR. RAMA NAGAPPA SHETTY' or normalize-space(${r2_b_q9}) = 'RAMA NAGAPPA SHETTY' or normalize-space(${r2_b_q9}) = 'DR RAMA NAGAPPA SHETTY') and normalize-space(${r2_b_q10}) = 'PALMONAS')";
+
+  survey.push({
+    type: 'text',
+    name: 'r2_var_b_code',
+    label: 'Enter Completion Code from Volunteer (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Completion code is mandatory.',
+    relevant: mba2AllPassed,
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'MB-BQ-2'",
+    constraint_message: '❌ Incorrect completion code. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r3Unlocked = `${r2LocPassed} and ${variantAnswered} and translate(normalize-space(\${r2_mba_clearance_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'MBA-QF-1'`;
+  survey.push({
+    type: 'end_group'
+  });
+
+  const r2ClearedRel = "((${mba_variant_select} = 'var_a' and normalize-space(${r2_var_a_code}) = 'MBA-QF-1') or (${mba_variant_select} = 'var_b' and normalize-space(${r2_var_b_code}) = 'MB-BQ-2'))";
 
   // =============================================================
-  // R3 — LIBRARY LOCATION CLUE (LIB-04)
+  // ROUND 3 — LOCATION CLUE (NO CHALLENGE NAME)
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r3_lib_loc_group',
-    label: 'ROUND 3 LOCATION CLUE',
-    relevant: r3Unlocked
+    label: 'ROUND 3',
+    relevant: `${r2StartPassed} and ${r2ClearedRel}`
   });
 
   survey.push({
     type: 'note',
-    name: 'r3_lib_loc_note',
-    label: '📍 ROUND 3 LOCATION CLUE\n\nVEHSELS\nGIDRAEN\nIFIW\nSISCUDISNO GGUONLE\nIGIDLAT BILRYRA\n\nEnter code in caps',
-    hint: 'Decode the anagrams to identify the next destination.'
+    name: 'r3_shuffled_intro_note',
+    label: '📍 ROUND 3\n\nDecode each of the shuffled words below.\n\nE.g., OOBK ➔ BOOK, APPRE ➔ PAPER\n\nEnter code in caps',
+    hint: 'Decode each shuffled word.'
   });
 
   survey.push({
     type: 'text',
-    name: 'r3_lib_loc_answer',
-    label: 'Enter confirmed destination location\nEnter code in caps',
+    name: 'r3_decode_w1',
+    label: 'Decode Shuffled Word 1: [ VEHSELS ] (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'LIBRARY' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CENTRAL LIBRARY'",
-    constraint_message: '❌ Incorrect destination. Decode the anagrams to identify the location in CAPS.'
+    required_message: '❌ Decoding Word 1 is mandatory.',
+    constraint: "regex(., '^[A-Z]+$') and normalize-space(.) = 'SHELVES'",
+    constraint_message: '❌ Incorrect decoded word. Enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r3_decode_w2',
+    label: 'Decode Shuffled Word 2: [ GIDRAEN ] (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Decoding Word 2 is mandatory.',
+    constraint: "regex(., '^[A-Z]+$') and normalize-space(.) = 'READING'",
+    constraint_message: '❌ Incorrect decoded word. Enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r3_decode_w3',
+    label: 'Decode Shuffled Word 3: [ IFIW ] (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Decoding Word 3 is mandatory.',
+    constraint: "regex(., '^[A-Z]+$') and normalize-space(.) = 'WIFI'",
+    constraint_message: '❌ Incorrect decoded word. Enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r3_decode_w4',
+    label: 'Decode Shuffled Word 4: [ SISCUDISNO GGUONLE ] (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Decoding Word 4 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'DISCUSSION LOUNGE'",
+    constraint_message: '❌ Incorrect decoded word. Enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r3_decode_w5',
+    label: 'Decode Shuffled Word 5: [ IGIDLAT BILRYRA ] (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Decoding Word 5 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'DIGITAL LIBRARY'",
+    constraint_message: '❌ Incorrect decoded word. Enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  const r3AllDecoded = "(normalize-space(${r3_decode_w1}) = 'SHELVES' and normalize-space(${r3_decode_w2}) = 'READING' and normalize-space(${r3_decode_w3}) = 'WIFI' and normalize-space(${r3_decode_w4}) = 'DISCUSSION LOUNGE' and normalize-space(${r3_decode_w5}) = 'DIGITAL LIBRARY')";
+
+  survey.push({
+    type: 'text',
+    name: 'r3_lib_loc_answer',
+    label: 'Decoded Clues:\n1. ${r3_decode_w1}\n2. ${r3_decode_w2}\n3. ${r3_decode_w3}\n4. ${r3_decode_w4}\n5. ${r3_decode_w5}\n\nBased on your decoded words, identify the next location: (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Location answer is mandatory.',
+    relevant: r3AllDecoded,
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'LIBRARY' or normalize-space(.) = 'CENTRAL LIBRARY')",
+    constraint_message: '❌ Incorrect location. Enter the location in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r3LocPassed = `${r3Unlocked} and (translate(normalize-space(\${r3_lib_loc_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'LIBRARY' or translate(normalize-space(\${r3_lib_loc_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'CENTRAL LIBRARY')`;
+  const r3LocPassed = `${r2StartPassed} and ${r2ClearedRel} and ${r3AllDecoded} and (normalize-space(\${r3_lib_loc_answer}) = 'LIBRARY' or normalize-space(\${r3_lib_loc_answer}) = 'CENTRAL LIBRARY')`;
 
   // =============================================================
-  // R3 — LIBRARY QR HUNT
+  // ROUND 3 — QR HUNT (LIBRARY)
   // =============================================================
   survey.push({
     type: 'begin_group',
@@ -404,49 +661,70 @@ function buildSurvey() {
   survey.push({
     type: 'note',
     name: 'r3_lib_qr_note',
-    label: '📍 ROUND 3: QR HUNT\n\nSearch the location physically to locate the hidden QR code.\nScan the QR code using the scanner below.\n\nEnter code in caps',
-    hint: 'Locate and scan the hidden QR code.'
+    label: '📍 ROUND 3: QR HUNT\n\nGo to the location you identified and ask the Luminus volunteer for the next instruction/code.\n\nScan the available QR codes and identify the correct one in a fun manner!\n\nEnter code in caps',
+    hint: 'Locate and scan the correct QR code.'
   });
 
   survey.push({
     type: 'barcode',
     name: 'r3_lib_qr_scan',
-    label: 'Scan Discovered QR Code',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    label: 'Scan Discovered QR Code (MANDATORY)',
+    hint: 'Scan the correct discovered QR code.',
     required: 'yes',
-    constraint: "normalize-space(.) = 'DUMB_FAKE' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'DUMB_FAKE'",
+    required_message: '❌ QR scan is mandatory.',
+    constraint: "normalize-space(.) = 'DUMB_FAKE'",
     constraint_message: '❌ Incorrect QR code scanned. Search for the correct QR code at this station.'
   });
 
+  const r3QrScanned = `${r3LocPassed} and normalize-space(\${r3_lib_qr_scan}) = 'DUMB_FAKE'`;
+
   survey.push({
-    type: 'image',
-    name: 'r3_lib_qr_photo',
-    label: '📸 Upload Photo of Discovered QR Code / Station\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of the discovered QR code location.',
-    required: 'yes'
+    type: 'text',
+    name: 'r3_lib_volunteer_code',
+    label: 'Enter Volunteer Completion Code (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ Volunteer completion code is mandatory.',
+    relevant: r3QrScanned,
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'DUMB_FAKE' or normalize-space(.) = 'LIB-HUNT-GOOD' or normalize-space(.) = 'LIB-PASS' or normalize-space(.) = 'QR-LIB-2')",
+    constraint_message: '❌ Incorrect code. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r3QrPassed = `${r3LocPassed} and (normalize-space(\${r3_lib_qr_scan}) = 'DUMB_FAKE' or translate(normalize-space(\${r3_lib_qr_scan}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'DUMB_FAKE') and \${r3_lib_qr_photo} != ''`;
+  const r3Completed = `${r3QrScanned} and (normalize-space(\${r3_lib_volunteer_code}) = 'DUMB_FAKE' or normalize-space(\${r3_lib_volunteer_code}) = 'LIB-HUNT-GOOD' or normalize-space(\${r3_lib_volunteer_code}) = 'LIB-PASS' or normalize-space(\${r3_lib_volunteer_code}) = 'QR-LIB-2')`;
 
   // =============================================================
-  // R4 LOCATION CLUE: WORD SEARCH (aiml.jpeg in EVERY question)
+  // ROUND 4 — LOCATION CLUE (AIML WORD SEARCH)
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r4_wordsearch_group',
-    label: 'ROUND 4 LOCATION CLUE: WORD SEARCH',
-    relevant: r3QrPassed
+    label: 'ROUND 4 LOCATION CLUE',
+    relevant: r3Completed
   });
 
   survey.push({
     type: 'note',
     name: 'r4_wordsearch_intro',
-    label: '🧩 ROUND 4 LOCATION CLUE: WORD SEARCH PUZZLE\n\nExamine the word search puzzle image below.\nFind and enter ANY 5 hidden technology concepts from the grid!\n\nInstructions:\n1. Spot at least 5 hidden words in the puzzle image.\n2. Enter each word in the fields below.\n3. After finding 5 valid words, deduce the destination campus block!\n\nEnter code in caps',
-    hint: 'Examine puzzle image and enter 5 discovered words in CAPS.',
+    label: `Examine the puzzle image below.
+Find and enter ANY 5 words from the grid amongst:
+• MACHINE LEARNING
+• NEURAL NETWORK
+• PYTHON
+• DATASET
+• ALGORITHM
+• TRAINING DATA
+• DEEP LEARNING
+• DATA MINING
+• MODELING
+• REGRESSION
+• CLASSIFY
+
+Enter code in caps`,
+    hint: 'Find 5 words in the image and enter below in CAPS.',
     'media::image': 'aiml.jpeg'
   });
 
@@ -455,56 +733,61 @@ function buildSurvey() {
   survey.push({
     type: 'text',
     name: 'r4_ws_word1',
-    label: 'Enter Discovered Word 1 (from puzzle image):\nEnter code in caps',
+    label: 'Enter Discovered Word 1: (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Word 1 is mandatory.',
     'media::image': 'aiml.jpeg',
-    constraint: wCond,
-    constraint_message: '❌ Invalid word. Enter a valid word found in the puzzle in CAPS.'
+    constraint: `regex(., '^[A-Z ]+$') and (${wCond})`,
+    constraint_message: '❌ Invalid word. Enter a valid word found in the puzzle in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'r4_ws_word2',
-    label: 'Enter Discovered Word 2 (from puzzle image):\nEnter code in caps',
+    label: 'Enter Discovered Word 2: (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Word 2 is mandatory.',
     'media::image': 'aiml.jpeg',
-    constraint: `${wCond} and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word1}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')`,
-    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in CAPS.'
+    constraint: `regex(., '^[A-Z ]+$') and (${wCond}) and normalize-space(.) != normalize-space(\${r4_ws_word1})`,
+    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'r4_ws_word3',
-    label: 'Enter Discovered Word 3 (from puzzle image):\nEnter code in caps',
+    label: 'Enter Discovered Word 3: (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Word 3 is mandatory.',
     'media::image': 'aiml.jpeg',
-    constraint: `${wCond} and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word1}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word2}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')`,
-    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in CAPS.'
+    constraint: `regex(., '^[A-Z ]+$') and (${wCond}) and normalize-space(.) != normalize-space(\${r4_ws_word1}) and normalize-space(.) != normalize-space(\${r4_ws_word2})`,
+    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'r4_ws_word4',
-    label: 'Enter Discovered Word 4 (from puzzle image):\nEnter code in caps',
+    label: 'Enter Discovered Word 4: (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Word 4 is mandatory.',
     'media::image': 'aiml.jpeg',
-    constraint: `${wCond} and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word1}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word2}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word3}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')`,
-    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in CAPS.'
+    constraint: `regex(., '^[A-Z ]+$') and (${wCond}) and normalize-space(.) != normalize-space(\${r4_ws_word1}) and normalize-space(.) != normalize-space(\${r4_ws_word2}) and normalize-space(.) != normalize-space(\${r4_ws_word3})`,
+    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in UPPERCASE (CAPS ONLY).'
   });
 
   survey.push({
     type: 'text',
     name: 'r4_ws_word5',
-    label: 'Enter Discovered Word 5 (from puzzle image):\nEnter code in caps',
+    label: 'Enter Discovered Word 5: (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Word 5 is mandatory.',
     'media::image': 'aiml.jpeg',
-    constraint: `${wCond} and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word1}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word2}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word3}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') and translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') != translate(normalize-space(\${r4_ws_word4}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')`,
-    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in CAPS.'
+    constraint: `regex(., '^[A-Z ]+$') and (${wCond}) and normalize-space(.) != normalize-space(\${r4_ws_word1}) and normalize-space(.) != normalize-space(\${r4_ws_word2}) and normalize-space(.) != normalize-space(\${r4_ws_word3}) and normalize-space(.) != normalize-space(\${r4_ws_word4})`,
+    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in UPPERCASE (CAPS ONLY).'
   });
 
   const w1Val = getWordSearchCondition('${r4_ws_word1}');
@@ -518,130 +801,178 @@ function buildSurvey() {
   survey.push({
     type: 'text',
     name: 'r4_aiml_destination',
-    label: 'Which campus block do these 5 discovered concepts direct your team to?\nEnter code in caps',
+    label: 'Deduce the location related to these words: (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Location answer is mandatory.',
     'media::image': 'aiml.jpeg',
     relevant: all5WordsValid,
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AIML' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AI ML' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AIML BLOCK' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AI/ML' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AI & ML'",
-    constraint_message: '❌ Incorrect destination. Deduce the campus block in CAPS from the 5 discovered concepts.'
+    constraint: "regex(., '^[A-Z0-9\\/& ]+$') and (normalize-space(.) = 'AIML' or normalize-space(.) = 'AI ML' or normalize-space(.) = 'AIML BLOCK' or normalize-space(.) = 'AI/ML' or normalize-space(.) = 'AI & ML')",
+    constraint_message: '❌ Incorrect destination. Enter the location in UPPERCASE (CAPS ONLY).'
+  });
+
+  const r4DestIdentified = "normalize-space(${r4_aiml_destination}) = 'AIML' or normalize-space(${r4_aiml_destination}) = 'AI ML' or normalize-space(${r4_aiml_destination}) = 'AIML BLOCK' or normalize-space(${r4_aiml_destination}) = 'AI/ML' or normalize-space(${r4_aiml_destination}) = 'AI & ML'";
+
+  survey.push({
+    type: 'note',
+    name: 'r4_proceed_note',
+    label: '🏃 Go to the location you identified and ask the Luminus volunteer for the START CODE.\n\nEnter code in caps',
+    hint: 'Go to the location and ask volunteer for start code.',
+    relevant: `${all5WordsValid} and (${r4DestIdentified})`
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r4_start_code',
+    label: 'Enter START CODE from Volunteer (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    required: 'yes',
+    required_message: '❌ START CODE is mandatory.',
+    relevant: `${all5WordsValid} and (${r4DestIdentified})`,
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'START-AI-PHY' or normalize-space(.) = 'START-PHY')",
+    constraint_message: '❌ Incorrect START CODE. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r4DestPassed = `${r3QrPassed} and ${all5WordsValid} and (translate(normalize-space(\${r4_aiml_destination}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AIML' or translate(normalize-space(\${r4_aiml_destination}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AI ML' or translate(normalize-space(\${r4_aiml_destination}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AIML BLOCK' or translate(normalize-space(\${r4_aiml_destination}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AI/ML' or translate(normalize-space(\${r4_aiml_destination}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AI & ML')`;
+  const r4StartPassed = `${r3Completed} and ${all5WordsValid} and (${r4DestIdentified}) and (normalize-space(\${r4_start_code}) = 'START-AI-PHY' or normalize-space(\${r4_start_code}) = 'START-PHY')`;
 
   // =============================================================
-  // R4 — PHYSICAL CHALLENGE (AIML & Cyber Pathway)
+  // ROUND 4 — PHYSICAL CHALLENGE (AIML)
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r4_phy_group',
     label: 'ROUND 4 — PHYSICAL CHALLENGE',
-    relevant: r4DestPassed
+    relevant: r4StartPassed
   });
 
   survey.push({
     type: 'note',
     name: 'r4_phy_note',
-    label: '📍 ROUND 4: PHYSICAL CHALLENGE\n\nReport immediately to the checkpoint along the pathway!\n\nInstructions:\n1. Meet the station volunteers.\n2. Complete the physical coordination challenge.\n3. Take a verification photo.\n4. Enter clearance code from the volunteer.\n\nEnter code in caps',
+    label: '📍 ROUND 4: PHYSICAL CHALLENGE\n\nPerform the physical challenge as instructed by the station volunteer.\nOnce completed, collect the finish code from the volunteer.\n\nEnter code in caps',
     hint: 'Complete physical challenge with volunteer.'
   });
 
   survey.push({
     type: 'image',
     name: 'r4_phy_photo',
-    label: '📸 Upload Photo of Physical Challenge Completion\nPhoto upload is mandatory',
+    label: '📸 Upload Photo of Physical Challenge Completion (MANDATORY)\nPhoto upload is mandatory',
     hint: 'Take a clear photo of your team completing the physical coordination challenge.',
-    required: 'yes'
+    required: 'yes',
+    required_message: '❌ Photo upload of the challenge is mandatory.'
   });
 
   survey.push({
     type: 'text',
     name: 'r4_phy_code',
-    label: 'Enter Volunteer Verification Code\nEnter code in caps',
+    label: 'Enter END CODE from Volunteer (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'PHY-CY'",
-    constraint_message: '❌ Incorrect verification code. Obtain the code from the station volunteer and enter in CAPS.'
+    required_message: '❌ END CODE is mandatory.',
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'PHY-AIML' or normalize-space(.) = 'PHY-CY')",
+    constraint_message: '❌ Incorrect END CODE. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r4Passed = `${r4DestPassed} and translate(normalize-space(\${r4_phy_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'PHY-CY' and \${r4_phy_photo} != ''`;
+  const r4Passed = `${r4StartPassed} and (normalize-space(\${r4_phy_code}) = 'PHY-AIML' or normalize-space(\${r4_phy_code}) = 'PHY-CY') and \${r4_phy_photo} != ''`;
 
   // =============================================================
-  // FINAL PUZZLES: AUDITORIUM & STAGE RIDDLES
+  // FINAL ROUND: AUDITORIUM & STAGE RIDDLES
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'final_puzzles_group',
-    label: 'FINAL PUZZLES',
+    label: 'FINAL ROUND',
     relevant: r4Passed
   });
 
   survey.push({
     type: 'note',
     name: 'final_audi_stage_intro',
-    label: '🏛️ FINAL CHALLENGES\n\nProceed to the location and solve the two final riddles!\n\nEnter code in caps',
-    hint: 'Solve the final riddles.'
+    label: '🏛️ FINAL ROUND — RIDDLES\n\nSolve the two final riddles to reveal the final destination!\n\nEnter code in caps',
+    hint: 'Solve the final riddles in CAPS.'
   });
 
   survey.push({
     type: 'text',
     name: 'final_riddle1_answer',
-    label: '🧩 RIDDLE 1:\n\"I am a place of darkness until the lights ignite. I hold hundreds of red seats, host grand orientations, and echo with voices through microphones. Where are you standing?\"\nEnter code in caps',
+    label: `🧩 AUDITORIUM RIDDLE: (MANDATORY)
+"I am empty, yet I am built for crowds.
+I have a stage, but no actors of my own.
+I have countless seats, but none are meant to sleep.
+When a voice rises before me, silence falls behind me.
+When the lights awaken, all eyes face one direction.
+What am I?"
+Enter code in caps`,
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AUDITORIUM' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AUDI'",
-    constraint_message: '❌ Incorrect answer. Solve the riddle and enter in CAPS.'
+    required_message: '❌ Solving Riddle 1 is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'AUDITORIUM' or normalize-space(.) = 'AUDI')",
+    constraint_message: '❌ Incorrect answer. Solve Riddle 1 and enter in UPPERCASE (CAPS ONLY).'
   });
 
-  const finalRiddle1Passed = `${r4Passed} and (translate(normalize-space(\${final_riddle1_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AUDITORIUM' or translate(normalize-space(\${final_riddle1_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'AUDI')`;
+  const finalRiddle1Passed = `${r4Passed} and (normalize-space(\${final_riddle1_answer}) = 'AUDITORIUM' or normalize-space(\${final_riddle1_answer}) = 'AUDI')`;
 
   survey.push({
     type: 'text',
     name: 'final_riddle2_stage_answer',
-    label: '🎭 RIDDLE 2:\n\"I am elevated above the crowd, where performers stand and spotlights shine. Underneath my wooden floor or behind the curtains, the ultimate secret waits. What am I?\"\nEnter code in caps',
+    label: `🎭 STAGE RIDDLE: (MANDATORY)
+"I am elevated above the crowd, where performers stand and spotlights shine.
+Underneath my wooden floor or behind the curtains, the ultimate secret waits.
+What am I?"
+Enter code in caps`,
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Solving Riddle 2 is mandatory.',
     relevant: finalRiddle1Passed,
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'STAGE'",
-    constraint_message: '❌ Incorrect answer. Solve the stage riddle and enter in CAPS.'
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'STAGE'",
+    constraint_message: '❌ Incorrect answer. Solve Riddle 2 and enter in UPPERCASE (CAPS ONLY).'
   });
 
-  const finalRiddle2Passed = `${finalRiddle1Passed} and translate(normalize-space(\${final_riddle2_stage_answer}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'STAGE'`;
+  const finalRiddle2Passed = `${finalRiddle1Passed} and normalize-space(\${final_riddle2_stage_answer}) = 'STAGE'`;
+
+  survey.push({
+    type: 'note',
+    name: 'final_proceed_stage_note',
+    label: '🏃 Proceed to the final location identified!\n\nSolve the final puzzle at the stage, upload a photo of the completed puzzle, and get your clearance code from the Chief Judge!\n\nEnter code in caps',
+    hint: 'Go to the stage to solve the final puzzle.',
+    relevant: finalRiddle2Passed
+  });
 
   survey.push({
     type: 'image',
     name: 'final_solved_puzzle_photo',
-    label: '📸 Upload Photo of Your Solved Puzzle\nPhoto upload is mandatory',
+    label: '📸 Upload Photo of Your Solved Puzzle (MANDATORY)\nPhoto upload is mandatory',
     hint: 'Take a clear photo of your team\'s completed/solved puzzle.',
     required: 'yes',
+    required_message: '❌ Photo of the solved puzzle is mandatory.',
     relevant: finalRiddle2Passed
   });
 
   survey.push({
     type: 'text',
     name: 'final_stage_volunteer_code',
-    label: 'Enter Final Volunteer Clearance Code\nEnter code in caps',
+    label: 'Enter Final Volunteer Clearance Code (MANDATORY)\nEnter code in caps',
     hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
     required: 'yes',
+    required_message: '❌ Final clearance code is mandatory.',
     relevant: finalRiddle2Passed,
-    constraint: "translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH2' or translate(normalize-space(.), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH1'",
-    constraint_message: '❌ Incorrect code. Enter the code in CAPS provided by the Chief Judge.'
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'FINAL-PATH2' or normalize-space(.) = 'FINAL-PATH1')",
+    constraint_message: '❌ Incorrect code. Enter the code in UPPERCASE (CAPS ONLY) provided by the Chief Judge.'
   });
 
   survey.push({
     type: 'note',
     name: 'final_congratulations_screen',
-    label: '🎉 CONGRATULATIONS! PATH 2 COMPLETED.\n\n🏆 You have successfully conquered every challenge, puzzle, and cipher on PATH 2!\n\nShow this completion screen immediately to the Chief Judge to lock in your finishing timestamp and rank!',
-    hint: 'Report to Chief Judge to finalize completion.',
-    relevant: `${finalRiddle2Passed} and (translate(normalize-space(\${final_stage_volunteer_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH2' or translate(normalize-space(\${final_stage_volunteer_code}), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = 'FINAL-PATH1') and \${final_solved_puzzle_photo} != ''`
+    label: '🎉 CONGRATULATIONS! YOU HAVE COMPLETED PATH 2!\n\n🏆 You have successfully entered the final clearance code!\n\n🔔 NOW RUN TO GO RING THE BELL TO WIN THE GAME! 🔔🏃💨',
+    hint: 'Run to ring the bell to claim victory!',
+    relevant: `${finalRiddle2Passed} and (normalize-space(\${final_stage_volunteer_code}) = 'FINAL-PATH2' or normalize-space(\${final_stage_volunteer_code}) = 'FINAL-PATH1') and \${final_solved_puzzle_photo} != ''`
   });
 
   survey.push({
@@ -655,13 +986,13 @@ function buildChoices() {
   return [
     {
       list_name: 'mba_variants',
-      name: 'mba_01',
-      label: 'Variant 1: MBA Quickfire (Set A)'
+      name: 'var_a',
+      label: 'Variant A'
     },
     {
       list_name: 'mba_variants',
-      name: 'mba_02',
-      label: 'Variant 2: MBA Quickfire (Set B)'
+      name: 'var_b',
+      label: 'Variant B'
     }
   ];
 }
@@ -671,10 +1002,140 @@ function buildSettings() {
     {
       form_title: 'FINAL CLUE — PATH 2',
       form_id: 'final_clue_path2',
-      version: '20260902',
+      version: '20260904',
       default_language: 'default'
     }
   ];
+}
+
+function buildAnswerKeyWorkbook() {
+  const data = [
+    {
+      'Stage / Round': 'Registration',
+      'Location': 'Start Desk',
+      'Challenge / Item': 'Team Setup & Instructions',
+      'Question / Prompt': 'Rules, Qualification Rules, Team Name, Player ID & Photo',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'TEAM-XX (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex(., \'^[A-Z0-9\\-_ ]+$\')',
+      'Mandatory Upload': 'Yes (Team Photo MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 1 (R1)',
+      'Location': 'ADMIN',
+      'Challenge / Item': 'Object Finding',
+      'Question / Prompt': 'Find assigned hidden object, upload photo, enter volunteer code',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'JOHN-CENA (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'JOHN-CENA\'',
+      'Mandatory Upload': 'Yes (Discovered Object Photo MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 2 Location Clue',
+      'Location': 'In-App Security Log Clue',
+      'Challenge / Item': 'Security Report Intruder Clue',
+      'Question / Prompt': 'Read security tampering clue, deduce letters MBA & enter start code',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'MBA & Start Code: MBA-START (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'MBA\' & \'MBA-START\'',
+      'Mandatory Upload': 'No (Input Mandatory)'
+    },
+    {
+      'Stage / Round': 'Round 2 (R2 Var A)',
+      'Location': 'MBA',
+      'Challenge / Item': 'Variant A: MBA Quickfire',
+      'Question / Prompt': 'Answer 10 business/finance questions, enter volunteer clearance code',
+      'Media Attached': 'None',
+      'Expected Answer / Code': '10 Answers & Code: MBA-QF-1 (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'MBA-QF-1\'',
+      'Mandatory Upload': 'No (All 10 Inputs MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 2 (R2 Var B)',
+      'Location': 'MBA',
+      'Challenge / Item': 'Variant B: Brand Quiz',
+      'Question / Prompt': 'Answer 10 brand quiz questions, enter volunteer clearance code',
+      'Media Attached': 'None',
+      'Expected Answer / Code': '10 Answers & Code: MB-BQ-2 (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'MB-BQ-2\'',
+      'Mandatory Upload': 'No (All 10 Inputs MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 3 Location Clue',
+      'Location': 'In-App Shuffled Words',
+      'Challenge / Item': 'Shuffled Words (Displayed as ROUND 3)',
+      'Question / Prompt': 'Decode 5 shuffled words: VEHSELS, GIDRAEN, IFIW, SISCUDISNO GGUONLE, IGIDLAT BILRYRA -> Destination guess',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'SHELVES, READING, WIFI, DISCUSSION LOUNGE, DIGITAL LIBRARY -> Destination: LIBRARY (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) on all 5 decoded words + LIBRARY',
+      'Mandatory Upload': 'No (All 6 Inputs MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 3 Checkpoint (R3)',
+      'Location': 'LIBRARY',
+      'Challenge / Item': 'QR Hunt & Volunteer Code',
+      'Question / Prompt': 'Scan hidden QR code in library, enter volunteer completion code',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'Barcode: DUMB_FAKE & Code: DUMB_FAKE (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Scanned value = \'DUMB_FAKE\' & normalize-space(.) = \'DUMB_FAKE\'',
+      'Mandatory Upload': 'Yes (Barcode Scan MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Round 4 Location Clue',
+      'Location': 'In-App Word Search (aiml.jpeg)',
+      'Challenge / Item': 'Word Search Grid',
+      'Question / Prompt': 'Find 5 words from grid -> Deduce location AIML -> Enter start code START-AI-PHY',
+      'Media Attached': 'aiml.jpeg',
+      'Expected Answer / Code': '5 Words, Location: AIML, Start Code: START-AI-PHY (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'AIML\' & \'START-AI-PHY\'',
+      'Mandatory Upload': 'No (Inputs Mandatory)'
+    },
+    {
+      'Stage / Round': 'Round 4 Checkpoint (R4)',
+      'Location': 'AIML Pathway',
+      'Challenge / Item': 'Physical Challenge',
+      'Question / Prompt': 'Complete physical challenge, upload photo, enter finish code PHY-AIML',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'PHY-AIML (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'PHY-AIML\'',
+      'Mandatory Upload': 'Yes (Photo MANDATORY)'
+    },
+    {
+      'Stage / Round': 'Final Round (Riddle 1)',
+      'Location': 'Main Auditorium',
+      'Challenge / Item': 'Auditorium Riddle',
+      'Question / Prompt': 'Solve riddle: Empty yet built for crowds, seats not meant to sleep...',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'AUDITORIUM (or AUDI) (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'AUDITORIUM\' or \'AUDI\'',
+      'Mandatory Upload': 'No (Input Mandatory)'
+    },
+    {
+      'Stage / Round': 'Final Round (Riddle 2)',
+      'Location': 'Main Auditorium Stage',
+      'Challenge / Item': 'Stage Riddle',
+      'Question / Prompt': 'Solve stage riddle: Elevated above crowd, wooden floor...',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'STAGE (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'STAGE\'',
+      'Mandatory Upload': 'No (Input Mandatory)'
+    },
+    {
+      'Stage / Round': 'Grand Finale',
+      'Location': 'Main Auditorium Stage',
+      'Challenge / Item': 'Solved Puzzle & Bell Ring',
+      'Question / Prompt': 'Solve puzzle, upload photo of solved puzzle, enter clearance code FINAL-PATH2, run to ring the bell to win',
+      'Media Attached': 'None',
+      'Expected Answer / Code': 'FINAL-PATH2 (UPPERCASE ONLY) -> Ring Bell',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'FINAL-PATH2\'',
+      'Mandatory Upload': 'Yes (Solved Puzzle Photo MANDATORY)'
+    }
+  ];
+
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(data);
+  XLSX.utils.book_append_sheet(wb, ws, 'PATH2_MASTER_KEY');
+  return wb;
 }
 
 function buildAnswerKeyPdfHtml() {
@@ -779,16 +1240,6 @@ function buildAnswerKeyPdfHtml() {
     font-weight: bold;
     font-size: 8pt;
   }
-  .placeholder-badge {
-    display: inline-block;
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fcd34d;
-    padding: 1px 6px;
-    border-radius: 3px;
-    font-weight: bold;
-    font-size: 7.5pt;
-  }
   .station-card {
     border: 1px solid #94a3b8;
     border-radius: 4px;
@@ -806,38 +1257,52 @@ function buildAnswerKeyPdfHtml() {
     border-bottom: 1px solid #e2e8f0;
     padding-bottom: 3px;
   }
+  .rules-box {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 8pt;
+  }
 </style>
 </head>
 <body>
 
 <div class="header">
   <div style="float: right; text-align: right;">
-    <span class="badge">ORGANIZER MASTER ANSWER KEY</span><br>
-    <small style="color: #64748b;">PATH 2 &bull; FOR ORGANIZER USE ONLY</small>
+    <span class="badge">PATH 2 OFFICIAL MASTER KEY</span><br>
+    <small style="color: #64748b;">FINAL CLUE 2026</small>
   </div>
-  <h1>PATH 2 &bull; TREASURE HUNT MASTER ANSWER KEY</h1>
+  <h1>FINAL CLUE &bull; ROUTE 2 / PATH 2</h1>
   <div style="font-size: 9pt; color: #475569; font-weight: 600;">
-    CONFIDENTIAL ORGANIZER KEY &bull; PROGRESSION: ADMIN &rarr; MBA &rarr; LIBRARY &rarr; AIML &rarr; AUDI
+    CONFIDENTIAL ORGANIZER MASTER KEY &bull; PROGRESSION: ADMIN &rarr; MBA &rarr; LIBRARY &rarr; AIML &rarr; AUDITORIUM
   </div>
 </div>
 
 <div class="meta-grid">
   <div class="meta-card">
     <strong>Starting Station</strong>
-    <span>ADMIN Block</span>
+    <span>ADMIN</span>
   </div>
   <div class="meta-card">
     <strong>Final Station</strong>
     <span>Main Auditorium Stage</span>
   </div>
   <div class="meta-card">
-    <strong>Input Rule</strong>
-    <span>CAPS ONLY (Case-Insensitive Validated)</span>
+    <strong>Input Constraints</strong>
+    <span>STRICT UPPERCASE (CAPS ONLY) &bull; 100% MANDATORY</span>
   </div>
   <div class="meta-card">
     <strong>Media Assets</strong>
     <span>aiml.jpeg (Word Search Grid)</span>
   </div>
+</div>
+
+<div class="rules-box">
+  <strong>🏆 Path 2 Team Qualification Rules:</strong><br>
+  • Round 1 ➔ Round 2: First 25 teams proceed &bull; Round 2 ➔ Round 3: Next 15 teams proceed &bull; Round 3 ➔ Round 4: Next 7 teams proceed &bull; Round 4 ➔ Round 5: Next 2 teams proceed to the Grand Finale!<br>
+  <strong>🔒 Strict Policy:</strong> Every question, photo upload, barcode scan, and code entry is <strong>100% MANDATORY</strong> and requires <strong>STRICT UPPERCASE ONLY</strong>.
 </div>
 
 <div class="section-title">1. Master Station-by-Station Directory</div>
@@ -847,166 +1312,112 @@ function buildAnswerKeyPdfHtml() {
     <tr>
       <th style="width: 14%;">Round / Stage</th>
       <th style="width: 16%;">Location</th>
-      <th style="width: 15%;">Challenge ID</th>
-      <th style="width: 30%;">Clue / Question Description</th>
-      <th style="width: 25%;">Correct Answer / Code</th>
+      <th style="width: 35%;">Clue / Question Description</th>
+      <th style="width: 20%;">Correct Answer / Code</th>
+      <th style="width: 15%;">Mandatory Upload</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>Registration</strong></td>
       <td>Start Desk</td>
-      <td>START</td>
-      <td>Team Name, Player ID &amp; Mandatory Team Photo</td>
-      <td><em>Participant Info + 📸 Photo</em></td>
+      <td>Team Name, Player ID &amp; Team Verification Photo</td>
+      <td><em>Participant Info</em></td>
+      <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
       <td><strong>Round 1 (R1)</strong></td>
       <td>ADMIN</td>
-      <td>Object / Gym</td>
-      <td>Find the required object/code in Admin/Gym area</td>
-      <td><span class="code-badge">JOHN-CENA</span> + 📸 Photo</td>
+      <td>Find assigned hidden object/code &amp; verify with volunteer</td>
+      <td><span class="code-badge">JOHN-CENA</span></td>
+      <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
       <td><strong>R2 Location Clue</strong></td>
-      <td>Clue &rarr; MBA</td>
-      <td>MBA-03</td>
-      <td>
-        <em>"One neighbour has already chosen its path.<br>
-        The other is still preparing for the journey ahead.<br>
-        Between the experienced and the yet-to-begin,<br>
-        your next destination quietly stands."</em>
-      </td>
-      <td><strong>MBA</strong></td>
+      <td>In-App</td>
+      <td>Security Report Intruder Clue: credentmials, systbem, administrataor</td>
+      <td>Destination: <code>MBA</code><br>Start Code: <span class="code-badge">MBA-START</span></td>
+      <td>Mandatory Input</td>
     </tr>
     <tr>
-      <td><strong>MBA Mini Challenge</strong></td>
-      <td>MBA Block</td>
-      <td>MBA Quickfire<br>(Variants 1 &amp; 2)</td>
+      <td><strong>R2 Mini Challenge</strong></td>
+      <td>MBA</td>
       <td>
-        &bull; <strong>Variant 1 (Set A):</strong> 10 Business &amp; Finance Questions + 📸 Photo<br>
-        &bull; <strong>Variant 2 (Set B):</strong> Variant 2 Challenge + 📸 Photo<br>
-        <strong>Common Clearance Code:</strong>
+        &bull; <strong>Variant A:</strong> 10 MBA Quickfire Questions &rarr; Code: <span class="code-badge">MBA-QF-1</span><br>
+        &bull; <strong>Variant B:</strong> 10 Brand Quiz Questions &rarr; Code: <span class="code-badge">MB-BQ-2</span>
       </td>
-      <td><span class="code-badge">MBA-QF-1</span></td>
+      <td><span class="code-badge">MBA-QF-1</span> / <span class="code-badge">MB-BQ-2</span></td>
+      <td>Mandatory Inputs</td>
     </tr>
     <tr>
       <td><strong>R3 Location Clue</strong></td>
-      <td>Clue &rarr; LIBRARY</td>
-      <td>LIB-04</td>
-      <td>
-        Anagrams: VEHSELS, GIDRAEN, IFIW, SISCUDISNO GGUONLE, IGIDLAT BILRYRA<br>
-        <em>(Decoded: SHELVES, READING, WIFI, DISCUSSION LOUNGE, DIGITAL LIBRARY)</em>
-      </td>
-      <td><strong>LIBRARY</strong></td>
+      <td>In-App</td>
+      <td>Shuffled Words: VEHSELS, GIDRAEN, IFIW, SISCUDISNO GGUONLE, IGIDLAT BILRYRA</td>
+      <td>Destination: <code>LIBRARY</code></td>
+      <td>All 5 Words Mandatory</td>
     </tr>
     <tr>
       <td><strong>R3 QR Hunt</strong></td>
       <td>LIBRARY</td>
-      <td>QR Hunt</td>
-      <td>Physically search library for hidden QR code and scan barcode</td>
-      <td><span class="code-badge">DUMB_FAKE</span> + 📸 Photo</td>
+      <td>Physically search library for hidden QR code and scan</td>
+      <td>Barcode: <span class="code-badge">DUMB_FAKE</span></td>
+      <td>Native Barcode Scanner</td>
     </tr>
     <tr>
       <td><strong>R4 Location Clue</strong></td>
-      <td>In-App Image (<code>aiml.jpeg</code>)</td>
-      <td>Word Search</td>
-      <td>
-        Find ANY 5 valid words from puzzle grid:<br>
-        • MACHINE LEARNING<br>
-        • NEURAL NETWORK<br>
-        • PYTHON<br>
-        • DATASET<br>
-        • ALGORITHM<br>
-        • TRAINING DATA<br>
-        • DEEP LEARNING<br>
-        • DATA MINING<br>
-        • MODELING<br>
-        • REGRESSION<br>
-        • CLASSIFY
-      </td>
-      <td><strong>5 Valid Words</strong> &rarr; Destination: <strong>AIML</strong></td>
+      <td>In-App (<code>aiml.jpeg</code>)</td>
+      <td>Find ANY 5 words from word search grid</td>
+      <td>Destination: <code>AIML</code><br>Start Code: <span class="code-badge">START-AI-PHY</span></td>
+      <td>Mandatory Inputs</td>
     </tr>
     <tr>
       <td><strong>Round 4 (R4)</strong></td>
-      <td>AIML &amp; Cyber Pathway</td>
-      <td>Physical Challenge</td>
-      <td>Complete physical agility challenge along pathway with volunteer</td>
-      <td><span class="code-badge">PHY-CY</span> + 📸 Photo</td>
+      <td>AIML Pathway</td>
+      <td>Complete physical challenge along pathway with volunteer</td>
+      <td>Finish Code: <span class="code-badge">PHY-AIML</span></td>
+      <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
-      <td><strong>Final Stage 1</strong></td>
-      <td>AUDI</td>
-      <td>AUDI-01</td>
-      <td>Auditorium Riddle: Dark hall, red seats, mic, orientations</td>
-      <td><strong>AUDITORIUM</strong> (or <strong>AUDI</strong>)</td>
-    </tr>
-    <tr>
-      <td><strong>Final Stage 2</strong></td>
+      <td><strong>Final Stage</strong></td>
       <td>AUDI Stage</td>
-      <td>AUDI-02</td>
-      <td>Stage Riddle: Elevated platform, spotlights, curtains</td>
-      <td><strong>STAGE</strong> + 📸 Solved Puzzle Photo<br>Code: <span class="code-badge">FINAL-PATH2</span></td>
-    </tr>
-    <tr>
-      <td><strong>Completion</strong></td>
-      <td>AUDI Stage</td>
-      <td>FINISH</td>
-      <td>Confirmation Screen</td>
-      <td><strong>CONGRATULATIONS! PATH 2 COMPLETED.</strong></td>
+      <td>
+        Riddle 1 (Dark hall, red seats): <code>AUDITORIUM</code><br>
+        Riddle 2 (Elevated platform): <code>STAGE</code><br>
+        Solve puzzle &rarr; Enter Code &rarr; Ring the Bell! 🔔
+      </td>
+      <td><span class="code-badge">FINAL-PATH2</span><br>&rarr; Ring Bell! 🔔</td>
+      <td>📸 Mandatory Photo of Solved Puzzle</td>
     </tr>
   </tbody>
 </table>
 
-<div class="section-title">2. MBA-01 Quickfire Set A Question &amp; Answer Breakdown</div>
-
-<table>
-  <thead>
-    <tr>
-      <th style="width: 8%;">#</th>
-      <th style="width: 62%;">Question Text</th>
-      <th style="width: 30%;">Exact Expected Answer</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>1</td><td>A market with only one seller is called?</td><td><strong>MONOPOLY</strong></td></tr>
-    <tr><td>2</td><td>What is the currency of China?</td><td><strong>YUAN</strong></td></tr>
-    <tr><td>3</td><td>What does CEO stand for?</td><td><strong>CHIEF EXECUTIVE OFFICER</strong></td></tr>
-    <tr><td>4</td><td>What does ROI stand for in business finance?</td><td><strong>RETURN ON INVESTMENT</strong></td></tr>
-    <tr><td>5</td><td>What term describes business transactions conducted between two companies (abbreviation)?</td><td><strong>B2B</strong></td></tr>
-    <tr><td>6</td><td>In accounting: Assets minus Liabilities equals what?</td><td><strong>EQUITY</strong></td></tr>
-    <tr><td>7</td><td>Which animal represents a rising, optimistic financial market?</td><td><strong>BULL</strong></td></tr>
-    <tr><td>8</td><td>What does IPO stand for when a company goes public?</td><td><strong>INITIAL PUBLIC OFFERING</strong></td></tr>
-    <tr><td>9</td><td>What is the standard 3-letter abbreviation for Gross Domestic Product?</td><td><strong>GDP</strong></td></tr>
-    <tr><td>10</td><td>In the 4 Ps of Marketing (Product, Price, Place), what is the 4th P?</td><td><strong>PROMOTION</strong></td></tr>
-  </tbody>
-</table>
-
-<div class="section-title">3. Volunteer Station Instructions &amp; Verification Procedures</div>
+<div class="section-title">2. Volunteer Station Instructions &amp; Verification Procedures</div>
 
 <div class="station-card">
   <h3><span>ADMIN Station: Object Finding</span><span class="code-badge">CODE: JOHN-CENA</span></h3>
-  <div><strong>Volunteer Instructions:</strong> Participants search the area for the assigned hidden item. Once found, they upload a photo and enter code <code>JOHN-CENA</code> into their KoboCollect form in capital letters.</div>
+  <div><strong>Volunteer Instructions:</strong> Participants locate the assigned hidden item. Once found, they upload a photo and enter code <code>JOHN-CENA</code> in capital letters.</div>
 </div>
 
 <div class="station-card">
-  <h3><span>MBA Station: Quickfire Challenges</span><span class="code-badge">CLEARANCE CODE: MBA-QF-1</span></h3>
-  <div><strong>Volunteer Instructions:</strong> Teams choose their assigned variant (Set A or Set B), answer their questions, and upload a station photo. Once verified, provide the final clearance code <code>MBA-QF-1</code> regardless of the variant chosen.</div>
+  <h3><span>MBA Station: Arrival &amp; Challenges</span><span class="code-badge">START: MBA-START &bull; VAR A: MBA-QF-1 &bull; VAR B: MB-BQ-2</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Teams arrive at MBA. Volunteer gives start code <code>MBA-START</code>.
+  <br>&bull; <strong>Variant A (Quickfire):</strong> Team answers 10 business questions and enters <code>MBA-QF-1</code>.
+  <br>&bull; <strong>Variant B (Brand Quiz):</strong> Team answers 10 brand quiz questions and enters <code>MB-BQ-2</code>.</div>
 </div>
 
 <div class="station-card">
   <h3><span>LIBRARY Station: QR Hunt</span><span class="code-badge">SCANNED QR: DUMB_FAKE</span></h3>
-  <div><strong>Volunteer Instructions:</strong> Ensure the physical QR code with payload <code>DUMB_FAKE</code> is placed in the reading/shelves section. Participants scan it using the in-app barcode question and upload a location photo.</div>
+  <div><strong>Volunteer Instructions:</strong> Participants scan the physical QR code with payload <code>DUMB_FAKE</code> using the in-app barcode scanner.</div>
 </div>
 
 <div class="station-card">
-  <h3><span>AIML &amp; Cyber Pathway Station: Physical Challenge</span><span class="code-badge">VOLUNTEER CODE: PHY-CY</span></h3>
-  <div><strong>Volunteer Instructions:</strong> Supervise participants completing the physical trial along the pathway. Upon successful completion and photo upload, provide the verification code <code>PHY-CY</code>.</div>
+  <h3><span>AIML Station: Physical Challenge</span><span class="code-badge">START: START-AI-PHY &bull; END: PHY-AIML</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Volunteer gives start code <code>START-AI-PHY</code>. Team completes physical challenge, uploads photo, and receives finish code <code>PHY-AIML</code>.</div>
 </div>
 
 <div class="station-card">
-  <h3><span>Main Auditorium Stage: Grand Finale</span><span class="code-badge">CODE: FINAL-PATH2</span></h3>
-  <div><strong>Volunteer Instructions:</strong> Teams solve Riddle 1 (<code>AUDITORIUM</code>) and Riddle 2 (<code>STAGE</code>), upload a clear photo of their solved puzzle sheet, and present to Chief Judges for code <code>FINAL-PATH2</code>!</div>
+  <h3><span>Main Auditorium Stage: Grand Finale</span><span class="code-badge">CODE: FINAL-PATH2 &bull; 🔔 RING THE BELL</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Teams solve Riddle 1 (<code>AUDITORIUM</code>) and Riddle 2 (<code>STAGE</code>), upload a clear photo of their solved puzzle sheet, and receive clearance code <code>FINAL-PATH2</code> from Chief Judges before running to ring the victory bell!</div>
 </div>
 
 </body>
@@ -1028,7 +1439,7 @@ function main() {
     fs.copyFileSync(sourceImg, destImg);
   }
 
-  console.log('Generating PATH2_FINAL_ODK.xlsx (Updated with MBA-QF-1 clearance & image on every word search question)...');
+  console.log('Generating PATH2_FINAL_ODK.xlsx with STRICT UPPERCASE ONLY & 100% MANDATORY enforcement...');
   const survey = buildSurvey();
   const choices = buildChoices();
   const settings = buildSettings();
@@ -1042,6 +1453,12 @@ function main() {
   XLSX.writeFile(wb, xlsxPath);
   console.log(`Successfully created: ${xlsxPath}`);
 
+  console.log('Generating PATH2_ANSWER_KEY.xlsx...');
+  const keyWb = buildAnswerKeyWorkbook();
+  const keyPath = path.join(route2Dir, 'PATH2_ANSWER_KEY.xlsx');
+  XLSX.writeFile(keyWb, keyPath);
+  console.log(`Successfully created: ${keyPath}`);
+
   console.log('Generating PATH2_ANSWER_KEY.pdf...');
   const pdfHtml = buildAnswerKeyPdfHtml();
   const pdfPath = path.join(route2Dir, 'PATH2_ANSWER_KEY.pdf');
@@ -1050,7 +1467,7 @@ function main() {
 
   console.log('Packaging PATH2_COMPLETE_PACKAGE.zip and PATH2_MEDIA.zip...');
   execSync(`powershell -NoProfile -Command "Compress-Archive -Path '${mediaDir}\\*' -DestinationPath '${route2Dir}\\PATH2_MEDIA.zip' -Force"`);
-  execSync(`powershell -NoProfile -Command "Compress-Archive -Path '${route2Dir}\\PATH2_FINAL_ODK.xlsx', '${route2Dir}\\PATH2_ANSWER_KEY.pdf', '${mediaDir}' -DestinationPath '${route2Dir}\\PATH2_COMPLETE_PACKAGE.zip' -Force"`);
+  execSync(`powershell -NoProfile -Command "Compress-Archive -Path '${route2Dir}\\PATH2_FINAL_ODK.xlsx', '${route2Dir}\\PATH2_ANSWER_KEY.xlsx', '${route2Dir}\\PATH2_ANSWER_KEY.pdf', '${mediaDir}' -DestinationPath '${route2Dir}\\PATH2_COMPLETE_PACKAGE.zip' -Force"`);
 
   console.log('🎉 PATH 2 PACKAGE GENERATED SUCCESSFULLY!');
 }
