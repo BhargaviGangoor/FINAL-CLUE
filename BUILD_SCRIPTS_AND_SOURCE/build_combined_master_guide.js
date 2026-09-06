@@ -298,8 +298,8 @@ function generateCombinedMasterGuideHtml(baseDir) {
     </tr>
     <tr>
       <td><strong>Path 5</strong></td>
-      <td>COE / LIB (COE Board) &rarr; <code>YAAKE-GURU-5</code></td>
-      <td><code>COE (LIB) → AIML → CSE → MECH → AUDITORIUM</code></td>
+      <td>Station 1 (Library / Object) &rarr; <code>YAAKE-GURU-5</code></td>
+      <td><code>STATION 1 → AIML → CSE → MECH → AUDITORIUM</code></td>
       <td><code>badminton court.jpeg</code></td>
     </tr>
   </tbody>
@@ -310,24 +310,24 @@ function generateCombinedMasterGuideHtml(baseDir) {
 <!-- ============================================================= -->
 <div class="page-break"></div>
 
-<div class="header-path" style="border-color: #2563eb;">
+<div class="header-path" style="border-color: #1d4ed8;">
   <div>
     <h2 style="margin: 0; color: #1d4ed8; font-size: 14pt;">PATH 1 MASTER GUIDE &bull; ECE &rarr; MECH &rarr; FOOD COURT &rarr; CYBER &rarr; AUDI</h2>
     <small style="color: #64748b;">ROUTE 1 OFFICIAL FORM, MEDIA & CLEARANCE CODES</small>
   </div>
-  <span class="badge" style="background: #2563eb;">PATH 1</span>
+  <span class="badge" style="background: #1d4ed8;">PATH 1</span>
 </div>
 
 <div class="qr-box">
   <img src="${qrPath1}" alt="Path 1 Form QR">
   <div>
-    <strong style="font-size: 9.5pt; color: #1e3a8a;">Path 1 KoboToolbox / ODK Collect Form QR</strong><br>
+    <strong style="font-size: 9.5pt; color: #1d4ed8;">Path 1 KoboToolbox / ODK Collect Form QR</strong><br>
     <span style="font-size: 8pt; color: #475569;">Participants scan this QR code at registration desk to open Path 1 on their ODK Collect app.</span><br>
-    <span style="font-size: 8pt; font-weight: bold; color: #0284c7;">Form ID: final_clue_path1</span>
+    <span style="font-size: 8pt; font-weight: bold; color: #1d4ed8;">Form ID: PATH1_TREASURE_HUNT</span>
   </div>
 </div>
 
-<div class="section-title" style="background: #2563eb;">Path 1 Station-by-Station Directory</div>
+<div class="section-title" style="background: #1d4ed8;">Path 1 Station-by-Station Directory</div>
 
 <table>
   <thead>
@@ -343,53 +343,53 @@ function generateCombinedMasterGuideHtml(baseDir) {
     <tr>
       <td><strong>R1 Object</strong></td>
       <td>ECE</td>
-      <td>Find Vending Machine Object</td>
+      <td>Find Vending Machine physical object</td>
       <td>Code: <span class="code-badge">CYBER-112</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
       <td><strong>R2 Clue</strong></td>
-      <td>In-App Audio</td>
-      <td>Engine Sound (<code>engine_sound.mpeg</code>)</td>
-      <td>Destination: <code>MECH</code><br>Start: <span class="start-code-badge">MECH-START</span></td>
-      <td>Mandatory Input</td>
+      <td>In-App (<code>engine_sound.mpeg</code>)</td>
+      <td>Audio Clue: Engine Sound</td>
+      <td>Destination: <code>MECH</code><br>Start: <span class="start-code-badge">SOUND-PASS</span></td>
+      <td>Mandatory Inputs</td>
     </tr>
     <tr>
       <td><strong>R2 Challenge</strong></td>
       <td>MECH</td>
       <td>
-        &bull; <strong>Var A (Workshop):</strong> 10 MCQs &rarr; <span class="code-badge">MECH-VIBE-1</span><br>
-        &bull; <strong>Var B (Rapid Fire):</strong> 10 MCQs &rarr; <span class="code-badge">MECH-TURBO-2</span>
+        &bull; <strong>Variant A:</strong> Human Poses (4 photos) &rarr; <span class="code-badge">MECH-PS-1</span><br>
+        &bull; <strong>Variant B:</strong> Paper Ball challenge &rarr; <span class="code-badge">MECH-PB-2</span>
       </td>
-      <td><span class="code-badge">MECH-VIBE-1</span> / <span class="code-badge">MECH-TURBO-2</span></td>
-      <td>📸 Mandatory Photo</td>
+      <td><span class="code-badge">MECH-PS-1</span> / <span class="code-badge">MECH-PB-2</span></td>
+      <td>Var A: 4 Photos (Mandatory)</td>
     </tr>
     <tr>
       <td><strong>R3 Clue</strong></td>
       <td>In-App</td>
-      <td>Shuffled Numbers: <code>6 15 15 4</code> + <code>3 15 21 18 20</code></td>
-      <td><code>FOOD</code> + <code>COURT</code> &rarr; <code>FOOD COURT</code></td>
-      <td>Mandatory Inputs</td>
+      <td>Crossword Riddle (4 definitions) &rarr; <code>FOODCOURT</code></td>
+      <td>Destination: <code>FOODCOURT</code></td>
+      <td>Mandatory Input</td>
     </tr>
     <tr>
       <td><strong>R3 QR Hunt</strong></td>
       <td>FOOD COURT</td>
       <td>Find hidden QR code in Food Court</td>
       <td>Barcode: <span class="code-badge">CRICKET_CHAMP</span><br>Code: <span class="code-badge">FC-GOOD-LUCK</span></td>
-      <td>📸 Photo + Scan</td>
+      <td>Scan + Code (Mandatory)</td>
     </tr>
     <tr>
       <td><strong>R4 Clue</strong></td>
       <td>In-App</td>
-      <td>Caesar Cipher (-3): <code>FBZHU</code></td>
-      <td>Destination: <code>CYBER</code><br>Start: <span class="start-code-badge">CYBER-ENTRY</span></td>
+      <td>Caesar Cipher (-3): <code>FBEHUBF</code></td>
+      <td>Destination: <code>CYBER</code><br>Start: <span class="start-code-badge">START-PHY</span></td>
       <td>Mandatory Inputs</td>
     </tr>
     <tr>
       <td><strong>R4 Challenge</strong></td>
-      <td>CYBER Seminar</td>
-      <td>Seminar Hall Agility Challenge</td>
-      <td>Finish Code: <span class="code-badge">PHY-CY</span></td>
+      <td>CYBER</td>
+      <td>Physical Relay Challenge with volunteer</td>
+      <td>Status: <code>PASSED</code><br>Finish: <span class="code-badge">FINISH-PHY</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
@@ -407,11 +407,11 @@ function generateCombinedMasterGuideHtml(baseDir) {
 
 ${p1Vending ? `
 <div style="margin-top: 4px;">
-  <strong style="font-size: 8pt; color: #1e3a8a;">Path 1 Media Assets:</strong>
+  <strong style="font-size: 8pt; color: #1d4ed8;">Path 1 Media Assets:</strong>
   <div class="image-gallery" style="grid-template-columns: repeat(2, 1fr);">
     <div class="image-card">
       <img src="${p1Vending}" alt="Vending Machine">
-      <div>R1 Vending Machine Object</div>
+      <div>R1: vending machine hidden object.jpeg</div>
     </div>
   </div>
 </div>
@@ -422,24 +422,24 @@ ${p1Vending ? `
 <!-- ============================================================= -->
 <div class="page-break"></div>
 
-<div class="header-path" style="border-color: #059669;">
+<div class="header-path" style="border-color: #047857;">
   <div>
     <h2 style="margin: 0; color: #047857; font-size: 14pt;">PATH 2 MASTER GUIDE &bull; ADMIN &rarr; MBA &rarr; LIBRARY &rarr; AIML &rarr; AUDI</h2>
     <small style="color: #64748b;">ROUTE 2 OFFICIAL FORM, MEDIA & CLEARANCE CODES</small>
   </div>
-  <span class="badge" style="background: #059669;">PATH 2</span>
+  <span class="badge" style="background: #047857;">PATH 2</span>
 </div>
 
 <div class="qr-box">
   <img src="${qrPath2}" alt="Path 2 Form QR">
   <div>
-    <strong style="font-size: 9.5pt; color: #065f46;">Path 2 KoboToolbox / ODK Collect Form QR</strong><br>
+    <strong style="font-size: 9.5pt; color: #047857;">Path 2 KoboToolbox / ODK Collect Form QR</strong><br>
     <span style="font-size: 8pt; color: #475569;">Participants scan this QR code at registration desk to open Path 2 on their ODK Collect app.</span><br>
-    <span style="font-size: 8pt; font-weight: bold; color: #059669;">Form ID: final_clue_path2</span>
+    <span style="font-size: 8pt; font-weight: bold; color: #047857;">Form ID: PATH2_TREASURE_HUNT</span>
   </div>
 </div>
 
-<div class="section-title" style="background: #059669;">Path 2 Station-by-Station Directory</div>
+<div class="section-title" style="background: #047857;">Path 2 Station-by-Station Directory</div>
 
 <table>
   <thead>
@@ -455,53 +455,53 @@ ${p1Vending ? `
     <tr>
       <td><strong>R1 Object</strong></td>
       <td>ADMIN</td>
-      <td>Find hidden object in Admin/Gym area</td>
+      <td>Find Gym / Weight Board physical object</td>
       <td>Code: <span class="code-badge">JOHN-CENA</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
       <td><strong>R2 Clue</strong></td>
       <td>In-App</td>
-      <td>Tampered Security Log: credentmials, systbem, administrataor</td>
+      <td>Math Equations (12x4, 30/2, 2x7-13, 20-19) &rarr; <code>MBA</code></td>
       <td>Destination: <code>MBA</code><br>Start: <span class="start-code-badge">MBA-START</span></td>
-      <td>Mandatory Input</td>
+      <td>Mandatory Inputs</td>
     </tr>
     <tr>
       <td><strong>R2 Challenge</strong></td>
       <td>MBA</td>
       <td>
-        &bull; <strong>Var A (MBA Quickfire):</strong> 10 Questions &rarr; <span class="code-badge">MBA-QF-1</span><br>
-        &bull; <strong>Var B (Brand Quiz):</strong> 10 Questions &rarr; <span class="code-badge">MB-BQ-2</span>
+        &bull; <strong>Variant A:</strong> MBA Quickfire (10 Questions) &rarr; <span class="code-badge">MBA-QF-1</span><br>
+        &bull; <strong>Variant B:</strong> Brand Quiz (10 Questions) &rarr; <span class="code-badge">MBA-BQ-2</span>
       </td>
-      <td><span class="code-badge">MBA-QF-1</span> / <span class="code-badge">MB-BQ-2</span></td>
+      <td><span class="code-badge">MBA-QF-1</span> / <span class="code-badge">MBA-BQ-2</span></td>
       <td>Mandatory Inputs</td>
     </tr>
     <tr>
       <td><strong>R3 Clue</strong></td>
-      <td>In-App</td>
-      <td>5 Shuffled Words: VEHSELS, GIDRAEN, IFIW, SISCUDISNO GGUONLE, IGIDLAT BILRYRA</td>
-      <td>SHELVES, READING, WIFI, DISCUSSION LOUNGE, DIGITAL LIBRARY &rarr; <code>LIBRARY</code></td>
-      <td>All 5 Words Mandatory</td>
+      <td>In-App (<code>aiml.jpeg</code>)</td>
+      <td>Spot the Differences &rarr; <code>LIBRARY</code></td>
+      <td>Destination: <code>LIBRARY</code></td>
+      <td>Mandatory Input</td>
     </tr>
     <tr>
       <td><strong>R3 QR Hunt</strong></td>
       <td>LIBRARY</td>
-      <td>Find hidden QR code in Library</td>
-      <td>Barcode: <span class="code-badge">DUMB_FAKE</span><br>Code: <span class="code-badge">DUMB_FAKE</span></td>
+      <td>Find hidden QR code in Library area</td>
+      <td>Barcode: <span class="code-badge">DUMB_FAKE</span></td>
       <td>Scan Barcode</td>
     </tr>
     <tr>
       <td><strong>R4 Clue</strong></td>
-      <td>In-App (<code>aiml.jpeg</code>)</td>
-      <td>Word Search: Find ANY 5 words from grid</td>
-      <td>5 Valid Words &rarr; Destination: <code>AIML</code><br>Start: <span class="start-code-badge">START-AI-PHY</span></td>
+      <td>In-App</td>
+      <td>Memory Recall: First letters of 5 specific answers &rarr; <code>AIML</code></td>
+      <td>Destination: <code>AIML</code><br>Start: <span class="start-code-badge">START-AI-PHY</span></td>
       <td>Mandatory Inputs</td>
     </tr>
     <tr>
       <td><strong>R4 Challenge</strong></td>
-      <td>AIML Pathway</td>
-      <td>Physical Coordination Challenge</td>
-      <td>Finish Code: <span class="code-badge">PHY-AIML</span></td>
+      <td>AIML</td>
+      <td>Physical Fitness/Coordination Challenge with volunteer</td>
+      <td>Status: <code>PASSED</code><br>Finish: <span class="code-badge">AI-FIN-123</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
@@ -518,16 +518,16 @@ ${p1Vending ? `
 </table>
 
 <div style="margin-top: 4px;">
-  <strong style="font-size: 8pt; color: #047857;">Path 2 Media Assets (Brand Quiz &amp; Word Search):</strong>
+  <strong style="font-size: 8pt; color: #047857;">Path 2 Media Assets:</strong>
   <div class="image-gallery">
-    <div class="image-card"><img src="${p2Aiml}" alt="AIML Grid"><div>R4: aiml.jpeg</div></div>
-    <div class="image-card"><img src="${p2Bambaloni}" alt="Bambaloni"><div>Q1: bambaloni.jpeg</div></div>
-    <div class="image-card"><img src="${p2Horrid}" alt="Horrid Henry"><div>Q3: horrid henry.jpeg</div></div>
-    <div class="image-card"><img src="${p25Star}" alt="5 Star"><div>Q4: 5 star.jpeg</div></div>
-    <div class="image-card"><img src="${p2Nokia}" alt="Nokia"><div>Q5: nokia.jpeg</div></div>
-    <div class="image-card"><img src="${p2Durian}" alt="Durian"><div>Q6: durian.jpeg</div></div>
-    <div class="image-card"><img src="${p2Michelin}" alt="Michelin"><div>Q8: michelin.jpeg</div></div>
-    <div class="image-card"><img src="${p2Palmonas}" alt="Palmonas"><div>Q10: palmonas.jpeg</div></div>
+    ${p2Aiml ? `<div class="image-card"><img src="${p2Aiml}" alt="AIML Spot Difference"><div>R3: aiml.jpeg</div></div>` : ''}
+    ${p2Bambaloni ? `<div class="image-card"><img src="${p2Bambaloni}" alt="Bambaloni"><div>R2: bambaloni.jpeg</div></div>` : ''}
+    ${p2Horrid ? `<div class="image-card"><img src="${p2Horrid}" alt="Horrid Henry"><div>R2: horrid henry.jpeg</div></div>` : ''}
+    ${p25Star ? `<div class="image-card"><img src="${p25Star}" alt="5 Star"><div>R2: 5 star.jpeg</div></div>` : ''}
+    ${p2Nokia ? `<div class="image-card"><img src="${p2Nokia}" alt="Nokia"><div>R2: nokia.jpeg</div></div>` : ''}
+    ${p2Durian ? `<div class="image-card"><img src="${p2Durian}" alt="Durian"><div>R2: durian.jpeg</div></div>` : ''}
+    ${p2Michelin ? `<div class="image-card"><img src="${p2Michelin}" alt="Michelin"><div>R2: michelin.jpeg</div></div>` : ''}
+    ${p2Palmonas ? `<div class="image-card"><img src="${p2Palmonas}" alt="Palmonas"><div>R2: palmonas.jpeg</div></div>` : ''}
   </div>
 </div>
 
@@ -547,7 +547,7 @@ ${p1Vending ? `
 <div class="qr-box">
   <img src="${qrPath3}" alt="Path 3 Form QR">
   <div>
-    <strong style="font-size: 9.5pt; color: #5b21b6;">Path 3 KoboToolbox / ODK Collect Form QR</strong><br>
+    <strong style="font-size: 9.5pt; color: #6d28d9;">Path 3 KoboToolbox / ODK Collect Form QR</strong><br>
     <span style="font-size: 8pt; color: #475569;">Participants scan this QR code at registration desk to open Path 3 on their ODK Collect app.</span><br>
     <span style="font-size: 8pt; font-weight: bold; color: #7c3aed;">Form ID: PATH3_TREASURE_HUNT</span>
   </div>
@@ -569,31 +569,31 @@ ${p1Vending ? `
     <tr>
       <td><strong>R1 Object</strong></td>
       <td>MBA</td>
-      <td>Find Visvesvaraya physical object</td>
+      <td>Find Sir M. Visvesvaraya Board physical object</td>
       <td>Code: <span class="code-badge">ENG-KID-119</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
       <td><strong>R2 Clue</strong></td>
       <td>In-App (<code>challenge.jpeg</code>)</td>
-      <td>Elemental Encryption using periodic table</td>
+      <td>Periodic Table: Ag(47), Dy(66), In(49), N(7) &rarr; <code>ADMIN</code></td>
       <td>Destination: <code>ADMIN</code><br>Start: <span class="start-code-badge">ADMIN-START</span></td>
-      <td>Mandatory Input</td>
+      <td>Mandatory Inputs</td>
     </tr>
     <tr>
       <td><strong>R2 Challenge</strong></td>
       <td>ADMIN</td>
       <td>
-        &bull; <strong>Var A (Count to Unlock):</strong> 5 chess, 7 uno, 3 appy, 4 smoodh, 2 files &rarr; <span class="code-badge">ADM-DUCK-3</span><br>
-        &bull; <strong>Var B (Memory Room):</strong> 7 Memory Answers &rarr; <span class="code-badge">ADM-DISNEY-3</span>
+        &bull; <strong>Var A (Logical 1):</strong> Tech Jargon (10) + Logic Puzzle (10) &rarr; <span class="code-badge">ADMIN-NEWTON-3</span><br>
+        &bull; <strong>Var B (Logical 2):</strong> Brain Teasers (10) + Aptitude (10) &rarr; <span class="code-badge">ADMIN-PASCAL-3</span>
       </td>
-      <td><span class="code-badge">ADM-DUCK-3</span> / <span class="code-badge">ADM-DISNEY-3</span></td>
+      <td><span class="code-badge">ADMIN-NEWTON-3</span> / <span class="code-badge">ADMIN-PASCAL-3</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
       <td><strong>R3 Clue</strong></td>
       <td>In-App</td>
-      <td>Circuit &amp; Waves Riddle: Waves, analog signals, resistors</td>
+      <td>Morse Code: <code>. -.-. .</code> &rarr; <code>ECE</code></td>
       <td>Destination: <code>ECE</code></td>
       <td>Mandatory Input</td>
     </tr>
@@ -762,7 +762,7 @@ ${p4Morse ? `
 
 <div class="header-path" style="border-color: #0284c7;">
   <div>
-    <h2 style="margin: 0; color: #0369a1; font-size: 14pt;">PATH 5 MASTER GUIDE &bull; COE (LIB) &rarr; AIML &rarr; CSE &rarr; MECH &rarr; AUDI</h2>
+    <h2 style="margin: 0; color: #0369a1; font-size: 14pt;">PATH 5 MASTER GUIDE &bull; STATION 1 &rarr; AIML &rarr; CSE &rarr; MECH &rarr; AUDI</h2>
     <small style="color: #64748b;">ROUTE 5 OFFICIAL FORM, MEDIA & CLEARANCE CODES</small>
   </div>
   <span class="badge" style="background: #0284c7;">PATH 5</span>
@@ -792,24 +792,27 @@ ${p4Morse ? `
   <tbody>
     <tr>
       <td><strong>R1 Object</strong></td>
-      <td>COE (LIB)</td>
-      <td>Find COE Board physical object</td>
+      <td>Station 1 (Library)</td>
+      <td>Find assigned physical object</td>
       <td>Code: <span class="code-badge">YAAKE-GURU-5</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
-      <td><strong>R2 Clue</strong></td>
+      <td><strong>R2 Clues</strong></td>
       <td>In-App</td>
-      <td>Missing Concept: Algorithm (A) + Internet (I) + Model (M) + Language (L)</td>
-      <td>Destination: <code>AIML</code><br>Start: <span class="start-code-badge">AIML-START</span></td>
-      <td>Mandatory Input</td>
+      <td>
+        Missing Concept (Slide-by-Slide):<br>
+        (A)lgorithm + (I)nternet + (M)odel + (L)anguage &rarr; <code>AIML</code>
+      </td>
+      <td>Destination: <code>AIML</code></td>
+      <td>Mandatory Inputs</td>
     </tr>
     <tr>
       <td><strong>R2 Challenge</strong></td>
       <td>AIML Lab</td>
-      <td>Reverse Image Prompting (3 images in 3 different AI tabs)</td>
-      <td>Status: <code>PASSED</code><br>Code 1: <span class="code-badge">GEMMA-V05</span><br>Finish: <span class="code-badge">OLLAMA-V05</span></td>
-      <td>📸 Mandatory Photo</td>
+      <td>Reverse Image Prompting (Recreate 3 images in 3 AI chats)</td>
+      <td>Start: <span class="start-code-badge">GEMMA-V05</span><br>Final: <span class="code-badge">OLLAMA-V05</span></td>
+      <td>📸 Photo 1 (Mandatory) + Photo 2 (Opt.)</td>
     </tr>
     <tr>
       <td><strong>R3 Clue</strong></td>
@@ -823,20 +826,20 @@ ${p4Morse ? `
       <td>CSE</td>
       <td>Find hidden QR code in CSE area</td>
       <td>Barcode: <span class="code-badge">PETER_PARKER</span></td>
-      <td>📸 Photo + Scan</td>
+      <td>Scan Barcode</td>
     </tr>
     <tr>
       <td><strong>R4 Clue</strong></td>
       <td>In-App (<code>badminton court.jpeg</code>)</td>
       <td>MEC-02 Piece-by-Piece photograph puzzle</td>
-      <td>Destination: <code>MECH</code><br>Start: <span class="start-code-badge">PIECE-START</span></td>
-      <td>Mandatory Inputs</td>
+      <td>Destination: <code>MECH</code></td>
+      <td>Mandatory Input</td>
     </tr>
     <tr>
       <td><strong>R4 Challenge</strong></td>
       <td>MECH</td>
-      <td>Physical Coordination Challenge</td>
-      <td>Status: <code>PASSED</code><br>Finish: <span class="code-badge">PIECE-BYE</span></td>
+      <td>Physical Coordination Challenge with volunteer</td>
+      <td>Start: <span class="start-code-badge">PIECE-START</span><br>Finish: <span class="code-badge">PIECE-BYE</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>

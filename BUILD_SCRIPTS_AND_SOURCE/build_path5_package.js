@@ -22,6 +22,8 @@ function renderHtmlToPdf(htmlContent, outputPath) {
 function buildSurvey() {
   const survey = [];
 
+  const progressionWarning = 'Read the question properly as you cannot come back to the question once you go ahead.';
+
   // =============================================================
   // START — INSTRUCTIONS, RULES & REGISTRATION
   // =============================================================
@@ -72,18 +74,19 @@ From each path:
 * Next 7 teams proceed to Round 4.
 * Next 2 teams proceed to Round 5.
 
-⚠️ MANDATORY RESPONSE & CAPS ONLY RULES:
+⚠️ STRICT PROGRESSION & MANDATORY RULES:
+• Read each question properly as you cannot come back to the question once you go ahead!
 • Every single question, photo upload, and code entry is strictly MANDATORY.
 • All text answers and volunteer codes must be entered in UPPERCASE (CAPS ONLY).
 • Lowercase letters will be rejected by validation.`,
-    hint: 'Read all rules and instructions carefully.'
+    hint: `Read all rules and instructions carefully. ${progressionWarning}`
   });
 
   survey.push({
     type: 'text',
     name: 'team_name',
     label: 'Enter Team Name (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Team Name is mandatory. Please enter in UPPERCASE.',
     constraint: "regex(., '^[A-Z0-9\\-_ ]+$')",
@@ -94,7 +97,7 @@ From each path:
     type: 'text',
     name: 'player_id',
     label: 'Enter Team / Player Identification (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Player / Team ID is mandatory. Please enter in UPPERCASE.',
     constraint: "regex(., '^[A-Z0-9\\-_ ]+$')",
@@ -105,7 +108,7 @@ From each path:
     type: 'image',
     name: 'team_start_photo',
     label: '📸 Upload Team Verification Photo (MANDATORY)\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your team at the start desk.',
+    hint: `Take a clear photo of your team at the start desk. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Team verification photo is strictly mandatory.'
   });
@@ -117,36 +120,36 @@ From each path:
   const startPassed = "${team_name} != '' and ${player_id} != '' and ${team_start_photo} != ''";
 
   // =============================================================
-  // ROUND 1 — COE (LIB): OBJECT (COE Board)
+  // ROUND 1: OBJECT FINDING
   // =============================================================
   survey.push({
     type: 'begin_group',
-    name: 'r1_coe_group',
-    label: 'ROUND 1 — OBJECT FINDING',
+    name: 'r1_group',
+    label: 'ROUND 1',
     relevant: startPassed
   });
 
   survey.push({
     type: 'note',
-    name: 'r1_coe_intro',
-    label: '📍 ROUND 1: 🧩 OBJECT FINDING\n\nInstructions:\n1. Search the location to find the designated COE board/object.\n2. Take a mandatory photo of the object.\n3. Show the object/photo to the nearby Luminus volunteer.\n4. Enter the verification code given by the volunteer.\n\nEnter code in caps',
-    hint: 'Find the COE Board object, take photo, and ask volunteer for code.'
+    name: 'r1_intro',
+    label: '📍 ROUND 1\n\nInstructions:\n1. Search the location to find the designated board/object.\n2. Take a mandatory photo of the object.\n3. Show the object/photo to the nearby Luminus volunteer.\n4. Enter the verification code given by the volunteer.\n\nEnter code in caps',
+    hint: `Find the object, take photo, and ask volunteer for code. ${progressionWarning}`
   });
 
   survey.push({
     type: 'image',
-    name: 'r1_coe_photo',
-    label: '📸 Upload Photo of Discovered COE Board Object (MANDATORY)\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of the discovered COE Board object.',
+    name: 'r1_photo',
+    label: '📸 Upload Photo of Discovered Object (MANDATORY)\nPhoto upload is mandatory',
+    hint: `Take a clear photo of the discovered object. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Photo upload of the object is strictly mandatory.'
   });
 
   survey.push({
     type: 'text',
-    name: 'r1_coe_code',
+    name: 'r1_code',
     label: 'Enter Volunteer Verification Code (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Volunteer verification code is mandatory.',
     constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'YAAKE-GURU-5'",
@@ -157,56 +160,111 @@ From each path:
     type: 'end_group'
   });
 
-  const r1Passed = `${startPassed} and normalize-space(\${r1_coe_code}) = 'YAAKE-GURU-5' and \${r1_coe_photo} != ''`;
+  const r1Passed = `${startPassed} and normalize-space(\${r1_code}) = 'YAAKE-GURU-5' and \${r1_photo} != ''`;
 
   // =============================================================
-  // ROUND 2 — LOCATION CLUE (Destination: AIML)
+  // ROUND 2: LOCATION CLUES
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r2_aiml_loc_group',
-    label: 'ROUND 2 LOCATION CLUE',
+    label: 'ROUND 2',
     relevant: r1Passed
   });
 
+  // Clue 1: Algorithm (A)
   survey.push({
     type: 'note',
-    name: 'r2_aiml_loc_note',
-    label: `📍 ROUND 2 LOCATION CLUE: RIDDLE OF THE MISSING CONCEPT
+    name: 'r2_clue1_note',
+    label: `📍 ROUND 2\n\nFour clues describe four concepts.\nSolve each clue slide-by-slide and enter the concept answer.\nAt the end, you will take the first letter of each answer to deduce your next destination block!\n\n🧩 Riddle 1 of 4:\n"Step by step, I show the way,\nsolving problems every day."\n\nEnter code in caps`,
+    hint: `Solve Riddle 1 for the first concept. ${progressionWarning}`
+  });
 
-Four clues describe four concepts.
-Solve each clue and take the first letter of each answer.
-Combine the four letters to discover your next location.
+  survey.push({
+    type: 'text',
+    name: 'r2_clue1_answer',
+    label: 'Enter Concept 1 Answer: (MANDATORY)\nEnter code in caps',
+    hint: `ENTER ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
+    required: 'yes',
+    required_message: '❌ Riddle 1 answer is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'ALGORITHM' or normalize-space(.) = 'ALGORITHMS')",
+    constraint_message: '❌ Incorrect answer. Solve Riddle 1 and enter in UPPERCASE (CAPS ONLY).'
+  });
 
-Clue 1:
-"Step by step, I show the way,
-solving problems every day."
+  // Clue 2: Internet (I)
+  survey.push({
+    type: 'note',
+    name: 'r2_clue2_note',
+    label: `🧩 Riddle 2 of 4:\n"I connect the world without a sound,\nthrough wires and waves, I'm all around."\n\nEnter code in caps`,
+    hint: `Solve Riddle 2 for the second concept. ${progressionWarning}`
+  });
 
-Clue 2:
-"I connect the world without a sound,
-through wires and waves, I'm all around."
+  survey.push({
+    type: 'text',
+    name: 'r2_clue2_answer',
+    label: 'Enter Concept 2 Answer: (MANDATORY)\nEnter code in caps',
+    hint: `ENTER ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
+    required: 'yes',
+    required_message: '❌ Riddle 2 answer is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'INTERNET'",
+    constraint_message: '❌ Incorrect answer. Solve Riddle 2 and enter in UPPERCASE (CAPS ONLY).'
+  });
 
-Clue 3:
-"I learn from data, again and again,
-getting smarter with every gain."
+  // Clue 3: Model (M)
+  survey.push({
+    type: 'note',
+    name: 'r2_clue3_note',
+    label: `🧩 Riddle 3 of 4:\n"I learn from data, again and again,\ngetting smarter with every gain."\n\nEnter code in caps`,
+    hint: `Solve Riddle 3 for the third concept. ${progressionWarning}`
+  });
 
-Clue 4:
-"I'm the code you write, line by line,
-Python or Java, the choice is fine."
+  survey.push({
+    type: 'text',
+    name: 'r2_clue3_answer',
+    label: 'Enter Concept 3 Answer: (MANDATORY)\nEnter code in caps',
+    hint: `ENTER ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
+    required: 'yes',
+    required_message: '❌ Riddle 3 answer is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'MODEL' or normalize-space(.) = 'MODELS' or normalize-space(.) = 'MACHINE LEARNING')",
+    constraint_message: '❌ Incorrect answer. Solve Riddle 3 and enter in UPPERCASE (CAPS ONLY).'
+  });
 
-Enter code in caps`,
-    hint: 'Take the first letter of each answer and combine them.'
+  // Clue 4: Language (L)
+  survey.push({
+    type: 'note',
+    name: 'r2_clue4_note',
+    label: `🧩 Riddle 4 of 4:\n"I'm the code you write, line by line,\nPython or Java, the choice is fine."\n\nEnter code in caps`,
+    hint: `Solve Riddle 4 for the fourth concept. ${progressionWarning}`
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r2_clue4_answer',
+    label: 'Enter Concept 4 Answer: (MANDATORY)\nEnter code in caps',
+    hint: `ENTER ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
+    required: 'yes',
+    required_message: '❌ Riddle 4 answer is mandatory.',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'LANGUAGE' or normalize-space(.) = 'LANGUAGES' or normalize-space(.) = 'PROGRAMMING LANGUAGE')",
+    constraint_message: '❌ Incorrect answer. Solve Riddle 4 and enter in UPPERCASE (CAPS ONLY).'
+  });
+
+  // Deduction Slide: First Letters -> AIML (No giveaway in question text)
+  survey.push({
+    type: 'note',
+    name: 'r2_aiml_deduce_note',
+    label: `🧠 DEDUCE THE NEXT DESTINATION BLOCK!\n\nNow, recall and take the FIRST LETTER of each of the 4 concept answers you just solved in sequence.\n\nCombine those four initial letters to deduce and reveal your next destination block!\n\nEnter code in caps`,
+    hint: `Deduce the 4-letter block name from your answers. ${progressionWarning}`
   });
 
   survey.push({
     type: 'text',
     name: 'r2_aiml_loc_answer',
     label: 'Enter your 4-letter combined destination location: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Destination location is mandatory.',
     constraint: "regex(., '^[A-Z0-9\\/& ]+$') and (normalize-space(.) = 'AIML' or normalize-space(.) = 'AI ML' or normalize-space(.) = 'AIML BLOCK' or normalize-space(.) = 'AI/ML' or normalize-space(.) = 'AI & ML')",
-    constraint_message: '❌ Incorrect. Solve all four clues and take the first letter of each answer.'
+    constraint_message: '❌ Incorrect. Take the first letter of each concept to find the block name.'
   });
 
   const r2LocGuessed = "normalize-space(${r2_aiml_loc_answer}) = 'AIML' or normalize-space(${r2_aiml_loc_answer}) = 'AI ML' or normalize-space(${r2_aiml_loc_answer}) = 'AIML BLOCK' or normalize-space(${r2_aiml_loc_answer}) = 'AI/ML' or normalize-space(${r2_aiml_loc_answer}) = 'AI & ML'";
@@ -214,162 +272,105 @@ Enter code in caps`,
   survey.push({
     type: 'note',
     name: 'r2_aiml_proceed_note',
-    label: '🏃 Correct! Proceed to the location identified by your answer and enter the START CODE provided there.\n\nEnter code in caps',
-    hint: 'Proceed to the location and ask volunteer for start code.',
+    label: '🏃 Correct! Proceed to the destination block and report to the station volunteer to begin your challenge.\n\nEnter code in caps',
+    hint: `Proceed to the station. ${progressionWarning}`,
+    relevant: r2LocGuessed
+  });
+
+  survey.push({
+    type: 'end_group'
+  });
+
+  // =============================================================
+  // ROUND 2: AIML CHALLENGES (Reverse Image Prompting)
+  // =============================================================
+  survey.push({
+    type: 'begin_group',
+    name: 'r2_aiml_challenge_group',
+    label: 'ROUND 2',
     relevant: r2LocGuessed
   });
 
   survey.push({
     type: 'text',
     name: 'r2_aiml_start_code',
-    label: 'Enter START CODE from Volunteer (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    label: 'Enter Challenge START CODE from Volunteer (MANDATORY)\nEnter code in caps',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ START CODE is mandatory.',
-    relevant: r2LocGuessed,
-    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'AIML-START'",
-    constraint_message: '❌ Incorrect START CODE. Check the code at your current location and enter it exactly as provided.'
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'GEMMA-V05'",
+    constraint_message: '❌ Incorrect START CODE. Enter GEMMA-V05 in CAPS provided by the volunteer.'
   });
 
-  survey.push({
-    type: 'end_group'
-  });
-
-  const aimlStartPassed = `${r1Passed} and (${r2LocGuessed}) and normalize-space(\${r2_aiml_start_code}) = 'AIML-START'`;
-
-  // =============================================================
-  // ROUND 2 — CHALLENGES (AIML: Reverse Image Prompting)
-  // =============================================================
-  survey.push({
-    type: 'begin_group',
-    name: 'r2_aiml_challenge_group',
-    label: 'ROUND 2 — AIML CHALLENGES',
-    relevant: aimlStartPassed
-  });
+  const aimlStartPassed = `${r1Passed} and (${r2LocGuessed}) and normalize-space(\${r2_aiml_start_code}) = 'GEMMA-V05'`;
 
   survey.push({
     type: 'note',
     name: 'r2_aiml_prompt_rules_note',
-    label: `🎨 AIML CHALLENGE: REVERSE IMAGE PROMPTING
-
-Event Format:
-• One lab system will be provided per team.
-• Images will be displayed for 10 seconds each in a slideshow.
-
-Rules & Regulations:
-• Each team must recreate at least 3 images from the slideshow.
-• The 3 images must be created on 3 different AI chats / tabs - not in the same chat.
-• Teams can use any AI image generation tool (ChatGPT, Midjourney, Gemini, Leonardo, etc.).
-• Google Image Search, reverse image search, or uploading / scanning the displayed image is strictly prohibited. Direct disqualification if found.
-• Only original prompting is allowed - img-to-img is not allowed.
-• Volunteers will come to your system and verify your generated images directly.
-
-Enter code in caps`,
-    hint: 'Follow lab instructions and volunteer guidance.'
-  });
-
-  survey.push({
-    type: 'select_one challenge_status_list',
-    name: 'r2_aiml_challenge_status',
-    label: 'AIML Image Prompting Challenge Status (MANDATORY)',
-    hint: 'Select PASSED once verified by station volunteers.',
-    required: 'yes',
-    required_message: '❌ Challenge status selection is mandatory.'
-  });
-
-  survey.push({
-    type: 'note',
-    name: 'r2_aiml_not_passed_note',
-    label: '⚠️ Challenge not cleared. Follow the organizer\'s instructions before continuing.',
-    hint: 'Complete the image generation prompt challenge.',
-    relevant: "${r2_aiml_challenge_status} = 'not_passed'"
-  });
-
-  survey.push({
-    type: 'note',
-    name: 'r2_aiml_passed_note',
-    label: '🎉 Challenge cleared. Enter the code provided by the organizer.\n\nEnter code in caps',
-    hint: 'Ask volunteer for clearance code.',
-    relevant: "${r2_aiml_challenge_status} = 'passed'"
+    label: `🎨 ROUND 2\n\nEvent Format:\n• One lab system will be provided per team.\n• Images will be displayed for 10 seconds each in a slideshow.\n\nRules & Regulations:\n• Each team must recreate at least 3 images from the slideshow.\n• The 3 images must be created on 3 different AI chats / tabs - not in the same chat.\n• Teams can use any AI image generation tool (ChatGPT, Midjourney, Gemini, Leonardo, etc.).\n• Google Image Search, reverse image search, or uploading / scanning the displayed image is strictly prohibited. Direct disqualification if found.\n• Only original prompting is allowed - img-to-img is not allowed.\n• Volunteers will come to your system and verify your generated images directly.\n\nEnter code in caps`,
+    hint: `Follow lab instructions and volunteer guidance. ${progressionWarning}`,
+    relevant: aimlStartPassed
   });
 
   survey.push({
     type: 'image',
-    name: 'r2_aiml_photo',
-    label: '📸 Upload Photo of Generated Images / Station (MANDATORY)\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your team\'s generated images on the lab screen.',
+    name: 'r2_aiml_photo1',
+    label: '📸 Upload Photo 1 of Generated Images / Station Screen (MANDATORY)\nPhoto upload is mandatory',
+    hint: `Take a clear photo of your team's generated images on the lab screen. ${progressionWarning}`,
     required: 'yes',
-    required_message: '❌ Station verification photo is mandatory.',
-    relevant: "${r2_aiml_challenge_status} = 'passed'"
+    required_message: '❌ Station verification photo 1 is mandatory.',
+    relevant: aimlStartPassed
   });
 
   survey.push({
-    type: 'text',
-    name: 'r2_aiml_code1',
-    label: 'Enter Volunteer Clearance Code 1 (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    required_message: '❌ Volunteer clearance code is mandatory.',
-    relevant: "${r2_aiml_challenge_status} = 'passed'",
-    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'GEMMA-V05'",
-    constraint_message: '❌ Incorrect code. Check the code obtained after completing the challenge.'
+    type: 'image',
+    name: 'r2_aiml_photo2',
+    label: '📸 Upload Photo 2 of Additional Generated Images (OPTIONAL)',
+    hint: `Optional: Upload a second photo of your team's generated images. ${progressionWarning}`,
+    required: 'no',
+    relevant: aimlStartPassed
   });
-
-  const aimlCode1Passed = `${aimlStartPassed} and \${r2_aiml_challenge_status} = 'passed' and normalize-space(\${r2_aiml_code1}) = 'GEMMA-V05'`;
 
   survey.push({
     type: 'text',
     name: 'r2_aiml_end_code',
-    label: 'Enter Station Finish Code 2 from Volunteer (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    label: 'Enter Volunteer FINAL Clearance Code (MANDATORY)\nEnter code in caps',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
-    required_message: '❌ Station finish code is mandatory.',
-    relevant: aimlCode1Passed,
+    required_message: '❌ Station final clearance code is mandatory.',
+    relevant: aimlStartPassed,
     constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'OLLAMA-V05' or normalize-space(.) = 'OLLAMA-v05')",
-    constraint_message: '❌ Incorrect finish code. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
+    constraint_message: '❌ Incorrect final code. Enter OLLAMA-V05 in UPPERCASE (CAPS ONLY) provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r2AllPassed = `${aimlCode1Passed} and (normalize-space(\${r2_aiml_end_code}) = 'OLLAMA-V05' or normalize-space(\${r2_aiml_end_code}) = 'OLLAMA-v05') and \${r2_aiml_photo} != ''`;
+  const r2AllPassed = `${aimlStartPassed} and (normalize-space(\${r2_aiml_end_code}) = 'OLLAMA-V05' or normalize-space(\${r2_aiml_end_code}) = 'OLLAMA-v05') and \${r2_aiml_photo1} != ''`;
 
   // =============================================================
-  // ROUND 3 — LOCATION CLUE (Destination: CSE)
+  // ROUND 3: LOCATION CLUE (Destination: CSE)
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r3_cse_loc_group',
-    label: 'ROUND 3 LOCATION CLUE',
+    label: 'ROUND 3',
     relevant: r2AllPassed
   });
 
   survey.push({
     type: 'note',
     name: 'r3_cse_math_note',
-    label: `📍 ROUND 3 LOCATION CLUE: MATHEMATICAL CODE
-
-Three numbers are hidden inside the equations.
-Solve each equation.
-
-Then use the alphabet as your key:
-A = 1, B = 2, C = 3 ... Z = 26
-
-What three-letter code do you uncover?
-
-Code:
-(1 + 2) — (20 − 1) — (10 ÷ 2)
-
-Enter code in caps`,
-    hint: 'Solve each equation and map the 3 numbers to letters A=1 to Z=26.'
+    label: `📍 ROUND 3\n\nThree numbers are hidden inside the equations.\nSolve each equation.\n\nThen use the alphabet as your key:\nA = 1, B = 2, C = 3 ... Z = 26\n\nWhat three-letter code do you uncover?\n\nCode:\n(1 + 2) — (20 − 1) — (10 ÷ 2)\n\nEnter code in caps`,
+    hint: `Solve each equation and map the 3 numbers to letters A=1 to Z=26. ${progressionWarning}`
   });
 
   survey.push({
     type: 'text',
     name: 'r3_cse_loc_answer',
     label: 'Enter your uncovered 3-letter destination location: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Destination location is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'CSE' or normalize-space(.) = 'CSE BLOCK')",
@@ -382,7 +383,7 @@ Enter code in caps`,
     type: 'note',
     name: 'r3_cse_proceed_note',
     label: '🏃 Correct! You have uncovered the three-letter code. Proceed to the location and look for the QR challenge.\n\nEnter code in caps',
-    hint: 'Proceed to the location for the QR hunt.',
+    hint: `Proceed to the location for the QR hunt. ${progressionWarning}`,
     relevant: r3LocGuessed
   });
 
@@ -393,69 +394,54 @@ Enter code in caps`,
   const r3BlockPassed = `${r2AllPassed} and (${r3LocGuessed})`;
 
   // =============================================================
-  // ROUND 3 — QR HUNT (CSE)
+  // ROUND 3: QR HUNT (CSE) — Photo Removed, Link Removed
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r3_cse_qr_group',
-    label: 'ROUND 3 — QR HUNT',
+    label: 'ROUND 3',
     relevant: r3BlockPassed
   });
 
   survey.push({
     type: 'note',
     name: 'r3_cse_qr_note',
-    label: '📍 ROUND 3: QR HUNT\n\nFind the designated QR code at this location and scan it.\nFollow the instructions provided by the QR challenge.\n\nEnter code in caps',
-    hint: 'Locate and scan the hidden QR code.'
+    label: '📍 ROUND 3\n\nFind the designated QR code at this location and scan it.\nFollow the instructions provided by the QR challenge.\n\nEnter code in caps',
+    hint: `Locate and scan the hidden QR code. ${progressionWarning}`
   });
 
   survey.push({
     type: 'barcode',
     name: 'r3_cse_qr_scan',
     label: 'Scan Discovered QR Code (MANDATORY)',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `Scan the QR code found at the location. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ QR code scanning is mandatory.',
-    constraint: "normalize-space(.) = 'PETER_PARKER'",
+    constraint: "normalize-space(.) = 'PETER_PARKER' or contains(., 'PETER_PARKER')",
     constraint_message: '❌ Incorrect code. Continue the QR hunt and check the code carefully.'
-  });
-
-  survey.push({
-    type: 'image',
-    name: 'r3_cse_qr_photo',
-    label: '📸 Upload Photo of Discovered QR Code / Station (MANDATORY)\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of the discovered QR code location.',
-    required: 'yes',
-    required_message: '❌ Station photo upload is mandatory.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const r3QrPassed = `${r3BlockPassed} and normalize-space(\${r3_cse_qr_scan}) = 'PETER_PARKER' and \${r3_cse_qr_photo} != ''`;
+  const r3QrPassed = `${r3BlockPassed} and (normalize-space(\${r3_cse_qr_scan}) = 'PETER_PARKER' or contains(\${r3_cse_qr_scan}, 'PETER_PARKER'))`;
 
   // =============================================================
-  // ROUND 4 — LOCATION CLUE (MEC-02 — Piece-by-Piece with badminton court.jpeg)
+  // ROUND 4: LOCATION CLUE (Piece-by-Piece)
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r4_mech_loc_group',
-    label: 'ROUND 4 LOCATION CLUE',
+    label: 'ROUND 4',
     relevant: r3QrPassed
   });
 
   survey.push({
     type: 'note',
     name: 'r4_mech_piece_note',
-    label: `📍 ROUND 4 LOCATION CLUE: PIECE-BY-PIECE
-
-Piece by piece, an image has been hidden from you.
-Study the available pieces in the image attached below and determine what place or object they form.
-Your answer will help identify your next location.
-
-Enter code in caps`,
-    hint: 'Examine the image pieces to identify the destination.',
+    label: `📍 ROUND 4\n\nPiece by piece, an image has been hidden from you.\nStudy the available pieces in the image attached below and determine what place or object they form.\nYour answer will help identify your next location.\n\nEnter code in caps`,
+    hint: `Examine the image pieces to identify the destination. ${progressionWarning}`,
     'media::image': 'badminton court.jpeg'
   });
 
@@ -463,7 +449,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r4_mech_loc_answer',
     label: 'Enter the location/object identified from the photograph pieces: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Location answer is mandatory.',
     'media::image': 'badminton court.jpeg',
@@ -476,90 +462,64 @@ Enter code in caps`,
   survey.push({
     type: 'note',
     name: 'r4_mech_proceed_note',
-    label: '🏃 Correct! Proceed to the location identified by your answer and look for the physical challenge.\n\nEnter code in caps',
-    hint: 'Proceed to the location and ask volunteer for start code.',
+    label: '🏃 Correct! Proceed to the destination block and report to the station volunteer for your physical challenge.\n\nEnter code in caps',
+    hint: `Proceed to the station. ${progressionWarning}`,
     relevant: r4LocGuessed
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'r4_mech_start_code',
-    label: 'Enter START CODE from Volunteer (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    required_message: '❌ START CODE is mandatory.',
-    relevant: r4LocGuessed,
-    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'PIECE-START' or normalize-space(.) = 'PIECE_START')",
-    constraint_message: '❌ Incorrect START CODE. Enter PIECE-START in CAPS provided by the volunteer.'
   });
 
   survey.push({
     type: 'end_group'
   });
 
-  const mechStartPassed = `${r3QrPassed} and (${r4LocGuessed}) and (normalize-space(\${r4_mech_start_code}) = 'PIECE-START' or normalize-space(\${r4_mech_start_code}) = 'PIECE_START')`;
-
   // =============================================================
-  // ROUND 4 — PHYSICAL CHALLENGE (MECH)
+  // ROUND 4: PHYSICAL CHALLENGE
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'r4_mech_phy_group',
-    label: 'ROUND 4 — PHYSICAL CHALLENGE',
-    relevant: mechStartPassed
+    label: 'ROUND 4',
+    relevant: r4LocGuessed
   });
 
   survey.push({
-    type: 'select_one yes_no_list',
-    name: 'r4_enable_optional_piece',
-    label: 'Enable Piece-by-Piece Station Challenge? (Organizer Option)',
-    hint: 'Select YES to record station challenge or NO to proceed directly to physical challenge.',
+    type: 'text',
+    name: 'r4_mech_start_code',
+    label: 'Enter Physical Challenge START CODE from Volunteer (MANDATORY)\nEnter code in caps',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
-    required_message: '❌ Selection is mandatory.'
+    required_message: '❌ START CODE is mandatory.',
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'PIECE-START' or normalize-space(.) = 'PIECE_START')",
+    constraint_message: '❌ Incorrect START CODE. Enter PIECE-START in CAPS provided by the volunteer.'
   });
+
+  const mechStartPassed = `${r3QrPassed} and (${r4LocGuessed}) and (normalize-space(\${r4_mech_start_code}) = 'PIECE-START' or normalize-space(\${r4_mech_start_code}) = 'PIECE_START')`;
 
   survey.push({
     type: 'note',
     name: 'r4_mech_phy_note',
-    label: '📍 ROUND 4: PHYSICAL CHALLENGE\n\nReport to the station and complete the physical challenge under volunteer supervision.\n\nEnter code in caps',
-    hint: 'Complete physical challenge with volunteer.'
-  });
-
-  survey.push({
-    type: 'select_one challenge_status_list',
-    name: 'r4_mech_status',
-    label: 'Physical Challenge Status (MANDATORY)',
-    hint: 'Select PASSED once completed with volunteer.',
-    required: 'yes',
-    required_message: '❌ Challenge status selection is mandatory.'
-  });
-
-  survey.push({
-    type: 'note',
-    name: 'r4_mech_not_passed_note',
-    label: '⚠️ Please follow the organizer\'s instructions before continuing.',
-    hint: 'Complete the physical challenge as instructed.',
-    relevant: "${r4_mech_status} = 'not_passed'"
+    label: '📍 ROUND 4\n\nReport to the station and complete the physical challenge under volunteer supervision.\nOnce completed, take a team photo and ask the volunteer for the END CODE.\n\nEnter code in caps',
+    hint: `Complete physical challenge with volunteer. ${progressionWarning}`,
+    relevant: mechStartPassed
   });
 
   survey.push({
     type: 'image',
     name: 'r4_mech_phy_photo',
     label: '📸 Upload Photo of Physical Challenge Completion (MANDATORY)\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your team completing the physical challenge.',
+    hint: `Take a clear photo of your team completing the physical challenge. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Challenge photo upload is mandatory.',
-    relevant: "${r4_mech_status} = 'passed'"
+    relevant: mechStartPassed
   });
 
   survey.push({
     type: 'text',
     name: 'r4_mech_phy_code',
-    label: 'Enter Volunteer Completion Code (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    label: 'Enter Volunteer END / Completion Code (MANDATORY)\nEnter code in caps',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Volunteer completion code is mandatory.',
-    relevant: "${r4_mech_status} = 'passed'",
+    relevant: mechStartPassed,
     constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'PIECE-BYE' or normalize-space(.) = 'PIECE-BYE---' or normalize-space(.) = 'PIECE_BYE')",
     constraint_message: '❌ Incorrect code. Enter PIECE-BYE in CAPS provided by the volunteer.'
   });
@@ -568,37 +528,37 @@ Enter code in caps`,
     type: 'end_group'
   });
 
-  const r4PhyPassed = `${mechStartPassed} and \${r4_mech_status} = 'passed' and (normalize-space(\${r4_mech_phy_code}) = 'PIECE-BYE' or normalize-space(\${r4_mech_phy_code}) = 'PIECE-BYE---' or normalize-space(\${r4_mech_phy_code}) = 'PIECE_BYE') and \${r4_mech_phy_photo} != ''`;
+  const r4PhyPassed = `${mechStartPassed} and (normalize-space(\${r4_mech_phy_code}) = 'PIECE-BYE' or normalize-space(\${r4_mech_phy_code}) = 'PIECE-BYE---' or normalize-space(\${r4_mech_phy_code}) = 'PIECE_BYE') and \${r4_mech_phy_photo} != ''`;
 
   // =============================================================
-  // FINAL ROUND: AUDITORIUM & STAGE RIDDLES & GRAND FINALE
+  // FINAL ROUND (ROUND 5): RIDDLES & GRAND FINALE
   // =============================================================
   survey.push({
     type: 'begin_group',
     name: 'final_puzzles_group',
-    label: 'FINAL ROUND',
+    label: 'ROUND 5',
     relevant: r4PhyPassed
   });
 
   survey.push({
     type: 'note',
     name: 'final_audi_stage_intro',
-    label: '🏛️ FINAL ROUND — RIDDLES\n\nSolve the two final riddles to reveal the final destination!\n\nEnter code in caps',
-    hint: 'Solve the final riddles in CAPS.'
+    label: '🏛️ ROUND 5\n\nSolve the two final riddles to reveal the final destination!\n\nEnter code in caps',
+    hint: `Solve the final riddles in CAPS. ${progressionWarning}`
   });
 
   survey.push({
     type: 'text',
     name: 'final_riddle1_answer',
-    label: `🧩 AUDITORIUM RIDDLE: (MANDATORY)
-"I am empty, yet I am built for crowds.
+    label: `"I am empty, yet I am built for crowds.
 I have a stage, but no actors of my own.
 I have countless seats, but none are meant to sleep.
 When a voice rises before me, silence falls behind me.
 When the lights awaken, all eyes face one direction.
 What am I?"
+
 Enter code in caps`,
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Solving Riddle 1 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'AUDITORIUM' or normalize-space(.) = 'AUDI')",
@@ -610,12 +570,12 @@ Enter code in caps`,
   survey.push({
     type: 'text',
     name: 'final_riddle2_stage_answer',
-    label: `🎭 STAGE RIDDLE: (MANDATORY)
-"I am elevated above the crowd, where performers stand and spotlights shine.
+    label: `"I am elevated above the crowd, where performers stand and spotlights shine.
 Underneath my wooden floor or behind the curtains, the ultimate secret waits.
 What am I?"
+
 Enter code in caps`,
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Solving Riddle 2 is mandatory.',
     relevant: finalRiddle1Passed,
@@ -629,7 +589,7 @@ Enter code in caps`,
     type: 'note',
     name: 'final_proceed_stage_note',
     label: '🏃 Proceed to the final location identified!\n\nSolve the final puzzle at the stage, upload a photo of the completed puzzle, and get your clearance code from the Chief Judge!\n\nEnter code in caps',
-    hint: 'Go to the stage to solve the final puzzle.',
+    hint: `Go to the stage to solve the final puzzle. ${progressionWarning}`,
     relevant: finalRiddle2Passed
   });
 
@@ -637,7 +597,7 @@ Enter code in caps`,
     type: 'image',
     name: 'final_solved_puzzle_photo',
     label: '📸 Upload Photo of Your Solved Puzzle (MANDATORY)\nPhoto upload is mandatory',
-    hint: 'Take a clear photo of your team\'s completed/solved puzzle.',
+    hint: `Take a clear photo of your team's completed/solved puzzle. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Photo of the solved puzzle is mandatory.',
     relevant: finalRiddle2Passed
@@ -647,7 +607,7 @@ Enter code in caps`,
     type: 'text',
     name: 'final_stage_volunteer_code',
     label: 'Enter Final Volunteer Clearance Code (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: `ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. ${progressionWarning}`,
     required: 'yes',
     required_message: '❌ Final clearance code is mandatory.',
     relevant: finalRiddle2Passed,
@@ -671,28 +631,7 @@ Enter code in caps`,
 }
 
 function buildChoices() {
-  return [
-    {
-      list_name: 'challenge_status_list',
-      name: 'passed',
-      label: 'PASSED'
-    },
-    {
-      list_name: 'challenge_status_list',
-      name: 'not_passed',
-      label: 'NOT PASSED'
-    },
-    {
-      list_name: 'yes_no_list',
-      name: 'yes',
-      label: 'YES'
-    },
-    {
-      list_name: 'yes_no_list',
-      name: 'no',
-      label: 'NO'
-    }
-  ];
+  return [];
 }
 
 function buildSettings() {
@@ -720,33 +659,33 @@ function buildAnswerKeyWorkbook() {
     },
     {
       'Stage / Round': 'Round 1 (R1)',
-      'Location': 'COE (LIB)',
-      'Challenge / Item': 'Object Finding (COE Board)',
-      'Question / Prompt': 'Find assigned COE Board object, upload photo, enter volunteer code',
+      'Location': 'Station 1 (Library)',
+      'Challenge / Item': 'Object Finding',
+      'Question / Prompt': 'Find assigned object, upload photo, enter volunteer code',
       'Media Attached': 'None',
       'Expected Answer / Code': 'YAAKE-GURU-5 (UPPERCASE ONLY)',
       'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'YAAKE-GURU-5\'',
       'Mandatory Upload': 'Yes (Discovered Object Photo MANDATORY)'
     },
     {
-      'Stage / Round': 'Round 2 Location Clue',
-      'Location': 'In-App Riddle',
-      'Challenge / Item': 'Riddle of Missing Concept (A+I+M+L)',
-      'Question / Prompt': 'Algorithm (A) + Internet (I) + Model (M) + Language (L) -> Destination: AIML -> Start Code: AIML-START',
+      'Stage / Round': 'Round 2 Location Clues',
+      'Location': 'In-App Riddles',
+      'Challenge / Item': 'Missing Concept Riddles (Slide-by-Slide)',
+      'Question / Prompt': '1. ALGORITHM (A) | 2. INTERNET (I) | 3. MODEL (M) | 4. LANGUAGE (L) -> Deduced: AIML',
       'Media Attached': 'None',
-      'Expected Answer / Code': 'AIML & Start Code: AIML-START (UPPERCASE ONLY)',
-      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'AIML\' & \'AIML-START\'',
-      'Mandatory Upload': 'No (Input Mandatory)'
+      'Expected Answer / Code': 'ALGORITHM, INTERNET, MODEL, LANGUAGE -> Destination: AIML (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) for all 4 concepts and AIML',
+      'Mandatory Upload': 'No (Inputs Mandatory)'
     },
     {
       'Stage / Round': 'Round 2 Challenge (R2)',
       'Location': 'AIML Lab',
       'Challenge / Item': 'Reverse Image Prompting Challenge',
-      'Question / Prompt': 'Recreate 3 slideshow images in 3 different AI chats + Photo + Codes',
+      'Question / Prompt': 'Start Code: GEMMA-V05 -> Recreate 3 slideshow images in 3 AI chats + Photo (1 Mandatory, 1 Optional) -> Final Code: OLLAMA-V05',
       'Media Attached': 'None',
-      'Expected Answer / Code': 'Status: PASSED -> Code 1: GEMMA-V05 -> Finish Code: OLLAMA-V05',
-      'Verification / Constraint Rule': 'Status = PASSED & normalize-space(.) = \'GEMMA-V05\' & \'OLLAMA-V05\'',
-      'Mandatory Upload': 'Yes (Station Photo MANDATORY)'
+      'Expected Answer / Code': 'Start: GEMMA-V05 -> Photo -> Final Code: OLLAMA-V05',
+      'Verification / Constraint Rule': 'Start Code = \'GEMMA-V05\' & Final Code = \'OLLAMA-V05\'',
+      'Mandatory Upload': 'Yes (Photo 1 Mandatory, Photo 2 Optional)'
     },
     {
       'Stage / Round': 'Round 3 Location Clue',
@@ -762,36 +701,36 @@ function buildAnswerKeyWorkbook() {
       'Stage / Round': 'Round 3 Checkpoint (R3)',
       'Location': 'CSE',
       'Challenge / Item': 'QR Hunt',
-      'Question / Prompt': 'Scan hidden QR code in CSE, upload photo',
+      'Question / Prompt': 'Scan hidden QR code in CSE',
       'Media Attached': 'None',
       'Expected Answer / Code': 'Barcode: PETER_PARKER (UPPERCASE ONLY)',
       'Verification / Constraint Rule': 'Scanned barcode = \'PETER_PARKER\'',
-      'Mandatory Upload': 'Yes (Barcode Scan & Photo MANDATORY)'
+      'Mandatory Upload': 'Yes (Barcode Scan MANDATORY)'
     },
     {
       'Stage / Round': 'Round 4 Location Clue',
       'Location': 'In-App Image (badminton court.jpeg)',
-      'Challenge / Item': 'MEC-02 Piece-by-Piece',
-      'Question / Prompt': 'Identify location from photograph pieces -> Destination: MECH -> Start Code: PIECE-START',
+      'Challenge / Item': 'Piece-by-Piece Clue',
+      'Question / Prompt': 'Identify location from photograph pieces -> Destination: MECH',
       'Media Attached': 'badminton court.jpeg',
-      'Expected Answer / Code': 'MECH & Start Code: PIECE-START (UPPERCASE ONLY)',
-      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'MECH\' & \'PIECE-START\'',
-      'Mandatory Upload': 'No (Inputs Mandatory)'
+      'Expected Answer / Code': 'MECH (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'MECH\'',
+      'Mandatory Upload': 'No (Input Mandatory)'
     },
     {
       'Stage / Round': 'Round 4 Checkpoint (R4)',
       'Location': 'MECH',
       'Challenge / Item': 'Physical Challenge',
-      'Question / Prompt': 'Complete physical challenge with volunteer, select PASSED, upload photo, enter finish code PIECE-BYE',
+      'Question / Prompt': 'Enter Start Code: PIECE-START, complete physical challenge, upload photo, enter End Code: PIECE-BYE',
       'Media Attached': 'None',
-      'Expected Answer / Code': 'Status: PASSED, Finish Code: PIECE-BYE (UPPERCASE ONLY)',
-      'Verification / Constraint Rule': 'Status = PASSED & normalize-space(.) = \'PIECE-BYE\'',
+      'Expected Answer / Code': 'Start: PIECE-START -> Photo -> End Code: PIECE-BYE (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'normalize-space(.) = \'PIECE-START\' & \'PIECE-BYE\'',
       'Mandatory Upload': 'Yes (Challenge Photo MANDATORY)'
     },
     {
-      'Stage / Round': 'Final Round (Riddle 1)',
+      'Stage / Round': 'Round 5 (Riddle 1)',
       'Location': 'Main Auditorium',
-      'Challenge / Item': 'Auditorium Riddle',
+      'Challenge / Item': 'Riddle 1',
       'Question / Prompt': 'Solve riddle: Empty yet built for crowds, seats not meant to sleep...',
       'Media Attached': 'None',
       'Expected Answer / Code': 'AUDITORIUM (or AUDI) (UPPERCASE ONLY)',
@@ -799,9 +738,9 @@ function buildAnswerKeyWorkbook() {
       'Mandatory Upload': 'No (Input Mandatory)'
     },
     {
-      'Stage / Round': 'Final Round (Riddle 2)',
+      'Stage / Round': 'Round 5 (Riddle 2)',
       'Location': 'Main Auditorium Stage',
-      'Challenge / Item': 'Stage Riddle',
+      'Challenge / Item': 'Riddle 2',
       'Question / Prompt': 'Solve stage riddle: Elevated above crowd, wooden floor...',
       'Media Attached': 'None',
       'Expected Answer / Code': 'STAGE (UPPERCASE ONLY)',
@@ -928,6 +867,17 @@ function buildAnswerKeyPdfHtml() {
     font-weight: bold;
     font-size: 8pt;
   }
+  .start-code-badge {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #7dd3fc;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'Consolas', monospace;
+    font-weight: bold;
+    font-size: 8pt;
+  }
   .station-card {
     border: 1px solid #94a3b8;
     border-radius: 4px;
@@ -964,14 +914,14 @@ function buildAnswerKeyPdfHtml() {
   </div>
   <h1>FINAL CLUE &bull; ROUTE 5 / PATH 5</h1>
   <div style="font-size: 9pt; color: #475569; font-weight: 600;">
-    CONFIDENTIAL ORGANIZER MASTER KEY &bull; PROGRESSION: COE (LIB) &rarr; AIML &rarr; CSE &rarr; MECH &rarr; AUDITORIUM
+    CONFIDENTIAL ORGANIZER MASTER KEY &bull; PROGRESSION: STATION 1 &rarr; AIML &rarr; CSE &rarr; MECH &rarr; AUDITORIUM
   </div>
 </div>
 
 <div class="meta-grid">
   <div class="meta-card">
     <strong>Starting Station</strong>
-    <span>COE (Library)</span>
+    <span>Station 1 (Library)</span>
   </div>
   <div class="meta-card">
     <strong>Final Station</strong>
@@ -990,7 +940,7 @@ function buildAnswerKeyPdfHtml() {
 <div class="rules-box">
   <strong>🏆 Path 5 Team Qualification Rules:</strong><br>
   • Round 1 ➔ Round 2: First 25 teams proceed &bull; Round 2 ➔ Round 3: Next 15 teams proceed &bull; Round 3 ➔ Round 4: Next 7 teams proceed &bull; Round 4 ➔ Round 5: Next 2 teams proceed to the Grand Finale!<br>
-  <strong>🔒 Strict Policy:</strong> Every question, photo upload, barcode scan, and code entry is <strong>100% MANDATORY</strong> and requires <strong>STRICT UPPERCASE ONLY</strong>.
+  <strong>🔒 Strict Policy:</strong> Every question, photo upload, barcode scan, and code entry is <strong>100% MANDATORY</strong> and requires <strong>STRICT UPPERCASE ONLY</strong>. Progression is irreversible once submitted.
 </div>
 
 <div class="section-title">1. Master Station-by-Station Directory</div>
@@ -1015,55 +965,62 @@ function buildAnswerKeyPdfHtml() {
     </tr>
     <tr>
       <td><strong>Round 1 (R1)</strong></td>
-      <td>COE (LIB)</td>
-      <td>Find COE Board object &amp; verify with volunteer</td>
+      <td>Station 1 (Library)</td>
+      <td>Find assigned object &amp; verify with volunteer</td>
       <td><span class="code-badge">YAAKE-GURU-5</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
-      <td><strong>R2 Location Clue</strong></td>
+      <td><strong>Round 2 (R2)</strong></td>
       <td>In-App</td>
-      <td>Missing Concept Riddle: Algorithm (A) + Internet (I) + Model (M) + Language (L)</td>
-      <td>Destination: <code>AIML</code><br>Start Code: <span class="code-badge">AIML-START</span></td>
-      <td>Mandatory Input</td>
+      <td>
+        Missing Concept (Slide-by-Slide):<br>
+        1. <code>ALGORITHM</code> (A)<br>
+        2. <code>INTERNET</code> (I)<br>
+        3. <code>MODEL</code> (M)<br>
+        4. <code>LANGUAGE</code> (L)<br>
+        &rarr; Deduced Destination: <code>AIML</code>
+      </td>
+      <td>Destination: <code>AIML</code></td>
+      <td>Mandatory Inputs</td>
     </tr>
     <tr>
-      <td><strong>R2 Challenge</strong></td>
+      <td><strong>Round 2 Challenge</strong></td>
       <td>AIML Lab</td>
-      <td>Reverse Image Prompting (3 images in 3 different AI chats)</td>
-      <td>Code 1: <span class="code-badge">GEMMA-V05</span><br>Finish Code: <span class="code-badge">OLLAMA-V05</span></td>
-      <td>📸 Mandatory Photo</td>
+      <td>Reverse Image Prompting (Recreate 3 images in 3 AI chats)</td>
+      <td>Start: <span class="start-code-badge">GEMMA-V05</span><br>Final Code: <span class="code-badge">OLLAMA-V05</span></td>
+      <td>📸 Mandatory Photo 1 (+ Opt. Photo 2)</td>
     </tr>
     <tr>
-      <td><strong>R3 Location Clue</strong></td>
+      <td><strong>Round 3 (R3)</strong></td>
       <td>In-App</td>
       <td>Mathematical Code: (1+2)=3(C), (20-1)=19(S), (10/2)=5(E)</td>
       <td>Destination: <code>CSE</code></td>
       <td>Mandatory Input</td>
     </tr>
     <tr>
-      <td><strong>R3 QR Hunt</strong></td>
+      <td><strong>Round 3 QR</strong></td>
       <td>CSE</td>
       <td>Physically search CSE for hidden QR code and scan</td>
       <td>Barcode: <span class="code-badge">PETER_PARKER</span></td>
-      <td>📸 Photo + Scan</td>
-    </tr>
-    <tr>
-      <td><strong>R4 Location Clue</strong></td>
-      <td>In-App (<code>badminton court.jpeg</code>)</td>
-      <td>MEC-02 Piece-by-Piece Location Clue</td>
-      <td>Destination: <code>MECH</code><br>Start Code: <span class="code-badge">PIECE-START</span></td>
-      <td>Mandatory Inputs</td>
+      <td>Scan Only</td>
     </tr>
     <tr>
       <td><strong>Round 4 (R4)</strong></td>
+      <td>In-App (<code>badminton court.jpeg</code>)</td>
+      <td>Piece-by-Piece Location Clue</td>
+      <td>Destination: <code>MECH</code></td>
+      <td>Mandatory Input</td>
+    </tr>
+    <tr>
+      <td><strong>Round 4 Challenge</strong></td>
       <td>MECH</td>
       <td>Complete physical challenge with volunteer</td>
-      <td>Status: <code>PASSED</code><br>Finish Code: <span class="code-badge">PIECE-BYE</span></td>
+      <td>Start: <span class="start-code-badge">PIECE-START</span><br>Finish Code: <span class="code-badge">PIECE-BYE</span></td>
       <td>📸 Mandatory Photo</td>
     </tr>
     <tr>
-      <td><strong>Final Stage</strong></td>
+      <td><strong>Round 5 (Final)</strong></td>
       <td>AUDI Stage</td>
       <td>
         Riddle 1 (Dark hall, red seats): <code>AUDITORIUM</code><br>
@@ -1079,18 +1036,18 @@ function buildAnswerKeyPdfHtml() {
 <div class="section-title">2. Volunteer Station Instructions &amp; Verification Procedures</div>
 
 <div class="station-card">
-  <h3><span>COE (LIB) Station: Object Finding</span><span class="code-badge">CODE: YAAKE-GURU-5</span></h3>
-  <div><strong>Volunteer Instructions:</strong> Participants locate the assigned COE Board object. Once verified with photo, provide code <code>YAAKE-GURU-5</code>.</div>
+  <h3><span>Station 1 (Library): Object Finding</span><span class="code-badge">CODE: YAAKE-GURU-5</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Participants locate the assigned object. Once verified with photo, provide code <code>YAAKE-GURU-5</code>.</div>
 </div>
 
 <div class="station-card">
-  <h3><span>AIML Lab Station: Reverse Image Prompting</span><span class="code-badge">START: AIML-START &bull; CODE 1: GEMMA-V05 &bull; FINISH: OLLAMA-V05</span></h3>
-  <div><strong>Volunteer Instructions:</strong> Provide start code <code>AIML-START</code>. Participants recreate at least 3 slideshow images in 3 different AI tabs. Once verified, provide clearance code <code>GEMMA-V05</code> and station finish code <code>OLLAMA-V05</code>.</div>
+  <h3><span>AIML Lab Station: Reverse Image Prompting</span><span class="code-badge">START: GEMMA-V05 &bull; FINAL: OLLAMA-V05</span></h3>
+  <div><strong>Volunteer Instructions:</strong> Provide start code <code>GEMMA-V05</code> to begin. Participants recreate at least 3 slideshow images in 3 different AI tabs. Once verified with screen photo upload, provide final clearance code <code>OLLAMA-V05</code>.</div>
 </div>
 
 <div class="station-card">
   <h3><span>CSE Station: QR Hunt</span><span class="code-badge">SCANNED QR: PETER_PARKER</span></h3>
-  <div><strong>Volunteer Instructions:</strong> Ensure the physical QR code with payload <code>PETER_PARKER</code> is hidden in the CSE area. Participants scan it using the in-app barcode scanner.</div>
+  <div><strong>Volunteer Instructions:</strong> Ensure the physical QR code with payload <code>PETER_PARKER</code> is hidden in the CSE area. Participants scan it using the in-app scanner.</div>
 </div>
 
 <div class="station-card">

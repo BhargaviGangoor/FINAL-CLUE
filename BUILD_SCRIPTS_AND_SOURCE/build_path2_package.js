@@ -91,7 +91,8 @@ From each path:
 * Next 7 teams proceed to Round 4.
 * Next 2 teams proceed to Round 5.
 
-⚠️ MANDATORY RESPONSE & CAPS ONLY RULES:
+⚠️ STRICT PROGRESSION & MANDATORY RULES:
+• Read each question properly as you cannot come back to the question once you go ahead!
 • Every single question, photo upload, and code entry is strictly MANDATORY.
 • All text answers and volunteer codes must be entered in UPPERCASE (CAPS ONLY).
 • Lowercase letters will be rejected by validation.`,
@@ -102,7 +103,7 @@ From each path:
     type: 'text',
     name: 'team_name',
     label: 'Enter Team Name (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Team Name is mandatory. Please enter in UPPERCASE.',
     constraint: "regex(., '^[A-Z0-9\\-_ ]+$')",
@@ -113,7 +114,7 @@ From each path:
     type: 'text',
     name: 'player_id',
     label: 'Enter Team / Player Identification (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Player / Team ID is mandatory. Please enter in UPPERCASE.',
     constraint: "regex(., '^[A-Z0-9\\-_ ]+$')",
@@ -165,7 +166,7 @@ From each path:
     type: 'text',
     name: 'r1_admin_code',
     label: 'Enter Volunteer Verification Code (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Volunteer verification code is mandatory.',
     constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'JOHN-CENA'",
@@ -203,7 +204,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_mba_loc_answer',
     label: 'Enter destination location (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Destination location is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'MBA' or normalize-space(.) = 'MBA BLOCK')",
@@ -224,7 +225,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_start_code',
     label: 'Enter START CODE from Volunteer (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ START CODE is mandatory.',
     relevant: r2LocGuessed,
@@ -276,7 +277,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q1',
     label: '1. A market with only one seller is called? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 1 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'MONOPOLY'",
@@ -287,7 +288,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q2',
     label: '2. What is the currency of China? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 2 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'YUAN'",
@@ -298,7 +299,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q3',
     label: '3. What does CEO stand for? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 3 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'CHIEF EXECUTIVE OFFICER'",
@@ -309,7 +310,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q4',
     label: '4. What does ROI stand for in business finance? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 4 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'RETURN ON INVESTMENT'",
@@ -320,7 +321,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q5',
     label: '5. What term describes business transactions conducted between two companies (abbreviation)? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 5 is mandatory.',
     constraint: "regex(., '^[A-Z0-9]+$') and normalize-space(.) = 'B2B'",
@@ -331,7 +332,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q6',
     label: '6. In accounting: Assets minus Liabilities equals what? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 6 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'EQUITY'",
@@ -342,7 +343,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q7',
     label: '7. Which animal represents a rising, optimistic financial market? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 7 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'BULL'",
@@ -353,7 +354,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q8',
     label: '8. What does IPO stand for when a company goes public? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 8 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'INITIAL PUBLIC OFFERING'",
@@ -364,7 +365,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q9',
     label: '9. What is the standard 3-letter abbreviation for Gross Domestic Product? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 9 is mandatory.',
     constraint: "regex(., '^[A-Z]+$') and normalize-space(.) = 'GDP'",
@@ -375,7 +376,7 @@ Enter code in caps`,
     type: 'text',
     name: 'mba_q10',
     label: '10. In the 4 Ps of Marketing (Product, Price, Place), what is the 4th P? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 10 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'PROMOTION'",
@@ -388,7 +389,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_var_a_code',
     label: 'Enter Completion Code from Volunteer (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Completion code is mandatory.',
     relevant: mba1AllPassed,
@@ -419,11 +420,12 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q1',
     label: '1. Name of dessert? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 1 is mandatory.',
     'media::image': 'bambaloni.jpeg',
-    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'BAMBALONI'",
+    appearance: 'big-image',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'BAMBALONI' or normalize-space(.) = 'BAMBOULONI' or normalize-space(.) = 'BAMBALOUNI')",
     constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
@@ -431,7 +433,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q2',
     label: '2. Which brand is associated with this tagline? “THINK DIFFERENT” (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 2 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'APPLE'",
@@ -442,11 +444,12 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q3',
     label: '3. What is the name of the cartoon this character represents? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 3 is mandatory.',
     'media::image': 'horrid henry.jpeg',
-    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'HORRID HENRY'",
+    appearance: 'big-image',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'HORRID HENRY' or normalize-space(.) = 'HORRIDHENRY')",
     constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
@@ -454,11 +457,12 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q4',
     label: '4. Identify the brand from this famous ad screenshot. (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 4 is mandatory.',
     'media::image': '5 star.jpeg',
-    constraint: "regex(., '^[A-Z0-9 ]+$') and (normalize-space(.) = '5 STAR' or normalize-space(.) = '5STAR' or normalize-space(.) = 'FIVE STAR')",
+    appearance: 'big-image',
+    constraint: "regex(., '^[A-Z0-9\\- ]+$') and (normalize-space(.) = '5 STAR' or normalize-space(.) = '5STAR' or normalize-space(.) = 'FIVE STAR' or normalize-space(.) = 'FIVE-STAR' or normalize-space(.) = '5-STAR')",
     constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
@@ -466,10 +470,11 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q5',
     label: '5. Can you identify the brand from this zoomed-in logo? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 5 is mandatory.',
     'media::image': 'nokia.jpeg',
+    appearance: 'big-image',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'NOKIA'",
     constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
@@ -478,10 +483,11 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q6',
     label: '6. What is the name of this fruit? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 6 is mandatory.',
     'media::image': 'durian.jpeg',
+    appearance: 'big-image',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'DURIAN'",
     constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
@@ -490,10 +496,10 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q7',
     label: '7. Which brand is associated with this tagline? “WHEREVER YOU GO, OUR NETWORK FOLLOWS” (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 7 is mandatory.',
-    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'VODAFONE'",
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'VODAFONE' or normalize-space(.) = 'HUTCH')",
     constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
@@ -501,11 +507,12 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q8',
     label: '8. Which brand does this mascot represent? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 8 is mandatory.',
     'media::image': 'michelin.jpeg',
-    constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'MICHELIN'",
+    appearance: 'big-image',
+    constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'MICHELIN' or normalize-space(.) = 'MICHELIN MAN' or normalize-space(.) = 'BIBENDUM')",
     constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
@@ -513,10 +520,10 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q9',
     label: '9. What is the full name of RN Shetty? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 9 is mandatory.',
-    constraint: "regex(., '^[A-Z0-9\\.\\- ]+$') and (normalize-space(.) = 'DR. RAMA NAGAPPA SHETTY' or normalize-space(.) = 'RAMA NAGAPPA SHETTY' or normalize-space(.) = 'DR RAMA NAGAPPA SHETTY')",
+    constraint: "regex(., '^[A-Z0-9\\.\\- ]+$') and (normalize-space(.) = 'DR. RAMA NAGAPPA SHETTY' or normalize-space(.) = 'RAMA NAGAPPA SHETTY' or normalize-space(.) = 'DR RAMA NAGAPPA SHETTY' or normalize-space(.) = 'RAM NAGAPPA SHETTY' or normalize-space(.) = 'RN SHETTY' or normalize-space(.) = 'R N SHETTY')",
     constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
@@ -524,25 +531,26 @@ Enter code in caps`,
     type: 'text',
     name: 'r2_b_q10',
     label: '10. This actress holds a brand of herself. What is the brand name? (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Question 10 is mandatory.',
     'media::image': 'palmonas.jpeg',
+    appearance: 'big-image',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'PALMONAS'",
     constraint_message: '❌ Incorrect answer. Please enter in UPPERCASE (CAPS ONLY).'
   });
 
-  const mba2AllPassed = "(normalize-space(${r2_b_q1}) = 'BAMBALONI' and normalize-space(${r2_b_q2}) = 'APPLE' and normalize-space(${r2_b_q3}) = 'HORRID HENRY' and (normalize-space(${r2_b_q4}) = '5 STAR' or normalize-space(${r2_b_q4}) = '5STAR' or normalize-space(${r2_b_q4}) = 'FIVE STAR') and normalize-space(${r2_b_q5}) = 'NOKIA' and normalize-space(${r2_b_q6}) = 'DURIAN' and normalize-space(${r2_b_q7}) = 'VODAFONE' and normalize-space(${r2_b_q8}) = 'MICHELIN' and (normalize-space(${r2_b_q9}) = 'DR. RAMA NAGAPPA SHETTY' or normalize-space(${r2_b_q9}) = 'RAMA NAGAPPA SHETTY' or normalize-space(${r2_b_q9}) = 'DR RAMA NAGAPPA SHETTY') and normalize-space(${r2_b_q10}) = 'PALMONAS')";
+  const mba2AllPassed = "((normalize-space(${r2_b_q1}) = 'BAMBALONI' or normalize-space(${r2_b_q1}) = 'BAMBOULONI' or normalize-space(${r2_b_q1}) = 'BAMBALOUNI') and normalize-space(${r2_b_q2}) = 'APPLE' and (normalize-space(${r2_b_q3}) = 'HORRID HENRY' or normalize-space(${r2_b_q3}) = 'HORRIDHENRY') and (normalize-space(${r2_b_q4}) = '5 STAR' or normalize-space(${r2_b_q4}) = '5STAR' or normalize-space(${r2_b_q4}) = 'FIVE STAR' or normalize-space(${r2_b_q4}) = 'FIVE-STAR' or normalize-space(${r2_b_q4}) = '5-STAR') and normalize-space(${r2_b_q5}) = 'NOKIA' and normalize-space(${r2_b_q6}) = 'DURIAN' and (normalize-space(${r2_b_q7}) = 'VODAFONE' or normalize-space(${r2_b_q7}) = 'HUTCH') and (normalize-space(${r2_b_q8}) = 'MICHELIN' or normalize-space(${r2_b_q8}) = 'MICHELIN MAN' or normalize-space(${r2_b_q8}) = 'BIBENDUM') and (normalize-space(${r2_b_q9}) = 'DR. RAMA NAGAPPA SHETTY' or normalize-space(${r2_b_q9}) = 'RAMA NAGAPPA SHETTY' or normalize-space(${r2_b_q9}) = 'DR RAMA NAGAPPA SHETTY' or normalize-space(${r2_b_q9}) = 'RAM NAGAPPA SHETTY' or normalize-space(${r2_b_q9}) = 'RN SHETTY' or normalize-space(${r2_b_q9}) = 'R N SHETTY') and normalize-space(${r2_b_q10}) = 'PALMONAS')";
 
   survey.push({
     type: 'text',
     name: 'r2_var_b_code',
     label: 'Enter Completion Code from Volunteer (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Completion code is mandatory.',
     relevant: mba2AllPassed,
-    constraint: "regex(., '^[A-Z0-9\\-_]+$') and normalize-space(.) = 'MB-BQ-2'",
+    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'MBA-BQ-2' or normalize-space(.) = 'MB-BQ-2' or normalize-space(.) = 'MBA_BQ_2' or normalize-space(.) = 'MB_BQ_2')",
     constraint_message: '❌ Incorrect completion code. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
   });
 
@@ -554,7 +562,7 @@ Enter code in caps`,
     type: 'end_group'
   });
 
-  const r2ClearedRel = "((${mba_variant_select} = 'var_a' and normalize-space(${r2_var_a_code}) = 'MBA-QF-1') or (${mba_variant_select} = 'var_b' and normalize-space(${r2_var_b_code}) = 'MB-BQ-2'))";
+  const r2ClearedRel = "((${mba_variant_select} = 'var_a' and (normalize-space(${r2_var_a_code}) = 'MBA-QF-1' or normalize-space(${r2_var_a_code}) = 'MB-QF-1' or normalize-space(${r2_var_a_code}) = 'MBA_QF_1')) or (${mba_variant_select} = 'var_b' and (normalize-space(${r2_var_b_code}) = 'MBA-BQ-2' or normalize-space(${r2_var_b_code}) = 'MB-BQ-2' or normalize-space(${r2_var_b_code}) = 'MBA_BQ_2' or normalize-space(${r2_var_b_code}) = 'MB_BQ_2')))";
 
   // =============================================================
   // ROUND 3 — LOCATION CLUE (NO CHALLENGE NAME)
@@ -577,7 +585,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r3_decode_w1',
     label: 'Decode Shuffled Word 1: [ VEHSELS ] (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Decoding Word 1 is mandatory.',
     constraint: "regex(., '^[A-Z]+$') and normalize-space(.) = 'SHELVES'",
@@ -588,7 +596,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r3_decode_w2',
     label: 'Decode Shuffled Word 2: [ GIDRAEN ] (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Decoding Word 2 is mandatory.',
     constraint: "regex(., '^[A-Z]+$') and normalize-space(.) = 'READING'",
@@ -599,7 +607,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r3_decode_w3',
     label: 'Decode Shuffled Word 3: [ IFIW ] (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Decoding Word 3 is mandatory.',
     constraint: "regex(., '^[A-Z]+$') and normalize-space(.) = 'WIFI'",
@@ -610,7 +618,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r3_decode_w4',
     label: 'Decode Shuffled Word 4: [ SISCUDISNO GGUONLE ] (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Decoding Word 4 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'DISCUSSION LOUNGE'",
@@ -621,7 +629,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r3_decode_w5',
     label: 'Decode Shuffled Word 5: [ IGIDLAT BILRYRA ] (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Decoding Word 5 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and normalize-space(.) = 'DIGITAL LIBRARY'",
@@ -634,7 +642,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r3_lib_loc_answer',
     label: 'Decoded Clues:\n1. ${r3_decode_w1}\n2. ${r3_decode_w2}\n3. ${r3_decode_w3}\n4. ${r3_decode_w4}\n5. ${r3_decode_w5}\n\nBased on your decoded words, identify the next location: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Location answer is mandatory.',
     relevant: r3AllDecoded,
@@ -661,7 +669,7 @@ Enter code in caps`,
   survey.push({
     type: 'note',
     name: 'r3_lib_qr_note',
-    label: '📍 ROUND 3: QR HUNT\n\nGo to the location you identified and ask the Luminus volunteer for the next instruction/code.\n\nScan the available QR codes and identify the correct one in a fun manner!\n\nEnter code in caps',
+    label: '📍 ROUND 3: QR HUNT\n\nGo to the location you identified.\n\nScan the available QR codes and identify the correct one in a fun manner!\n\nEnter code in caps',
     hint: 'Locate and scan the correct QR code.'
   });
 
@@ -676,25 +684,11 @@ Enter code in caps`,
     constraint_message: '❌ Incorrect QR code scanned. Search for the correct QR code at this station.'
   });
 
-  const r3QrScanned = `${r3LocPassed} and normalize-space(\${r3_lib_qr_scan}) = 'DUMB_FAKE'`;
-
-  survey.push({
-    type: 'text',
-    name: 'r3_lib_volunteer_code',
-    label: 'Enter Volunteer Completion Code (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    required_message: '❌ Volunteer completion code is mandatory.',
-    relevant: r3QrScanned,
-    constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'DUMB_FAKE' or normalize-space(.) = 'LIB-HUNT-GOOD' or normalize-space(.) = 'LIB-PASS' or normalize-space(.) = 'QR-LIB-2')",
-    constraint_message: '❌ Incorrect code. Enter the code in UPPERCASE (CAPS ONLY) provided by the volunteer.'
-  });
-
   survey.push({
     type: 'end_group'
   });
 
-  const r3Completed = `${r3QrScanned} and (normalize-space(\${r3_lib_volunteer_code}) = 'DUMB_FAKE' or normalize-space(\${r3_lib_volunteer_code}) = 'LIB-HUNT-GOOD' or normalize-space(\${r3_lib_volunteer_code}) = 'LIB-PASS' or normalize-space(\${r3_lib_volunteer_code}) = 'QR-LIB-2')`;
+  const r3Completed = `${r3LocPassed} and normalize-space(\${r3_lib_qr_scan}) = 'DUMB_FAKE'`;
 
   // =============================================================
   // ROUND 4 — LOCATION CLUE (AIML WORD SEARCH)
@@ -710,7 +704,79 @@ Enter code in caps`,
     type: 'note',
     name: 'r4_wordsearch_intro',
     label: `Examine the puzzle image below.
-Find and enter ANY 5 words from the grid amongst:
+Find and enter ANY 5 words hidden within the grid that you can see.
+
+Enter code in caps`,
+    hint: 'Examine the grid and enter 5 words you can find in CAPS.',
+    'media::image': 'aiml.jpeg',
+    appearance: 'big-image'
+  });
+
+  const wCond = getWordSearchCondition('.');
+
+  survey.push({
+    type: 'text',
+    name: 'r4_ws_word1',
+    label: 'Enter Discovered Word 1: (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
+    required: 'yes',
+    required_message: '❌ Word 1 is mandatory.',
+    'media::image': 'aiml.jpeg',
+    appearance: 'big-image'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r4_ws_word2',
+    label: 'Enter Discovered Word 2: (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
+    required: 'yes',
+    required_message: '❌ Word 2 is mandatory.',
+    'media::image': 'aiml.jpeg',
+    appearance: 'big-image'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r4_ws_word3',
+    label: 'Enter Discovered Word 3: (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
+    required: 'yes',
+    required_message: '❌ Word 3 is mandatory.',
+    'media::image': 'aiml.jpeg',
+    appearance: 'big-image'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r4_ws_word4',
+    label: 'Enter Discovered Word 4: (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
+    required: 'yes',
+    required_message: '❌ Word 4 is mandatory.',
+    'media::image': 'aiml.jpeg',
+    appearance: 'big-image'
+  });
+
+  survey.push({
+    type: 'text',
+    name: 'r4_ws_word5',
+    label: 'Enter Discovered Word 5: (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
+    required: 'yes',
+    required_message: '❌ Word 5 is mandatory.',
+    'media::image': 'aiml.jpeg',
+    appearance: 'big-image'
+  });
+
+  const all5WordsValid = "${r4_ws_word1} != '' and ${r4_ws_word2} != '' and ${r4_ws_word3} != '' and ${r4_ws_word4} != '' and ${r4_ws_word5} != ''";
+
+  survey.push({
+    type: 'note',
+    name: 'r4_wordsearch_reveal_note',
+    label: `🧩 WORDS FOUND IN THE PUZZLE:
+
+Here are the words hidden in the puzzle:
 • MACHINE LEARNING
 • NEURAL NETWORK
 • PYTHON
@@ -723,89 +789,22 @@ Find and enter ANY 5 words from the grid amongst:
 • REGRESSION
 • CLASSIFY
 
+Study these concepts and decode which campus block/department they relate to!
+
 Enter code in caps`,
-    hint: 'Find 5 words in the image and enter below in CAPS.',
-    'media::image': 'aiml.jpeg'
+    hint: 'Decode the related department/block based on these words.',
+    relevant: all5WordsValid
   });
-
-  const wCond = getWordSearchCondition('.');
-
-  survey.push({
-    type: 'text',
-    name: 'r4_ws_word1',
-    label: 'Enter Discovered Word 1: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    required_message: '❌ Word 1 is mandatory.',
-    'media::image': 'aiml.jpeg',
-    constraint: `regex(., '^[A-Z ]+$') and (${wCond})`,
-    constraint_message: '❌ Invalid word. Enter a valid word found in the puzzle in UPPERCASE (CAPS ONLY).'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'r4_ws_word2',
-    label: 'Enter Discovered Word 2: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    required_message: '❌ Word 2 is mandatory.',
-    'media::image': 'aiml.jpeg',
-    constraint: `regex(., '^[A-Z ]+$') and (${wCond}) and normalize-space(.) != normalize-space(\${r4_ws_word1})`,
-    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in UPPERCASE (CAPS ONLY).'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'r4_ws_word3',
-    label: 'Enter Discovered Word 3: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    required_message: '❌ Word 3 is mandatory.',
-    'media::image': 'aiml.jpeg',
-    constraint: `regex(., '^[A-Z ]+$') and (${wCond}) and normalize-space(.) != normalize-space(\${r4_ws_word1}) and normalize-space(.) != normalize-space(\${r4_ws_word2})`,
-    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in UPPERCASE (CAPS ONLY).'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'r4_ws_word4',
-    label: 'Enter Discovered Word 4: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    required_message: '❌ Word 4 is mandatory.',
-    'media::image': 'aiml.jpeg',
-    constraint: `regex(., '^[A-Z ]+$') and (${wCond}) and normalize-space(.) != normalize-space(\${r4_ws_word1}) and normalize-space(.) != normalize-space(\${r4_ws_word2}) and normalize-space(.) != normalize-space(\${r4_ws_word3})`,
-    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in UPPERCASE (CAPS ONLY).'
-  });
-
-  survey.push({
-    type: 'text',
-    name: 'r4_ws_word5',
-    label: 'Enter Discovered Word 5: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
-    required: 'yes',
-    required_message: '❌ Word 5 is mandatory.',
-    'media::image': 'aiml.jpeg',
-    constraint: `regex(., '^[A-Z ]+$') and (${wCond}) and normalize-space(.) != normalize-space(\${r4_ws_word1}) and normalize-space(.) != normalize-space(\${r4_ws_word2}) and normalize-space(.) != normalize-space(\${r4_ws_word3}) and normalize-space(.) != normalize-space(\${r4_ws_word4})`,
-    constraint_message: '❌ Invalid or duplicate word. Enter a different valid word from the puzzle in UPPERCASE (CAPS ONLY).'
-  });
-
-  const w1Val = getWordSearchCondition('${r4_ws_word1}');
-  const w2Val = getWordSearchCondition('${r4_ws_word2}');
-  const w3Val = getWordSearchCondition('${r4_ws_word3}');
-  const w4Val = getWordSearchCondition('${r4_ws_word4}');
-  const w5Val = getWordSearchCondition('${r4_ws_word5}');
-
-  const all5WordsValid = `(${w1Val}) and (${w2Val}) and (${w3Val}) and (${w4Val}) and (${w5Val})`;
 
   survey.push({
     type: 'text',
     name: 'r4_aiml_destination',
-    label: 'Deduce the location related to these words: (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    label: 'Decode the related block/location: (MANDATORY)\nEnter code in caps',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Location answer is mandatory.',
     'media::image': 'aiml.jpeg',
+    appearance: 'big-image',
     relevant: all5WordsValid,
     constraint: "regex(., '^[A-Z0-9\\/& ]+$') and (normalize-space(.) = 'AIML' or normalize-space(.) = 'AI ML' or normalize-space(.) = 'AIML BLOCK' or normalize-space(.) = 'AI/ML' or normalize-space(.) = 'AI & ML')",
     constraint_message: '❌ Incorrect destination. Enter the location in UPPERCASE (CAPS ONLY).'
@@ -825,7 +824,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r4_start_code',
     label: 'Enter START CODE from Volunteer (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ START CODE is mandatory.',
     relevant: `${all5WordsValid} and (${r4DestIdentified})`,
@@ -869,7 +868,7 @@ Enter code in caps`,
     type: 'text',
     name: 'r4_phy_code',
     label: 'Enter END CODE from Volunteer (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ END CODE is mandatory.',
     constraint: "regex(., '^[A-Z0-9\\-_]+$') and (normalize-space(.) = 'PHY-AIML' or normalize-space(.) = 'PHY-CY')",
@@ -910,7 +909,7 @@ When a voice rises before me, silence falls behind me.
 When the lights awaken, all eyes face one direction.
 What am I?"
 Enter code in caps`,
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Solving Riddle 1 is mandatory.',
     constraint: "regex(., '^[A-Z ]+$') and (normalize-space(.) = 'AUDITORIUM' or normalize-space(.) = 'AUDI')",
@@ -927,7 +926,7 @@ Enter code in caps`,
 Underneath my wooden floor or behind the curtains, the ultimate secret waits.
 What am I?"
 Enter code in caps`,
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Solving Riddle 2 is mandatory.',
     relevant: finalRiddle1Passed,
@@ -959,7 +958,7 @@ Enter code in caps`,
     type: 'text',
     name: 'final_stage_volunteer_code',
     label: 'Enter Final Volunteer Clearance Code (MANDATORY)\nEnter code in caps',
-    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY.',
+    hint: 'ENTER CODE/ANSWER IN CAPITAL LETTERS ONLY. Read the question properly as you cannot come back to the question once you go ahead.',
     required: 'yes',
     required_message: '❌ Final clearance code is mandatory.',
     relevant: finalRiddle2Passed,
@@ -1056,8 +1055,8 @@ function buildAnswerKeyWorkbook() {
       'Challenge / Item': 'Variant B: Brand Quiz',
       'Question / Prompt': 'Answer 10 brand quiz questions, enter volunteer clearance code',
       'Media Attached': 'None',
-      'Expected Answer / Code': '10 Answers & Code: MB-BQ-2 (UPPERCASE ONLY)',
-      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'MB-BQ-2\'',
+      'Expected Answer / Code': '10 Answers & Code: MBA-BQ-2 (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Strict UPPERCASE regex & normalize-space(.) = \'MBA-BQ-2\'',
       'Mandatory Upload': 'No (All 10 Inputs MANDATORY)'
     },
     {
@@ -1073,11 +1072,11 @@ function buildAnswerKeyWorkbook() {
     {
       'Stage / Round': 'Round 3 Checkpoint (R3)',
       'Location': 'LIBRARY',
-      'Challenge / Item': 'QR Hunt & Volunteer Code',
-      'Question / Prompt': 'Scan hidden QR code in library, enter volunteer completion code',
+      'Challenge / Item': 'QR Hunt',
+      'Question / Prompt': 'Scan hidden QR code in library',
       'Media Attached': 'None',
-      'Expected Answer / Code': 'Barcode: DUMB_FAKE & Code: DUMB_FAKE (UPPERCASE ONLY)',
-      'Verification / Constraint Rule': 'Scanned value = \'DUMB_FAKE\' & normalize-space(.) = \'DUMB_FAKE\'',
+      'Expected Answer / Code': 'Barcode: DUMB_FAKE (UPPERCASE ONLY)',
+      'Verification / Constraint Rule': 'Scanned value = \'DUMB_FAKE\'',
       'Mandatory Upload': 'Yes (Barcode Scan MANDATORY)'
     },
     {
@@ -1344,9 +1343,9 @@ function buildAnswerKeyPdfHtml() {
       <td>MBA</td>
       <td>
         &bull; <strong>Variant A:</strong> 10 MBA Quickfire Questions &rarr; Code: <span class="code-badge">MBA-QF-1</span><br>
-        &bull; <strong>Variant B:</strong> 10 Brand Quiz Questions &rarr; Code: <span class="code-badge">MB-BQ-2</span>
+        &bull; <strong>Variant B:</strong> 10 Brand Quiz Questions &rarr; Code: <span class="code-badge">MBA-BQ-2</span>
       </td>
-      <td><span class="code-badge">MBA-QF-1</span> / <span class="code-badge">MB-BQ-2</span></td>
+      <td><span class="code-badge">MBA-QF-1</span> / <span class="code-badge">MBA-BQ-2</span></td>
       <td>Mandatory Inputs</td>
     </tr>
     <tr>
@@ -1399,10 +1398,10 @@ function buildAnswerKeyPdfHtml() {
 </div>
 
 <div class="station-card">
-  <h3><span>MBA Station: Arrival &amp; Challenges</span><span class="code-badge">START: MBA-START &bull; VAR A: MBA-QF-1 &bull; VAR B: MB-BQ-2</span></h3>
+  <h3><span>MBA Station: Arrival &amp; Challenges</span><span class="code-badge">START: MBA-START &bull; VAR A: MBA-QF-1 &bull; VAR B: MBA-BQ-2</span></h3>
   <div><strong>Volunteer Instructions:</strong> Teams arrive at MBA. Volunteer gives start code <code>MBA-START</code>.
   <br>&bull; <strong>Variant A (Quickfire):</strong> Team answers 10 business questions and enters <code>MBA-QF-1</code>.
-  <br>&bull; <strong>Variant B (Brand Quiz):</strong> Team answers 10 brand quiz questions and enters <code>MB-BQ-2</code>.</div>
+  <br>&bull; <strong>Variant B (Brand Quiz):</strong> Team answers 10 brand quiz questions and enters <code>MBA-BQ-2</code>.</div>
 </div>
 
 <div class="station-card">
